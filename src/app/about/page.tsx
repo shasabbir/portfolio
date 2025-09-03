@@ -39,7 +39,7 @@ export default function AboutPage() {
       <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-3">
         <ScrollAnimation className="md:col-span-1">
           <Image
-            src="https://firebasestudio.app/assets/project-fco-llm-preview/Gazi_Salah_Uddin.jpg"
+            src="https://i.postimg.cc/50FkXX3x/nuhash.jpg"
             alt="GAZI SALAH UDDIN NUHASH"
             width={600}
             height={800}

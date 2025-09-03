@@ -52,6 +52,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'firebasestudio.app',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.postimg.cc',
       }
     ],
   },

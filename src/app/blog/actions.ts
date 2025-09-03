@@ -94,7 +94,7 @@ export async function saveBlogPost(
       date: new Date().toISOString(),
       author: { // Using a default author for new posts
         name: 'GAZI SALAH UDDIN NUHASH',
-        avatar: 'https://firebasestudio.app/assets/project-fco-llm-preview/Gazi_Salah_Uddin.jpg',
+        avatar: 'https://i.postimg.cc/50FkXX3x/nuhash.jpg',
       },
       tags: tags.length > 0 ? tags : ['New'],
     };

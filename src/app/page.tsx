@@ -138,7 +138,7 @@ export default function Home() {
             <div className="absolute -inset-12 rounded-full bg-gradient-to-br from-primary/10 via-secondary/10 to-background blur-2xl"></div>
             <Avatar className="z-10 h-64 w-64 border-4 border-background shadow-lg md:h-80 md:w-80">
               <Image
-                src="https://firebasestudio.app/assets/project-fco-llm-preview/Gazi_Salah_Uddin.jpg"
+                src="https://i.postimg.cc/50FkXX3x/nuhash.jpg"
                 alt="GAZI SALAH UDDIN NUHASH"
                 width={400}
                 height={400}
