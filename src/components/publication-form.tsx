@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
 import {
   handleParseCitation,
   handleFormatCitation,
@@ -39,7 +39,7 @@ const initialState = {
 
 export function PublicationForm({ triggerButton }: PublicationFormProps) {
   const [open, setOpen] = useState(false);
-  const [parseState, parseFormAction] = useFormState(
+  const [parseState, parseFormAction] = useActionState(
     handleParseCitation,
     initialState
   );
