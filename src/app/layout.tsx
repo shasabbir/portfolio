@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import { Inter, Literata } from 'next/font/google';
 import './globals.css';
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={cn(
           'min-h-screen bg-background font-body antialiased',
           fontInter.variable,
