@@ -20,12 +20,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useActionState } from 'react';
+import { useActionState, useEffect, useState, useTransition } from 'react';
 import {
   handleParseCitation,
   handleFormatCitation,
 } from '@/app/publications/actions';
-import { useEffect, useState, useTransition } from 'react';
 import { Loader2, Sparkles } from 'lucide-react';
 
 interface PublicationFormProps {

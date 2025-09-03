@@ -32,7 +32,7 @@ const featuredWork = [
     icon: <FileText className="h-8 w-8 text-accent" />,
     title: 'Latest Blog Post',
     description: 'Bridging the Gap Between Theoretical Physics and AI.',
-    link: '#',
+    link: '/blog/bridging-the-gap',
   },
 ];
 

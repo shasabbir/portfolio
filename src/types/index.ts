@@ -14,3 +14,18 @@ export type Publication = {
     chicago?: string;
   };
 };
+
+export type Blog = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  imageUrl: string;
+  imageHint: string;
+  date: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
+  tags: string[];
+  content: string;
+};
