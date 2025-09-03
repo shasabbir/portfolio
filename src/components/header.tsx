@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from 
 import { Github, Linkedin, Menu, Rss } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GoogleScholarIcon, OrcidIcon } from './icons';
+import { useState } from 'react';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -17,7 +18,7 @@ const navLinks = [
   { href: '/contact', label: 'Contact' },
 ];
 
-function NavMenuLinks({ isMobile = false }: { isMobile?: boolean }) {
+function NavMenuLinks({ isMobile = false, onItemClick }: { isMobile?: boolean, onItemClick?: () => void }) {
   const pathname = usePathname();
   return (
     <>
@@ -33,6 +34,7 @@ function NavMenuLinks({ isMobile = false }: { isMobile?: boolean }) {
               : 'text-muted-foreground hover:text-foreground',
             isMobile && 'w-full justify-start text-lg'
           )}
+          onClick={onItemClick}
         >
           <Link href={link.href}>{link.label}</Link>
         </Button>
@@ -74,6 +76,8 @@ function SocialIcons() {
 }
 
 export function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center justify-between px-4 md:px-6">
@@ -92,7 +96,7 @@ export function Header() {
             <SocialIcons />
           </div>
           <div className="md:hidden">
-            <Sheet>
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Menu className="h-6 w-6" />
@@ -107,7 +111,7 @@ export function Header() {
                     <span className="text-xl font-bold">Nuhasg Gazi</span>
                   </Link>
                   <div className="flex flex-col space-y-2">
-                      <NavMenuLinks isMobile={true} />
+                      <NavMenuLinks isMobile={true} onItemClick={() => setIsMobileMenuOpen(false)} />
                   </div>
                   <div className="flex flex-wrap gap-2 border-t pt-4">
                     <SocialIcons />
