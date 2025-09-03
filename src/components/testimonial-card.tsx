@@ -19,7 +19,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
     <div className="testimonial-card-wrapper transition-transform duration-500">
       <Card className="testimonial-card h-full overflow-hidden border-0 bg-card shadow-none transition-all duration-500">
-        <CardContent className="grid h-full grid-cols-1 gap-8 p-0 md:grid-cols-2">
+        <CardContent className="grid h-full grid-cols-1 gap-4 p-0 md:grid-cols-2 md:gap-8">
           <div className="image-container relative h-64 w-full md:h-full">
             <Image
               src={testimonial.image}
@@ -30,8 +30,8 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
             />
           </div>
           <div className="quote-container relative flex flex-col justify-center p-6 md:p-0">
-            <Quote className="absolute -top-4 left-0 h-16 w-16 text-muted/50" />
-            <p className="z-10 text-lg leading-relaxed md:text-xl">
+            <Quote className="absolute -top-4 left-0 h-12 w-12 text-muted/50 md:h-16 md:w-16" />
+            <p className="z-10 text-base leading-relaxed md:text-xl">
               {testimonial.quote}
             </p>
             <div className="mt-6">

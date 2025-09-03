@@ -49,7 +49,7 @@ export default function BlogPostClientPage({ post }: { post: Blog }) {
   };
 
   return (
-    <article className="container mx-auto max-w-3xl py-12 md:py-20">
+    <article className="container mx-auto max-w-3xl px-4 py-12 md:px-6 md:py-20">
       <header className="mb-8">
         <div className="flex items-center justify-between">
           <h1 className="font-headline mb-4 text-4xl font-bold tracking-tight md:text-5xl">

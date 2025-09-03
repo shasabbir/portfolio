@@ -21,7 +21,7 @@ import { ScrollAnimation } from '@/components/scroll-animation';
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto max-w-5xl py-12 md:py-20">
+    <div className="container mx-auto max-w-5xl px-4 py-12 md:px-6 md:py-20">
       <ScrollAnimation asChild>
         <header className="text-center">
           <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">

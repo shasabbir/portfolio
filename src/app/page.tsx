@@ -111,7 +111,7 @@ export default function Home() {
         id="hero"
         className="relative w-full overflow-hidden bg-background py-20 md:py-32"
       >
-        <div className="container mx-auto grid grid-cols-1 items-center gap-12 text-center md:grid-cols-2 md:text-left">
+        <div className="container mx-auto grid grid-cols-1 items-center gap-12 px-4 text-center md:grid-cols-2 md:px-6 md:text-left">
           <ScrollAnimation>
             <div className="z-10">
               <h1 className="font-headline text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
@@ -153,7 +153,7 @@ export default function Home() {
       </section>
 
       <section id="about-snippet" className="bg-muted py-16 md:py-24">
-        <ScrollAnimation className="container mx-auto max-w-4xl text-center">
+        <ScrollAnimation className="container mx-auto max-w-4xl px-4 text-center md:px-6">
           <h2 className="font-headline text-3xl font-bold md:text-4xl">
             Pioneering the Future of Science
           </h2>
@@ -176,7 +176,7 @@ export default function Home() {
         id="testimonials"
         className="w-full overflow-hidden bg-background py-16 md:py-24"
       >
-        <div className="container mx-auto">
+        <div className="container mx-auto px-4 md:px-6">
           <ScrollAnimation className="text-center">
             <h2 className="font-headline text-3xl font-bold md:text-4xl">
               What Colleagues Say
@@ -194,11 +194,11 @@ export default function Home() {
               }}
               className="w-full"
             >
-              <CarouselContent className="-ml-8">
+              <CarouselContent className="-ml-4 md:-ml-8">
                 {testimonials.map((testimonial, index) => (
                   <CarouselItem
                     key={index}
-                    className={cn('pl-8 md:basis-full lg:basis-4/5', {
+                    className={cn('pl-4 md:pl-8 basis-full md:basis-4/5', {
                       'is-active': index === current,
                       'is-prev': index === current - 1 || (current === 0 && index === testimonials.length -1),
                       'is-next': index === current + 1 || (current === testimonials.length - 1 && index === 0),
@@ -208,7 +208,7 @@ export default function Home() {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <div className="mt-8 flex justify-end gap-4">
+              <div className="mt-8 flex justify-center gap-4 md:justify-end">
                 <CarouselPrevious className="static -translate-y-0" />
                 <CarouselNext className="static -translate-y-0" />
               </div>
@@ -218,7 +218,7 @@ export default function Home() {
       </section>
 
       <section id="expertise" className="w-full bg-muted py-16 md:py-24">
-        <div className="container mx-auto">
+        <div className="container mx-auto px-4 md:px-6">
           <ScrollAnimation className="text-center">
             <h2 className="font-headline text-3xl font-bold md:text-4xl">
               Areas of Expertise
@@ -247,7 +247,7 @@ export default function Home() {
       </section>
 
       <section id="trust-panel" className="bg-background py-16">
-        <ScrollAnimation className="container mx-auto">
+        <ScrollAnimation className="container mx-auto px-4 md:px-6">
           <h2 className="text-center font-headline text-2xl font-bold">
             Stay Connected & Verify
           </h2>
