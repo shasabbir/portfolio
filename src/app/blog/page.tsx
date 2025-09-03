@@ -15,7 +15,7 @@ export default async function BlogPage() {
   const otherPosts = posts.slice(4);
 
   return (
-    <div className="container mx-auto max-w-7xl py-12 md:py-20">
+    <div className="container mx-auto max-w-5xl py-12 md:py-20">
       <ScrollAnimation asChild>
         <header className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div className="flex-1">
