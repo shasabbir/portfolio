@@ -1,7 +1,21 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Download, Award, BrainCircuit, Atom } from 'lucide-react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import {
+  Download,
+  Award,
+  BrainCircuit,
+  Atom,
+  GraduationCap,
+  Lightbulb,
+  Milestone,
+} from 'lucide-react';
 import Link from 'next/link';
 import { ScrollAnimation } from '@/components/scroll-animation';
 
@@ -112,6 +126,108 @@ export default function AboutPage() {
           </div>
         </ScrollAnimation>
       </div>
+
+      <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2">
+        <ScrollAnimation delay={200}>
+          <Card className="h-full">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 font-headline text-2xl">
+                <Lightbulb />
+                Research Philosophy
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-base text-muted-foreground">
+              <p>
+                "I believe that the most profound discoveries are made at the
+                boundaries of disciplines. My work is driven by a curiosity to
+                connect seemingly disparate fields—like quantum physics and
+                AI—to reveal a deeper, more unified understanding of the
+                universe."
+              </p>
+              <p>
+                "Science should be a collaborative and open endeavor. I am
+                committed to fostering an environment of intellectual freedom
+                and rigorous debate, where the best ideas can emerge,
+                regardless of their origin."
+              </p>
+            </CardContent>
+          </Card>
+        </ScrollAnimation>
+        <ScrollAnimation delay={400}>
+          <Card className="h-full">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 font-headline text-2xl">
+                <GraduationCap />
+                Teaching & Mentorship
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-base text-muted-foreground">
+              <p>
+                As a professor at Stanford, Dr. Reed is dedicated to inspiring
+                the next generation of scientists. She teaches graduate-level
+                courses in quantum field theory and computational physics.
+              </p>
+              <p>
+                Her mentorship extends beyond the classroom. She actively advises
+                a diverse group of Ph.D. students and postdoctoral fellows at
+                the QAIS lab, guiding them as they embark on their own research
+                journeys and empowering them to tackle science's biggest
+                questions.
+              </p>
+            </CardContent>
+          </Card>
+        </ScrollAnimation>
+      </div>
+
+      <ScrollAnimation className="mt-16" delay={200}>
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-headline text-2xl">
+              <Milestone />
+              Career Highlights
+            </CardTitle>
+            <CardDescription>
+              A timeline of key milestones and achievements.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="relative border-l-2 border-primary pl-6">
+              <div className="mb-8 ml-4">
+                <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border border-primary bg-background"></div>
+                <p className="text-sm font-semibold text-primary">2021</p>
+                <h3 className="text-lg font-semibold">Awarded Physics Frontier Prize</h3>
+                <p className="text-muted-foreground">
+                  Recognized for innovative contributions to black hole thermodynamics.
+                </p>
+              </div>
+              <div className="mb-8 ml-4">
+                <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border border-primary bg-background"></div>
+                <p className="text-sm font-semibold text-primary">2018</p>
+                <h3 className="text-lg font-semibold">Founded the QAIS Lab</h3>
+                <p className="text-muted-foreground">
+                  Established the Quantum & AI Systems lab at Stanford University.
+                </p>
+              </div>
+              <div className="mb-8 ml-4">
+                <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border border-primary bg-background"></div>
+                <p className="text-sm font-semibold text-primary">2015</p>
+                <h3 className="text-lg font-semibold">Published "The Reed Paradox"</h3>
+                <p className="text-muted-foreground">
+                  Introduced a groundbreaking theory challenging models of black hole information loss.
+                </p>
+              </div>
+              <div className="ml-4">
+                <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border border-primary bg-background"></div>
+                <p className="text-sm font-semibold text-primary">2012</p>
+                <h3 className="text-lg font-semibold">Ph.D. in Physics from MIT</h3>
+                <p className="text-muted-foreground">
+                  Completed doctoral research on quantum gravity.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </ScrollAnimation>
     </div>
   );
 }
