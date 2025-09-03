@@ -17,6 +17,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { GoogleScholarIcon, OrcidIcon } from '@/components/icons';
+import { ScrollAnimation } from '@/components/scroll-animation';
 
 const featuredWork = [
   {
@@ -67,28 +68,30 @@ export default function Home() {
         className="relative w-full overflow-hidden bg-background py-20 md:py-32"
       >
         <div className="container mx-auto grid grid-cols-1 items-center gap-12 text-center md:grid-cols-2 md:text-left">
-          <div className="z-10">
-            <h1 className="font-headline text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
-              Dr. Evelyn Reed
-            </h1>
-            <p className="mt-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-2xl font-semibold text-transparent">
-              Theoretical Physicist & AI Researcher
-            </p>
-            <p className="mt-6 max-w-prose text-lg leading-relaxed text-muted-foreground">
-              Exploring the intersection of quantum mechanics and artificial
-              intelligence to unravel the complexities of the universe and build
-              smarter systems.
-            </p>
-            <div className="mt-8 flex justify-center gap-4 md:justify-start">
-              <Button asChild size="lg">
-                <Link href="/publications">View Publications</Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary">
-                <Link href="/contact">Get in Touch</Link>
-              </Button>
+          <ScrollAnimation>
+            <div className="z-10">
+              <h1 className="font-headline text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
+                Dr. Evelyn Reed
+              </h1>
+              <p className="mt-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-2xl font-semibold text-transparent">
+                Theoretical Physicist & AI Researcher
+              </p>
+              <p className="mt-6 max-w-prose text-lg leading-relaxed text-muted-foreground">
+                Exploring the intersection of quantum mechanics and artificial
+                intelligence to unravel the complexities of the universe and build
+                smarter systems.
+              </p>
+              <div className="mt-8 flex justify-center gap-4 md:justify-start">
+                <Button asChild size="lg">
+                  <Link href="/publications">View Publications</Link>
+                </Button>
+                <Button asChild size="lg" variant="secondary">
+                  <Link href="/contact">Get in Touch</Link>
+                </Button>
+              </div>
             </div>
-          </div>
-          <div className="relative flex justify-center">
+          </ScrollAnimation>
+          <ScrollAnimation delay={200} className="relative flex justify-center">
             <div className="absolute -inset-12 rounded-full bg-gradient-to-br from-primary/20 via-accent/20 to-background blur-2xl"></div>
             <Avatar className="z-10 h-64 w-64 border-4 border-background shadow-lg md:h-80 md:w-80">
               <Image
@@ -101,12 +104,12 @@ export default function Home() {
               />
               <AvatarFallback>ER</AvatarFallback>
             </Avatar>
-          </div>
+          </ScrollAnimation>
         </div>
       </section>
 
       <section id="about-snippet" className="bg-muted py-16 md:py-24">
-        <div className="container mx-auto max-w-4xl text-center">
+        <ScrollAnimation className="container mx-auto max-w-4xl text-center">
           <h2 className="font-headline text-3xl font-bold md:text-4xl">
             Pioneering the Future of Science
           </h2>
@@ -122,41 +125,45 @@ export default function Home() {
               Learn More About Me <ArrowRight />
             </Link>
           </Button>
-        </div>
+        </ScrollAnimation>
       </section>
 
 
       <section id="featured-work" className="w-full py-16 md:py-24">
         <div className="container mx-auto">
-          <h2 className="text-center font-headline text-3xl font-bold md:text-4xl">
-            Featured Work
-          </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-center text-muted-foreground">
-            A glimpse into my recent explorations, projects, and thoughts at the
-            forefront of science and technology.
-          </p>
+          <ScrollAnimation className="text-center">
+            <h2 className="font-headline text-3xl font-bold md:text-4xl">
+              Featured Work
+            </h2>
+            <p className="mx-auto mt-4 max-w-3xl text-center text-muted-foreground">
+              A glimpse into my recent explorations, projects, and thoughts at the
+              forefront of science and technology.
+            </p>
+          </ScrollAnimation>
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
             {featuredWork.map((item, index) => (
-              <Card key={index} className="flex transform flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                <CardHeader className="flex flex-row items-start gap-4">
-                  {item.icon}
-                  <div className="flex-1">
-                    <CardTitle className="font-headline text-xl">
-                      {item.title}
-                    </CardTitle>
+              <ScrollAnimation key={index} delay={index * 150}>
+                <Card className="flex h-full transform flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                  <CardHeader className="flex flex-row items-start gap-4">
+                    {item.icon}
+                    <div className="flex-1">
+                      <CardTitle className="font-headline text-xl">
+                        {item.title}
+                      </CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <p className="text-muted-foreground">{item.description}</p>
+                  </CardContent>
+                  <div className="p-6 pt-0">
+                    <Button asChild variant="link" className="p-0 font-semibold">
+                      <Link href={item.link}>
+                        Learn More <span aria-hidden="true">→</span>
+                      </Link>
+                    </Button>
                   </div>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="text-muted-foreground">{item.description}</p>
-                </CardContent>
-                <div className="p-6 pt-0">
-                  <Button asChild variant="link" className="p-0 font-semibold">
-                    <Link href={item.link}>
-                      Learn More <span aria-hidden="true">→</span>
-                    </Link>
-                  </Button>
-                </div>
-              </Card>
+                </Card>
+              </ScrollAnimation>
             ))}
           </div>
         </div>
@@ -164,26 +171,28 @@ export default function Home() {
 
       <section id="expertise" className="w-full bg-muted py-16 md:py-24">
         <div className="container mx-auto">
-          <h2 className="text-center font-headline text-3xl font-bold md:text-4xl">
-            Areas of Expertise
-          </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-center text-muted-foreground">
-            Specializing in the fields that bridge the gap between the known and the unknown.
-          </p>
+          <ScrollAnimation className="text-center">
+            <h2 className="font-headline text-3xl font-bold md:text-4xl">
+              Areas of Expertise
+            </h2>
+            <p className="mx-auto mt-4 max-w-3xl text-center text-muted-foreground">
+              Specializing in the fields that bridge the gap between the known and the unknown.
+            </p>
+          </ScrollAnimation>
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {expertiseAreas.map((area) => (
-              <div key={area.title} className="flex flex-col items-center text-center">
+            {expertiseAreas.map((area, index) => (
+              <ScrollAnimation key={area.title} delay={index * 150} className="flex flex-col items-center text-center">
                 {area.icon}
                 <h3 className="mt-4 font-headline text-2xl font-bold">{area.title}</h3>
                 <p className="mt-2 text-muted-foreground">{area.description}</p>
-              </div>
+              </ScrollAnimation>
             ))}
           </div>
         </div>
       </section>
 
       <section id="trust-panel" className="bg-background py-16">
-        <div className="container mx-auto">
+        <ScrollAnimation className="container mx-auto">
           <h2 className="text-center font-headline text-2xl font-bold">
             Stay Connected & Verify
           </h2>
@@ -224,7 +233,7 @@ export default function Home() {
               <span className="font-medium">Email</span>
             </Link>
           </div>
-        </div>
+        </ScrollAnimation>
       </section>
     </div>
   );

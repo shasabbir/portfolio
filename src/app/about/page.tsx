@@ -3,21 +3,24 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Download, Award, BrainCircuit, Atom } from 'lucide-react';
 import Link from 'next/link';
+import { ScrollAnimation } from '@/components/scroll-animation';
 
 export default function AboutPage() {
   return (
     <div className="container mx-auto max-w-5xl py-12 md:py-20">
-      <header className="text-center">
-        <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">
-          About Dr. Evelyn Reed
-        </h1>
-        <p className="mt-4 text-lg text-muted-foreground">
-          A journey through science, discovery, and innovation.
-        </p>
-      </header>
+      <ScrollAnimation asChild>
+        <header className="text-center">
+          <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">
+            About Dr. Evelyn Reed
+          </h1>
+          <p className="mt-4 text-lg text-muted-foreground">
+            A journey through science, discovery, and innovation.
+          </p>
+        </header>
+      </ScrollAnimation>
 
       <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-3">
-        <div className="md:col-span-1">
+        <ScrollAnimation className="md:col-span-1">
           <Image
             src="https://picsum.photos/600/800"
             alt="Dr. Evelyn Reed"
@@ -32,9 +35,9 @@ export default function AboutPage() {
               Download CV
             </a>
           </Button>
-        </div>
+        </ScrollAnimation>
 
-        <div className="md:col-span-2">
+        <ScrollAnimation className="md:col-span-2" delay={200}>
           <Card>
             <CardHeader>
               <CardTitle className="font-headline text-2xl">
@@ -107,7 +110,7 @@ export default function AboutPage() {
               </CardContent>
             </Card>
           </div>
-        </div>
+        </ScrollAnimation>
       </div>
     </div>
   );
