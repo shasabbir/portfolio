@@ -12,7 +12,6 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import {
-  Github,
   Linkedin,
   Mail,
   ArrowRight,
@@ -260,13 +259,6 @@ export default function Home() {
             >
               <GoogleScholarIcon className="h-6 w-6" />
               <span className="font-medium">Google Scholar</span>
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
-            >
-              <Github className="h-6 w-6" />
-              <span className="font-medium">GitHub</span>
             </Link>
             <Link
               href="#"

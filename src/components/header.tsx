@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Github, Linkedin, Menu, Rss } from 'lucide-react';
+import { Linkedin, Menu, Rss } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GoogleScholarIcon, OrcidIcon } from './icons';
 import { useState } from 'react';
@@ -54,11 +54,6 @@ function SocialIcons() {
             <Button variant="ghost" size="icon" asChild>
                 <Link href="#" aria-label="Google Scholar">
                     <GoogleScholarIcon className="h-5 w-5" />
-                </Link>
-            </Button>
-            <Button variant="ghost" size="icon" asChild>
-                <Link href="#" aria-label="GitHub">
-                    <Github className="h-5 w-5" />
                 </Link>
             </Button>
             <Button variant="ghost" size="icon" asChild>
