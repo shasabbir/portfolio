@@ -1,44 +1,61 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 import {
   Github,
   Linkedin,
   Mail,
-  FileText,
-  BookOpen,
-  FlaskConical,
+  ArrowRight,
   BrainCircuit,
   Atom,
   Sigma,
-  ArrowRight,
+  Quote,
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { GoogleScholarIcon, OrcidIcon } from '@/components/icons';
 import { ScrollAnimation } from '@/components/scroll-animation';
+import { TestimonialCard, Testimonial } from '@/components/testimonial-card';
 
-const featuredWork = [
+const testimonials: Testimonial[] = [
   {
-    icon: <BookOpen className="h-8 w-8 text-primary" />,
-    title: 'Recent Publication',
-    description:
-      'The Role of Quantum Entanglement in Neural Information Processing.',
-    link: '/publications',
+    name: 'Dr. Alistair Finch',
+    title: 'Collaborator, Cambridge University',
+    quote:
+      "Evelyn's insights into quantum information were instrumental to our joint research. Her ability to bridge theoretical concepts with practical applications is unparalleled. A truly brilliant mind and a wonderful collaborator.",
+    image: 'https://picsum.photos/100/100',
+    imageHint: 'male scientist',
   },
   {
-    icon: <FlaskConical className="h-8 w-8 text-primary" />,
-    title: 'Ongoing Research',
-    description:
-      'Developing a novel framework for analyzing complex biological systems.',
-    link: '#',
+    name: 'Dr. Lena Petrova',
+    title: 'Former Postdoc, QAIS Lab',
+    quote:
+      'Working under Dr. Reed was the most formative experience of my career. She fosters an environment of intense intellectual curiosity while being an incredibly supportive and patient mentor. I wouldn\'t be where I am today without her guidance.',
+    image: 'https://picsum.photos/101/101',
+    imageHint: 'female researcher',
   },
   {
-    icon: <FileText className="h-8 w-8 text-primary" />,
-    title: 'Latest Blog Post',
-    description: 'Bridging the Gap Between Theoretical Physics and AI.',
-    link: '/blog/bridging-the-gap',
+    name: 'Prof. Kenji Tanaka',
+    title: 'Conference Chair, QIP 2023',
+    quote:
+      "Dr. Reed's keynote was the highlight of our conference. She has a rare gift for making the most complex topics in physics accessible and exciting to a broad audience. We've received nothing but glowing feedback.",
+    image: 'https://picsum.photos/102/102',
+    imageHint: 'professor portrait',
+  },
+  {
+    name: 'Dr. Sam Carter',
+    title: 'Peer Reviewer, Nature Physics',
+    quote:
+      "Reviewing Evelyn's papers is always a pleasure. Her work is rigorous, her thinking is clear, and she consistently pushes the boundaries of her field. Her contributions are of the highest caliber.",
+    image: 'https://picsum.photos/103/103',
+    imageHint: 'scientist face',
   },
 ];
 
@@ -129,43 +146,37 @@ export default function Home() {
       </section>
 
 
-      <section id="featured-work" className="w-full py-16 md:py-24">
+      <section id="testimonials" className="w-full bg-background py-16 md:py-24">
         <div className="container mx-auto">
           <ScrollAnimation className="text-center">
             <h2 className="font-headline text-3xl font-bold md:text-4xl">
-              Featured Work
+              What Colleagues Say
             </h2>
             <p className="mx-auto mt-4 max-w-3xl text-center text-muted-foreground">
-              A glimpse into my recent explorations, projects, and thoughts at the
-              forefront of science and technology.
+              Feedback from collaborators, mentees, and peers from across the scientific community.
             </p>
           </ScrollAnimation>
-          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {featuredWork.map((item, index) => (
-              <ScrollAnimation key={index} delay={index * 150}>
-                <Card className="flex h-full transform flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                  <CardHeader className="flex flex-row items-start gap-4">
-                    {item.icon}
-                    <div className="flex-1">
-                      <CardTitle className="font-headline text-xl">
-                        {item.title}
-                      </CardTitle>
+          <ScrollAnimation className="mt-12" delay={200}>
+            <Carousel
+              opts={{
+                align: 'start',
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <div className="p-1">
+                      <TestimonialCard testimonial={testimonial} />
                     </div>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                    <p className="text-muted-foreground">{item.description}</p>
-                  </CardContent>
-                  <div className="p-6 pt-0">
-                    <Button asChild variant="link" className="p-0 font-semibold">
-                      <Link href={item.link}>
-                        Learn More <span aria-hidden="true">→</span>
-                      </Link>
-                    </Button>
-                  </div>
-                </Card>
-              </ScrollAnimation>
-            ))}
-          </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 fill-black" />
+              <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 fill-black" />
+            </Carousel>
+          </ScrollAnimation>
         </div>
       </section>
 
