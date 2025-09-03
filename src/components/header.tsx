@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Github, Linkedin, Menu, Rss } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GoogleScholarIcon, OrcidIcon } from './icons';
@@ -100,6 +100,8 @@ export function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left">
+                <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                <SheetDescription className="sr-only">A menu of navigation links and social media profiles.</SheetDescription>
                 <div className="flex flex-col space-y-4 p-4">
                   <Link href="/" className="mb-4">
                     <span className="text-xl font-bold">Nuhasg Gazi</span>
