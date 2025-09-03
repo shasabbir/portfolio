@@ -5,7 +5,7 @@ export const mockPublications: Publication[] = [
   {
     id: '1',
     title: 'The Role of Quantum Entanglement in Neural Information Processing',
-    authors: 'Reed, E., & Chen, J.',
+    authors: 'Gazi, N., & Chen, J.',
     venue: 'Journal of Cognitive Neuroscience',
     year: '2023',
     publicationType: 'Journal',
@@ -14,14 +14,14 @@ export const mockPublications: Publication[] = [
     abstract:
       'This paper explores the theoretical framework for how quantum entanglement could play a functional role in the brain, proposing a new model for long-range neural communication.',
     citation: {
-      apa: 'Reed, E., & Chen, J. (2023). The Role of Quantum Entanglement in Neural Information Processing. Journal of Cognitive Neuroscience, 35(4), 567-589.',
+      apa: 'Gazi, N., & Chen, J. (2023). The Role of Quantum Entanglement in Neural Information Processing. Journal of Cognitive Neuroscience, 35(4), 567-589.',
     },
   },
   {
     id: '2',
     title:
       'A Deep Learning Approach to Simulating Subatomic Particle Interactions',
-    authors: 'Reed, E., Kim, S., & Patel, A.',
+    authors: 'Gazi, N., Kim, S., & Patel, A.',
     venue: 'Proceedings of the International Conference on Machine Learning',
     year: '2022',
     publicationType: 'Conference',
@@ -32,7 +32,7 @@ export const mockPublications: Publication[] = [
   {
     id: '3',
     title: 'Topological Data Analysis for Uncovering AI Model Architectures',
-    authors: 'Garcia, M., & Reed, E.',
+    authors: 'Garcia, M., & Gazi, N.',
     venue: 'Nature Machine Intelligence',
     year: '2021',
     publicationType: 'Journal',

@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,7 +26,7 @@ export default function AboutPage() {
       <ScrollAnimation asChild>
         <header className="text-center">
           <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">
-            About Dr. Evelyn Reed
+            About Nuhasg Gazi
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
             A journey through science, discovery, and innovation.
@@ -37,14 +38,14 @@ export default function AboutPage() {
         <ScrollAnimation className="md:col-span-1">
           <Image
             src="https://picsum.photos/600/800"
-            alt="Dr. Evelyn Reed"
+            alt="Nuhasg Gazi"
             width={600}
             height={800}
             className="rounded-lg object-cover shadow-lg"
             data-ai-hint="scientist professional"
           />
           <Button asChild className="mt-6 w-full">
-            <a href="/cv.pdf" download="Evelyn_Reed_CV.pdf">
+            <a href="/cv.pdf" download="Nuhasg_Gazi_CV.pdf">
               <Download className="mr-2 h-4 w-4" />
               Download CV
             </a>
@@ -60,24 +61,24 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-base leading-relaxed text-muted-foreground">
               <p>
-                Dr. Evelyn Reed is a leading theoretical physicist whose work
+                Nuhasg Gazi is a leading theoretical physicist whose work
                 has significantly advanced our understanding of quantum gravity
                 and its connections to information theory. With a Ph.D. from
-                the Massachusetts Institute of Technology, her research has
+                the Massachusetts Institute of Technology, their research has
                 consistently pushed the boundaries of conventional science.
               </p>
               <p>
-                Her early work focused on black hole thermodynamics, leading to
+                Their early work focused on black hole thermodynamics, leading to
                 the groundbreaking "Reed Paradox," which challenged existing
                 models and opened new avenues for research. In recent years,
-                her focus has shifted to the intersection of artificial
+                their focus has shifted to the intersection of artificial
                 intelligence and fundamental physics, exploring how complex AI
                 can help model and predict cosmological phenomena.
               </p>
               <p>
-                Dr. Reed is a passionate advocate for science communication and
+                Nuhasg Gazi is a passionate advocate for science communication and
                 has delivered keynote speeches at numerous international
-                conferences. She is currently a tenured professor at Stanford
+                conferences. They are currently a tenured professor at Stanford
                 University and leads the Quantum & AI Systems (QAIS) lab.
               </p>
             </CardContent>
@@ -163,12 +164,12 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-base text-muted-foreground">
               <p>
-                As a professor at Stanford, Dr. Reed is dedicated to inspiring
-                the next generation of scientists. She teaches graduate-level
+                As a professor at Stanford, Nuhasg Gazi is dedicated to inspiring
+                the next generation of scientists. They teach graduate-level
                 courses in quantum field theory and computational physics.
               </p>
               <p>
-                Her mentorship extends beyond the classroom. She actively advises
+                Their mentorship extends beyond the classroom. They actively advises
                 a diverse group of Ph.D. students and postdoctoral fellows at
                 the QAIS lab, guiding them as they embark on their own research
                 journeys and empowering them to tackle science's biggest

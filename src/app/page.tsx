@@ -33,7 +33,7 @@ const testimonials: Testimonial[] = [
     name: 'Dr. Alistair Finch',
     title: 'Collaborator, Cambridge University',
     quote:
-      "Evelyn's insights into quantum information were instrumental to our joint research. Her ability to bridge theoretical concepts with practical applications is unparalleled. A truly brilliant mind and a wonderful collaborator.",
+      "Nuhasg's insights into quantum information were instrumental to our joint research. Their ability to bridge theoretical concepts with practical applications is unparalleled. A truly brilliant mind and a wonderful collaborator.",
     image: 'https://picsum.photos/400/600',
     imageHint: 'male scientist',
   },
@@ -41,7 +41,7 @@ const testimonials: Testimonial[] = [
     name: 'Dr. Lena Petrova',
     title: 'Former Postdoc, QAIS Lab',
     quote:
-      "Working under Dr. Reed was the most formative experience of my career. She fosters an environment of intense intellectual curiosity while being an incredibly supportive and patient mentor. I wouldn't be where I am today without her guidance.",
+      "Working under Nuhasg Gazi was the most formative experience of my career. They foster an environment of intense intellectual curiosity while being an incredibly supportive and patient mentor. I wouldn't be where I am today without their guidance.",
     image: 'https://picsum.photos/401/601',
     imageHint: 'female researcher',
   },
@@ -49,7 +49,7 @@ const testimonials: Testimonial[] = [
     name: 'Prof. Kenji Tanaka',
     title: 'Conference Chair, QIP 2023',
     quote:
-      "Dr. Reed's keynote was the highlight of our conference. She has a rare gift for making the most complex topics in physics accessible and exciting to a broad audience. We've received nothing but glowing feedback.",
+      "Nuhasg Gazi's keynote was the highlight of our conference. They have a rare gift for making the most complex topics in physics accessible and exciting to a broad audience. We've received nothing but glowing feedback.",
     image: 'https://picsum.photos/402/602',
     imageHint: 'professor portrait',
   },
@@ -57,7 +57,7 @@ const testimonials: Testimonial[] = [
     name: 'Dr. Sam Carter',
     title: 'Peer Reviewer, Nature Physics',
     quote:
-      "Reviewing Evelyn's papers is always a pleasure. Her work is rigorous, her thinking is clear, and she consistently pushes the boundaries of her field. Her contributions are of the highest caliber.",
+      "Reviewing Nuhasg's papers is always a pleasure. Their work is rigorous, their thinking is clear, and they consistently push the boundaries of their field. Their contributions are of the highest caliber.",
     image: 'https://picsum.photos/403/603',
     imageHint: 'scientist face',
   },
@@ -115,7 +115,7 @@ export default function Home() {
           <ScrollAnimation>
             <div className="z-10">
               <h1 className="font-headline text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
-                Dr. Evelyn Reed
+                Nuhasg Gazi
               </h1>
               <p className="mt-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-2xl font-semibold text-transparent">
                 Theoretical Physicist & AI Researcher
@@ -140,13 +140,13 @@ export default function Home() {
             <Avatar className="z-10 h-64 w-64 border-4 border-background shadow-lg md:h-80 md:w-80">
               <Image
                 src="https://picsum.photos/400/400"
-                alt="Dr. Evelyn Reed"
+                alt="Nuhasg Gazi"
                 width={400}
                 height={400}
                 className="object-cover"
                 data-ai-hint="scientist portrait"
               />
-              <AvatarFallback>ER</AvatarFallback>
+              <AvatarFallback>NG</AvatarFallback>
             </Avatar>
           </ScrollAnimation>
         </div>
@@ -158,10 +158,10 @@ export default function Home() {
             Pioneering the Future of Science
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Dr. Evelyn Reed is a leading theoretical physicist whose work has
+            Nuhasg Gazi is a leading theoretical physicist whose work has
             significantly advanced our understanding of quantum gravity and its
             connections to information theory. With a Ph.D. from the
-            Massachusetts Institute of Technology, her research has consistently
+            Massachusetts Institute of Technology, their research has consistently
             pushed the boundaries of conventional science.
           </p>
           <Button asChild size="lg" className="mt-8" variant="outline">

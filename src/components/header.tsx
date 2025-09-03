@@ -79,7 +79,7 @@ export function Header() {
       <div className="container flex h-14 items-center justify-between px-4 md:px-6">
         <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="font-bold sm:inline-block">Dr. Evelyn Reed</span>
+            <span className="font-bold sm:inline-block">Nuhasg Gazi</span>
           </Link>
         </div>
 
@@ -102,7 +102,7 @@ export function Header() {
               <SheetContent side="left">
                 <div className="flex flex-col space-y-4 p-4">
                   <Link href="/" className="mb-4">
-                    <span className="text-xl font-bold">Dr. Evelyn Reed</span>
+                    <span className="text-xl font-bold">Nuhasg Gazi</span>
                   </Link>
                   <div className="flex flex-col space-y-2">
                       <NavMenuLinks isMobile={true} />
