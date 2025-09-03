@@ -1,9 +1,11 @@
 import { BlogCard } from '@/components/blog-card';
 import { BlogForm } from '@/components/blog-form';
-import { mockBlogs } from '@/lib/data';
+import { getBlogs } from './actions';
 import { BookPlus } from 'lucide-react';
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getBlogs();
+
   return (
     <div className="container mx-auto max-w-5xl py-12 md:py-20">
       <header className="flex flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
@@ -27,7 +29,7 @@ export default function BlogPage() {
 
       <main className="mt-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {mockBlogs.map((post) => (
+          {posts.map((post) => (
             <BlogCard key={post.slug} post={post} />
           ))}
         </div>

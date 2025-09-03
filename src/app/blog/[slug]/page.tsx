@@ -1,10 +1,10 @@
 
 import { notFound } from 'next/navigation';
-import { mockBlogs } from '@/lib/data';
+import { getBlogBySlug } from '../actions';
 import BlogPostClientPage from './blog-post-client-page';
 
-export default function BlogPostPage({ params: { slug } }: { params: { slug: string } }) {
-  const post = mockBlogs.find((p) => p.slug === slug);
+export default async function BlogPostPage({ params: { slug } }: { params: { slug: string } }) {
+  const post = await getBlogBySlug(slug);
 
   if (!post) {
     notFound();
