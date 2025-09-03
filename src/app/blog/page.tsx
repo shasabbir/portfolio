@@ -1,65 +1,58 @@
 
-import { BlogCard } from '@/components/blog-card';
-import { BlogForm } from '@/components/blog-form';
 import { getBlogs } from './actions';
 import { BookPlus } from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { BlogForm } from '@/components/blog-form';
 import { ScrollAnimation } from '@/components/scroll-animation';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Badge } from '@/components/ui/badge';
+import { BlogListItem } from '@/components/blog-list-item';
 
 export default async function BlogPage() {
   const posts = await getBlogs();
   const featuredPost = posts[0];
-  const otherPosts = posts.slice(1);
+  const sidePosts = posts.slice(1, 4);
+  const otherPosts = posts.slice(4);
 
   return (
-    <div className="container mx-auto max-w-6xl py-12 md:py-20">
+    <div className="container mx-auto max-w-7xl py-12 md:py-20">
       <ScrollAnimation asChild>
-        <header className="flex flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
-          <div>
-            <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">
+        <header className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+          <div className="flex-1">
+            <p className="font-semibold uppercase tracking-wider text-primary">
               From the Lab
-            </h1>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Insights, discoveries, and reflections from my work.
             </p>
+            <h1 className="font-headline mt-2 text-4xl font-bold tracking-tight md:text-5xl">
+              Popular Articles
+            </h1>
           </div>
-          <BlogForm
-            triggerButton={
-              <div className="flex items-center gap-2">
-                <BookPlus className="h-4 w-4" />
-                Add Post
-              </div>
-            }
-          />
+          <p className="max-w-xs text-sm text-muted-foreground">
+            Dr. Evelyn Reed has been using the collective knowledge and
+            experience to protect nature.
+          </p>
         </header>
       </ScrollAnimation>
 
       <main className="mt-12">
-        {featuredPost && (
-          <ScrollAnimation asChild>
-            <section className="mb-12">
-              <Link href={`/blog/${featuredPost.slug}`}>
-                <Card className="grid overflow-hidden rounded-lg border shadow-lg transition-all duration-300 hover:shadow-xl md:grid-cols-2">
-                  <div className="relative h-64 w-full md:h-auto">
-                    <Image
-                      src={featuredPost.imageUrl}
-                      alt={featuredPost.title}
-                      fill
-                      className="object-cover"
-                      data-ai-hint={featuredPost.imageHint}
-                    />
-                  </div>
-                  <div className="flex flex-col justify-between p-6 md:p-8">
-                    <div>
+        <ScrollAnimation
+          asChild
+          className="grid grid-cols-1 gap-8 lg:grid-cols-3"
+        >
+          <section>
+            {featuredPost && (
+              <div className="lg:col-span-2">
+                <Link href={`/blog/${featuredPost.slug}`}>
+                  <div className="group overflow-hidden rounded-lg">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+                      <Image
+                        src={featuredPost.imageUrl}
+                        alt={featuredPost.title}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        data-ai-hint={featuredPost.imageHint}
+                      />
+                    </div>
+                    <div className="py-4">
                       <div className="mb-2 flex gap-2">
                         {featuredPost.tags.map((tag) => (
                           <Badge key={tag} variant="secondary">
@@ -67,57 +60,82 @@ export default async function BlogPage() {
                           </Badge>
                         ))}
                       </div>
-                      <CardTitle className="font-headline mb-4 text-3xl">
+                      <h2 className="font-headline text-2xl font-bold group-hover:text-primary">
                         {featuredPost.title}
-                      </CardTitle>
-                      <p className="text-muted-foreground">
-                        {featuredPost.excerpt}
-                      </p>
-                    </div>
-                    <div className="mt-6 flex items-center gap-4 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-2">
-                        <Avatar className="h-8 w-8">
-                          <AvatarImage
-                            src={featuredPost.author.avatar}
-                            alt={featuredPost.author.name}
-                          />
-                          <AvatarFallback>
-                            {featuredPost.author.name
-                              .split(' ')
-                              .map((n) => n[0])
-                              .join('')}
-                          </AvatarFallback>
-                        </Avatar>
-                        <span className="font-medium">
-                          {featuredPost.author.name}
-                        </span>
-                      </div>
-                      <span>•</span>
-                      <time dateTime={featuredPost.date}>
-                        {new Date(featuredPost.date).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        })}
-                      </time>
+                      </h2>
                     </div>
                   </div>
-                </Card>
-              </Link>
-            </section>
-          </ScrollAnimation>
-        )}
+                </Link>
+              </div>
+            )}
 
-        <div className="grid grid-cols-1 gap-8">
-          {otherPosts.map((post, index) => (
-            <ScrollAnimation key={post.slug} delay={index * 150}>
-              <BlogCard
-                post={post}
-                imageSide={index % 2 === 0 ? 'left' : 'right'}
-              />
+            <div className="mt-8 flex items-center justify-end">
+                <BlogForm
+                    triggerButton={
+                    <div className="flex items-center gap-2">
+                        <BookPlus className="h-4 w-4" />
+                        Add Post
+                    </div>
+                    }
+                />
+            </div>
+          </section>
+
+          <aside className="space-y-6 lg:col-span-1">
+            {sidePosts.map((post, index) => (
+              <ScrollAnimation key={post.slug} delay={index * 150}>
+                <BlogListItem post={post} />
+              </ScrollAnimation>
+            ))}
+          </aside>
+        </ScrollAnimation>
+
+        {otherPosts.length > 0 && (
+          <>
+            <ScrollAnimation asChild>
+              <div className="mt-16 md:mt-24">
+                <p className="font-semibold uppercase tracking-wider text-primary">
+                  More Insights
+                </p>
+                <h2 className="font-headline mt-2 text-3xl font-bold tracking-tight md:text-4xl">
+                  Latest From the Lab
+                </h2>
+              </div>
             </ScrollAnimation>
-          ))}
-        </div>
+
+            <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {otherPosts.map((post, index) => (
+                <ScrollAnimation key={post.slug} delay={index * 150}>
+                  <Link href={`/blog/${post.slug}`}>
+                    <div className="group overflow-hidden rounded-lg">
+                      <div className="relative aspect-square w-full overflow-hidden rounded-lg">
+                        <Image
+                          src={post.imageUrl}
+                          alt={post.title}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          data-ai-hint={post.imageHint}
+                        />
+                      </div>
+                      <div className="py-4">
+                         <h3 className="font-headline mb-2 text-lg font-bold leading-tight group-hover:text-primary">
+                            {post.title}
+                        </h3>
+                        <time className="text-sm text-muted-foreground" dateTime={post.date}>
+                          {new Date(post.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          })}
+                        </time>
+                      </div>
+                    </div>
+                  </Link>
+                </ScrollAnimation>
+              ))}
+            </div>
+          </>
+        )}
       </main>
     </div>
   );
