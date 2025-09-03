@@ -10,38 +10,36 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { FileText, Link as LinkIcon, Edit } from 'lucide-react';
+import { FileText, Link as LinkIcon, Edit, BookOpen, FileCode2 } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 interface PublicationCardProps {
   publication: Publication;
 }
 
+const publicationTypeIcons = {
+  Journal: <BookOpen className="h-6 w-6 text-primary" />,
+  Conference: <FileText className="h-6 w-6 text-primary" />,
+  Preprint: <FileCode2 className="h-6 w-6 text-primary" />,
+};
+
 export function PublicationCard({ publication }: PublicationCardProps) {
   return (
-    <Card className="overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-4">
-        <div className="md:col-span-1">
-          {publication.imageUrl && (
-            <Image
-              src={publication.imageUrl}
-              alt={publication.title}
-              width={300}
-              height={400}
-              className="h-full w-full object-cover"
-              data-ai-hint={publication.imageHint}
-            />
-          )}
-        </div>
-        <div className="flex flex-col md:col-span-3">
+    <Card className="flex flex-col">
+      <div className="flex">
+        <div className="flex-grow">
           <CardHeader>
-            <CardTitle className="font-headline text-xl">
-              {publication.title}
-            </CardTitle>
-            <CardDescription>
-              {publication.authors} ({publication.year})
-            </CardDescription>
+             <div className="flex items-start gap-4">
+                {publicationTypeIcons[publication.publicationType]}
+                <div className="flex-1">
+                    <CardTitle className="font-headline text-xl">
+                    {publication.title}
+                    </CardTitle>
+                    <CardDescription>
+                    {publication.authors} ({publication.year})
+                    </CardDescription>
+                </div>
+            </div>
           </CardHeader>
           <CardContent className="flex-grow space-y-4">
             <p className="italic text-muted-foreground">{publication.venue}</p>
@@ -56,8 +54,11 @@ export function PublicationCard({ publication }: PublicationCardProps) {
               </blockquote>
             )}
           </CardContent>
-          <CardFooter className="flex flex-wrap items-center justify-between gap-2">
+        </div>
+      </div>
+       <CardFooter className="mt-auto flex flex-wrap items-center justify-between gap-2 border-t pt-4">
             <div className="flex gap-2">
+              <Badge variant="outline">{publication.publicationType}</Badge>
               {publication.doi && (
                 <Badge variant="secondary">DOI: {publication.doi}</Badge>
               )}
@@ -85,8 +86,6 @@ export function PublicationCard({ publication }: PublicationCardProps) {
               </Button>
             </div>
           </CardFooter>
-        </div>
-      </div>
     </Card>
   );
 }

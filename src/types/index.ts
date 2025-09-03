@@ -5,6 +5,7 @@ export type Publication = {
   authors: string;
   venue: string;
   year: string;
+  publicationType: 'Journal' | 'Conference' | 'Preprint';
   doi?: string;
   url?: string;
   pdf?: string;
@@ -14,8 +15,6 @@ export type Publication = {
     mla?: string;
     chicago?: string;
   };
-  imageUrl?: string;
-  imageHint?: string;
 };
 
 export type Blog = {

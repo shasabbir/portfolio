@@ -8,6 +8,7 @@ export const mockPublications: Publication[] = [
     authors: 'Reed, E., & Chen, J.',
     venue: 'Journal of Cognitive Neuroscience',
     year: '2023',
+    publicationType: 'Journal',
     doi: '10.1162/jocn_a_01234',
     pdf: '#',
     abstract:
@@ -15,8 +16,6 @@ export const mockPublications: Publication[] = [
     citation: {
       apa: 'Reed, E., & Chen, J. (2023). The Role of Quantum Entanglement in Neural Information Processing. Journal of Cognitive Neuroscience, 35(4), 567-589.',
     },
-    imageUrl: 'https://picsum.photos/300/400',
-    imageHint: 'journal cover abstract',
   },
   {
     id: '2',
@@ -25,11 +24,10 @@ export const mockPublications: Publication[] = [
     authors: 'Reed, E., Kim, S., & Patel, A.',
     venue: 'Proceedings of the International Conference on Machine Learning',
     year: '2022',
+    publicationType: 'Conference',
     url: '#',
     abstract:
       'We present a novel generative adversarial network (GAN) that learns to simulate complex particle interactions from raw accelerator data, achieving unprecedented accuracy.',
-    imageUrl: 'https://picsum.photos/300/400',
-    imageHint: 'conference proceedings abstract',
   },
   {
     id: '3',
@@ -37,11 +35,10 @@ export const mockPublications: Publication[] = [
     authors: 'Garcia, M., & Reed, E.',
     venue: 'Nature Machine Intelligence',
     year: '2021',
+    publicationType: 'Journal',
     doi: '10.1038/s42256-021-00456-7',
     pdf: '#',
     abstract:
       'Using methods from topological data analysis, we demonstrate a new technique to visualize and understand the internal representational geometry of deep neural networks.',
-    imageUrl: 'https://picsum.photos/300/400',
-    imageHint: 'scientific journal cover',
   },
 ];
