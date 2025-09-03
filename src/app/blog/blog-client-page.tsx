@@ -35,7 +35,7 @@ export default function BlogClientPage({ posts: initialPosts }: { posts: Blog[] 
             </h1>
           </div>
           <p className="max-w-xs text-sm text-muted-foreground">
-            Nuhasg Gazi has been using the collective knowledge and
+            Nuhash Gazi has been using the collective knowledge and
             experience to protect nature.
           </p>
         </header>

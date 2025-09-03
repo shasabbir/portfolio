@@ -93,7 +93,7 @@ export async function saveBlogPost(
       slug: newSlug,
       date: new Date().toISOString(),
       author: { // Using a default author for new posts
-        name: 'Nuhasg Gazi',
+        name: 'Nuhash Gazi',
         avatar: 'https://picsum.photos/100/100',
       },
       tags: tags.length > 0 ? tags : ['New'],

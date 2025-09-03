@@ -26,7 +26,7 @@ export default function AboutPage() {
       <ScrollAnimation asChild>
         <header className="text-center">
           <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">
-            About Nuhasg Gazi
+            About Nuhash Gazi
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
             A journey through science, discovery, and innovation.
@@ -38,14 +38,14 @@ export default function AboutPage() {
         <ScrollAnimation className="md:col-span-1">
           <Image
             src="https://picsum.photos/600/800"
-            alt="Nuhasg Gazi"
+            alt="Nuhash Gazi"
             width={600}
             height={800}
             className="rounded-lg object-cover shadow-lg"
             data-ai-hint="scientist professional"
           />
           <Button asChild className="mt-6 w-full">
-            <a href="/cv.pdf" download="Nuhasg_Gazi_CV.pdf">
+            <a href="/cv.pdf" download="Nuhash_Gazi_CV.pdf">
               <Download className="mr-2 h-4 w-4" />
               Download CV
             </a>
@@ -61,7 +61,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-base leading-relaxed text-muted-foreground">
               <p>
-                Nuhasg Gazi is a leading theoretical physicist whose work
+                Nuhash Gazi is a leading theoretical physicist whose work
                 has significantly advanced our understanding of quantum gravity
                 and its connections to information theory. With a Ph.D. from
                 the Massachusetts Institute of Technology, their research has
@@ -76,7 +76,7 @@ export default function AboutPage() {
                 can help model and predict cosmological phenomena.
               </p>
               <p>
-                Nuhasg Gazi is a passionate advocate for science communication and
+                Nuhash Gazi is a passionate advocate for science communication and
                 has delivered keynote speeches at numerous international
                 conferences. They are currently a tenured professor at Stanford
                 University and leads the Quantum & AI Systems (QAIS) lab.
@@ -164,7 +164,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-base text-muted-foreground">
               <p>
-                As a professor at Stanford, Nuhasg Gazi is dedicated to inspiring
+                As a professor at Stanford, Nuhash Gazi is dedicated to inspiring
                 the next generation of scientists. They teach graduate-level
                 courses in quantum field theory and computational physics.
               </p>

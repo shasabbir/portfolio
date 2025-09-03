@@ -19,7 +19,7 @@ const fontLiterata = Literata({
 
 export const metadata: Metadata = {
   title: 'Scientist Site',
-  description: 'The personal website of Nuhasg Gazi',
+  description: 'The personal website of Nuhash Gazi',
 };
 
 export default function RootLayout({
