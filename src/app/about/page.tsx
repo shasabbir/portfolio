@@ -45,6 +45,7 @@ export default function AboutPage() {
             height={800}
             className="rounded-lg object-cover shadow-lg"
             data-ai-hint="scientist professional"
+            unoptimized
           />
           <Button asChild className="mt-6 w-full">
             <a href="/cv.pdf" download="Gazi_Salah_Uddin_Nuhash_CV.pdf">

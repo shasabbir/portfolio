@@ -144,6 +144,7 @@ export default function Home() {
                 height={400}
                 className="object-cover"
                 data-ai-hint="scientist portrait"
+                unoptimized
               />
               <AvatarFallback>NG</AvatarFallback>
             </Avatar>
