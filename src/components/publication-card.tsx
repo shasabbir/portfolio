@@ -21,20 +21,20 @@ interface PublicationCardProps {
 export function PublicationCard({ publication }: PublicationCardProps) {
   return (
     <Card className="overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-4">
         <div className="md:col-span-1">
           {publication.imageUrl && (
             <Image
               src={publication.imageUrl}
               alt={publication.title}
-              width={600}
+              width={300}
               height={400}
               className="h-full w-full object-cover"
               data-ai-hint={publication.imageHint}
             />
           )}
         </div>
-        <div className="flex flex-col md:col-span-2">
+        <div className="flex flex-col md:col-span-3">
           <CardHeader>
             <CardTitle className="font-headline text-xl">
               {publication.title}
