@@ -36,58 +36,59 @@ export default async function BlogPage() {
       <main className="mt-12">
         <ScrollAnimation
           asChild
-          className="grid grid-cols-1 gap-8 lg:grid-cols-3"
         >
-          <section>
-            {featuredPost && (
-              <div className="lg:col-span-2">
-                <Link href={`/blog/${featuredPost.slug}`}>
-                  <div className="group overflow-hidden rounded-lg">
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
-                      <Image
-                        src={featuredPost.imageUrl}
-                        alt={featuredPost.title}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        data-ai-hint={featuredPost.imageHint}
-                      />
-                    </div>
-                    <div className="py-4">
-                      <div className="mb-2 flex gap-2">
-                        {featuredPost.tags.map((tag) => (
-                          <Badge key={tag} variant="secondary">
-                            {tag}
-                          </Badge>
-                        ))}
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            <section className="lg:col-span-2">
+              {featuredPost && (
+                <div>
+                  <Link href={`/blog/${featuredPost.slug}`}>
+                    <div className="group overflow-hidden rounded-lg">
+                      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+                        <Image
+                          src={featuredPost.imageUrl}
+                          alt={featuredPost.title}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          data-ai-hint={featuredPost.imageHint}
+                        />
                       </div>
-                      <h2 className="font-headline text-2xl font-bold group-hover:text-primary">
-                        {featuredPost.title}
-                      </h2>
+                      <div className="py-4">
+                        <div className="mb-2 flex gap-2">
+                          {featuredPost.tags.map((tag) => (
+                            <Badge key={tag} variant="secondary">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                        <h2 className="font-headline text-2xl font-bold group-hover:text-primary">
+                          {featuredPost.title}
+                        </h2>
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
+              )}
+
+              <div className="mt-8 flex items-center justify-end">
+                  <BlogForm
+                      triggerButton={
+                      <div className="flex items-center gap-2">
+                          <BookPlus className="h-4 w-4" />
+                          Add Post
+                      </div>
+                      }
+                  />
               </div>
-            )}
+            </section>
 
-            <div className="mt-8 flex items-center justify-end">
-                <BlogForm
-                    triggerButton={
-                    <div className="flex items-center gap-2">
-                        <BookPlus className="h-4 w-4" />
-                        Add Post
-                    </div>
-                    }
-                />
-            </div>
-          </section>
-
-          <aside className="space-y-6 lg:col-span-1">
-            {sidePosts.map((post, index) => (
-              <ScrollAnimation key={post.slug} delay={index * 150}>
-                <BlogListItem post={post} />
-              </ScrollAnimation>
-            ))}
-          </aside>
+            <aside className="space-y-6 lg:col-span-1">
+              {sidePosts.map((post, index) => (
+                <ScrollAnimation key={post.slug} delay={index * 150}>
+                  <BlogListItem post={post} />
+                </ScrollAnimation>
+              ))}
+            </aside>
+          </div>
         </ScrollAnimation>
 
         {otherPosts.length > 0 && (
