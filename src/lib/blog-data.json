@@ -1,20 +1,22 @@
+
 [
   {
-    "excerpt": "yyy",
-    "content": "yyyyyyyy\r\n<h1>hello<h1>\r\n<h1>hello<h1>",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png",
-    "imageHint": "abstract random",
-    "title": "yy",
-    "slug": "yy",
-    "date": "2025-09-03T07:31:43.923Z",
+    "slug": "the-symphony-of-spacetime",
+    "title": "The Symphony of Spacetime: Listening to Gravitational Waves",
+    "excerpt": "A decade after the first detection of gravitational waves, we are entering a new era of astronomy. These ripples in spacetime, predicted by Einstein, are allowing us to hear the universe's most cataclysmic events.",
+    "imageUrl": "https://picsum.photos/600/400",
+    "imageHint": "galaxy stars",
+    "date": "2024-06-28T00:00:00.000Z",
     "author": {
       "name": "Dr. Evelyn Reed",
       "avatar": "https://picsum.photos/100/100"
     },
     "tags": [
-      "New",
-      "camera"
-    ]
+      "Cosmology",
+      "Astrophysics",
+      "Gravitational Waves"
+    ],
+    "content": "\n      <p>A little over a century ago, Albert Einstein gifted us with a revolutionary new understanding of gravity: general relativity. One of its most profound predictions was that the fabric of spacetime itself is not static; it can be stretched, compressed, and distorted by massive accelerating objects, sending ripples outward across the cosmos. For nearly a hundred years, these 'gravitational waves' were purely theoretical. That all changed in 2015.</p>\n      <p>The Laser Interferometer Gravitational-Wave Observatory (LIGO) made the first direct detection of these waves, emanating from the merger of two black holes over a billion light-years away. It was a monumental achievement, a testament to human ingenuity that opened an entirely new window to the universe. We had, for the first time, 'heard' the cosmos.</p>\n      <h3 class=\"font-headline text-2xl font-bold my-4\">A New Kind of Astronomy</h3>\n      <p>Unlike traditional astronomy, which relies on light (electromagnetic radiation), gravitational-wave astronomy allows us to observe phenomena that are completely dark, such as the collision of black holes or neutron stars. These events are among the most violent and energetic in the universe, and they provide an unparalleled laboratory for testing the limits of physics.</p>\n      <p>Each detection is like a new note in a cosmic symphony, telling us about the properties of black holes, the structure of neutron stars, and the expansion of the universe itself. As our detectors become more sensitive, we will tune into a richer orchestra of cosmic events, potentially uncovering new and unexpected physics along the way.</p>\n    "
   },
   {
     "slug": "bridging-the-gap",
