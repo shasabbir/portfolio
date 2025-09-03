@@ -1,7 +1,7 @@
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Quote } from 'lucide-react';
+import Image from 'next/image';
 
 export type Testimonial = {
   name: string;
@@ -17,32 +17,30 @@ interface TestimonialCardProps {
 
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
-    <Card className="h-full transform-gpu transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
-      <CardHeader className="flex-row items-center gap-4">
-        <Avatar className="h-14 w-14 border">
-          <AvatarImage
+    <Card className="h-full overflow-hidden border-0 bg-card shadow-none">
+      <CardContent className="grid h-full grid-cols-1 gap-8 p-0 md:grid-cols-2">
+        <div className="relative h-64 w-full md:h-full">
+          <Image
             src={testimonial.image}
             alt={testimonial.name}
+            fill
+            className="rounded-lg object-cover"
             data-ai-hint={testimonial.imageHint}
           />
-          <AvatarFallback>
-            {testimonial.name
-              .split(' ')
-              .map((n) => n[0])
-              .join('')}
-          </AvatarFallback>
-        </Avatar>
-        <div>
-          <h3 className="font-semibold">{testimonial.name}</h3>
-          <p className="text-sm text-muted-foreground">{testimonial.title}</p>
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="relative">
-          <Quote className="absolute -top-2 left-0 h-8 w-8 text-muted-foreground/20" />
-          <p className="pl-2 text-base italic text-muted-foreground">
+        <div className="relative flex flex-col justify-center p-6 md:p-0">
+          <Quote className="absolute -top-4 left-0 h-16 w-16 text-muted/50" />
+          <p className="z-10 text-lg leading-relaxed md:text-xl">
             {testimonial.quote}
           </p>
+          <div className="mt-6">
+            <h3 className="font-headline text-xl font-bold">
+              - {testimonial.name}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {testimonial.title}
+            </p>
+          </div>
         </div>
       </CardContent>
     </Card>

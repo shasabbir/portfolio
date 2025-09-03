@@ -16,7 +16,6 @@ import {
   BrainCircuit,
   Atom,
   Sigma,
-  Quote,
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -30,15 +29,15 @@ const testimonials: Testimonial[] = [
     title: 'Collaborator, Cambridge University',
     quote:
       "Evelyn's insights into quantum information were instrumental to our joint research. Her ability to bridge theoretical concepts with practical applications is unparalleled. A truly brilliant mind and a wonderful collaborator.",
-    image: 'https://picsum.photos/100/100',
+    image: 'https://picsum.photos/400/600',
     imageHint: 'male scientist',
   },
   {
     name: 'Dr. Lena Petrova',
     title: 'Former Postdoc, QAIS Lab',
     quote:
-      'Working under Dr. Reed was the most formative experience of my career. She fosters an environment of intense intellectual curiosity while being an incredibly supportive and patient mentor. I wouldn\'t be where I am today without her guidance.',
-    image: 'https://picsum.photos/101/101',
+      "Working under Dr. Reed was the most formative experience of my career. She fosters an environment of intense intellectual curiosity while being an incredibly supportive and patient mentor. I wouldn't be where I am today without her guidance.",
+    image: 'https://picsum.photos/401/601',
     imageHint: 'female researcher',
   },
   {
@@ -46,7 +45,7 @@ const testimonials: Testimonial[] = [
     title: 'Conference Chair, QIP 2023',
     quote:
       "Dr. Reed's keynote was the highlight of our conference. She has a rare gift for making the most complex topics in physics accessible and exciting to a broad audience. We've received nothing but glowing feedback.",
-    image: 'https://picsum.photos/102/102',
+    image: 'https://picsum.photos/402/602',
     imageHint: 'professor portrait',
   },
   {
@@ -54,7 +53,7 @@ const testimonials: Testimonial[] = [
     title: 'Peer Reviewer, Nature Physics',
     quote:
       "Reviewing Evelyn's papers is always a pleasure. Her work is rigorous, her thinking is clear, and she consistently pushes the boundaries of her field. Her contributions are of the highest caliber.",
-    image: 'https://picsum.photos/103/103',
+    image: 'https://picsum.photos/403/603',
     imageHint: 'scientist face',
   },
 ];
@@ -102,14 +101,14 @@ export default function Home() {
                 <Button asChild size="lg">
                   <Link href="/publications">View Publications</Link>
                 </Button>
-                <Button asChild size="lg" variant="secondary">
+                <Button asChild size="lg" variant="outline">
                   <Link href="/contact">Get in Touch</Link>
                 </Button>
               </div>
             </div>
           </ScrollAnimation>
           <ScrollAnimation delay={200} className="relative flex justify-center">
-            <div className="absolute -inset-12 rounded-full bg-gradient-to-br from-primary/20 via-accent/20 to-background blur-2xl"></div>
+            <div className="absolute -inset-12 rounded-full bg-gradient-to-br from-primary/10 via-secondary/10 to-background blur-2xl"></div>
             <Avatar className="z-10 h-64 w-64 border-4 border-background shadow-lg md:h-80 md:w-80">
               <Image
                 src="https://picsum.photos/400/400"
@@ -146,35 +145,35 @@ export default function Home() {
       </section>
 
 
-      <section id="testimonials" className="w-full bg-background py-16 md:py-24">
+      <section id="testimonials" className="w-full overflow-hidden bg-background py-16 md:py-24">
         <div className="container mx-auto">
-          <ScrollAnimation className="text-center">
+          <ScrollAnimation className="text-left">
             <h2 className="font-headline text-3xl font-bold md:text-4xl">
               What Colleagues Say
             </h2>
-            <p className="mx-auto mt-4 max-w-3xl text-center text-muted-foreground">
+            <p className="mx-auto mt-4 max-w-3xl text-left text-muted-foreground">
               Feedback from collaborators, mentees, and peers from across the scientific community.
             </p>
           </ScrollAnimation>
           <ScrollAnimation className="mt-12" delay={200}>
             <Carousel
               opts={{
-                align: 'start',
+                align: 'center',
                 loop: true,
               }}
               className="w-full"
             >
-              <CarouselContent>
+              <CarouselContent className="-ml-8">
                 {testimonials.map((testimonial, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                    <div className="p-1">
+                  <CarouselItem key={index} className="pl-8 md:basis-full lg:basis-4/5">
                       <TestimonialCard testimonial={testimonial} />
-                    </div>
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 fill-black" />
-              <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 fill-black" />
+              <div className="mt-8 flex justify-end gap-4">
+                <CarouselPrevious className="static -translate-y-0" />
+                <CarouselNext className="static -translate-y-0" />
+              </div>
             </Carousel>
           </ScrollAnimation>
         </div>
