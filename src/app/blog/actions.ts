@@ -30,6 +30,7 @@ const blogSchema = z.object({
   content: z.string().min(1, 'Content is required.'),
   imageUrl: z.string().url('Invalid URL.').min(1, 'Image URL is required.'),
   imageHint: z.string().min(1, 'Image hint is required.'),
+  tags: z.string().optional(),
   slug: z.string().optional(),
 });
 
@@ -66,7 +67,7 @@ export async function saveBlogPost(
   }
   
   const blogs = await readBlogs();
-  const { title, slug, ...postData } = validatedFields.data;
+  const { title, slug, tags: tagsString, ...postData } = validatedFields.data;
   const newSlug =
     slug ||
     title
@@ -75,11 +76,14 @@ export async function saveBlogPost(
       .replace(/\s+/g, '-')
       .replace(/[^\w-]+/g, '');
 
+  const tags = tagsString ? tagsString.split(',').map(tag => tag.trim()).filter(Boolean) : [];
+
+
   if (slug) {
     // Update existing post
     const postIndex = blogs.findIndex((p) => p.slug === slug);
     if (postIndex !== -1) {
-      blogs[postIndex] = { ...blogs[postIndex], title, ...postData, slug };
+      blogs[postIndex] = { ...blogs[postIndex], title, ...postData, slug, tags };
     }
   } else {
     // Add new post
@@ -92,7 +96,7 @@ export async function saveBlogPost(
         name: 'Dr. Evelyn Reed',
         avatar: 'https://picsum.photos/100/100',
       },
-      tags: ['New', 'AI'], // Default tags for new posts
+      tags: tags.length > 0 ? tags : ['New'],
     };
     blogs.unshift(newPost);
   }

@@ -131,6 +131,10 @@ export function BlogForm({ post, triggerButton }: BlogFormProps) {
                 <Input id="imageHint" name="imageHint" defaultValue={post?.imageHint || 'abstract random'} required />
               </div>
             </div>
+             <div className="space-y-1">
+              <Label htmlFor="tags">Tags (comma-separated)</Label>
+              <Input id="tags" name="tags" defaultValue={post?.tags.join(', ')} />
+            </div>
 
           <DialogFooter>
             <DialogClose asChild>

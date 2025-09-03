@@ -1,5 +1,21 @@
-
 [
+  {
+    "excerpt": "yyy",
+    "content": "yyyyyyyy\r\n<h1>hello<h1>\r\n<h1>hello<h1>",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png",
+    "imageHint": "abstract random",
+    "title": "yy",
+    "slug": "yy",
+    "date": "2025-09-03T07:31:43.923Z",
+    "author": {
+      "name": "Dr. Evelyn Reed",
+      "avatar": "https://picsum.photos/100/100"
+    },
+    "tags": [
+      "New",
+      "AI"
+    ]
+  },
   {
     "slug": "bridging-the-gap",
     "title": "Bridging the Gap Between Theoretical Physics and AI",
