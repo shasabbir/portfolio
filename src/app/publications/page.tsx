@@ -11,7 +11,7 @@ export default function PublicationsPage() {
     <>
       <section className="relative h-64 w-full overflow-hidden md:h-80">
         <Image
-          src="https://picsum.photos/1600/400"
+          src="https://ageingsocieties.unimib.it/wp-content/uploads/sites/148/2022/06/Publications.jpg"
           alt="Abstract background representing scientific research"
           fill
           className="object-cover"

@@ -45,6 +45,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'us.greatassignmenthelp.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'ageingsocieties.unimib.it',
+      },
     ],
   },
 };
