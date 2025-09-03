@@ -15,6 +15,8 @@ export const mockPublications: Publication[] = [
     citation: {
       apa: 'Reed, E., & Chen, J. (2023). The Role of Quantum Entanglement in Neural Information Processing. Journal of Cognitive Neuroscience, 35(4), 567-589.',
     },
+    imageUrl: 'https://picsum.photos/600/400',
+    imageHint: 'quantum brain',
   },
   {
     id: '2',
@@ -26,6 +28,8 @@ export const mockPublications: Publication[] = [
     url: '#',
     abstract:
       'We present a novel generative adversarial network (GAN) that learns to simulate complex particle interactions from raw accelerator data, achieving unprecedented accuracy.',
+    imageUrl: 'https://picsum.photos/600/400',
+    imageHint: 'particles abstract',
   },
   {
     id: '3',
@@ -37,5 +41,7 @@ export const mockPublications: Publication[] = [
     pdf: '#',
     abstract:
       'Using methods from topological data analysis, we demonstrate a new technique to visualize and understand the internal representational geometry of deep neural networks.',
+    imageUrl: 'https://picsum.photos/600/400',
+    imageHint: 'data network',
   },
 ];

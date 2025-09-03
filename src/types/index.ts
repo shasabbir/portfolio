@@ -1,3 +1,4 @@
+
 export type Publication = {
   id: string;
   title: string;
@@ -13,6 +14,8 @@ export type Publication = {
     mla?: string;
     chicago?: string;
   };
+  imageUrl?: string;
+  imageHint?: string;
 };
 
 export type Blog = {
