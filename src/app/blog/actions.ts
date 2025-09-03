@@ -46,26 +46,25 @@ export async function saveBlogPost(
       .replace(/\s+/g, '-')
       .replace(/[^\w-]+/g, '');
 
-  const newPost: Blog = {
-    ...postData,
-    title,
-    slug: newSlug,
-    date: new Date().toISOString(),
-    author: { // Using a default author for new posts
-      name: 'Dr. Evelyn Reed',
-      avatar: 'https://picsum.photos/100/100',
-    },
-    tags: ['New', 'AI'], // Default tags for new posts
-  };
-
   if (slug) {
     // Update existing post
     const postIndex = mockBlogs.findIndex((p) => p.slug === slug);
     if (postIndex !== -1) {
-      mockBlogs[postIndex] = { ...mockBlogs[postIndex], ...newPost, slug: slug }; // Ensure slug doesn't change on edit
+      mockBlogs[postIndex] = { ...mockBlogs[postIndex], title, ...postData, slug };
     }
   } else {
     // Add new post
+    const newPost: Blog = {
+      ...postData,
+      title,
+      slug: newSlug,
+      date: new Date().toISOString(),
+      author: { // Using a default author for new posts
+        name: 'Dr. Evelyn Reed',
+        avatar: 'https://picsum.photos/100/100',
+      },
+      tags: ['New', 'AI'], // Default tags for new posts
+    };
     mockBlogs.unshift(newPost);
   }
 
