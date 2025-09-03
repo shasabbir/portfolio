@@ -58,7 +58,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
         </div>
         <div>
           <h3 className="font-headline text-xl font-bold">- {testimonial.name}</h3>
-          <p className="text-sm text-muted-foreground">{testimonial.title}</p>
+          <p className="text-sm opacity-80">{testimonial.title}</p>
         </div>
       </Card>
     </div>
