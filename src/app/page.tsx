@@ -1,8 +1,11 @@
 
+'use client';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -22,6 +25,8 @@ import Image from 'next/image';
 import { GoogleScholarIcon, OrcidIcon } from '@/components/icons';
 import { ScrollAnimation } from '@/components/scroll-animation';
 import { TestimonialCard, Testimonial } from '@/components/testimonial-card';
+import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 const testimonials: Testimonial[] = [
   {
@@ -62,21 +67,44 @@ const expertiseAreas = [
   {
     icon: <Atom className="h-10 w-10 text-primary" />,
     title: 'Quantum Physics',
-    description: 'Investigating the fundamental nature of reality at the subatomic level.'
+    description:
+      'Investigating the fundamental nature of reality at the subatomic level.',
   },
   {
     icon: <BrainCircuit className="h-10 w-10 text-primary" />,
     title: 'Artificial Intelligence',
-    description: 'Building intelligent systems to solve complex scientific problems.'
+    description: 'Building intelligent systems to solve complex scientific problems.',
   },
   {
     icon: <Sigma className="h-10 w-10 text-primary" />,
     title: 'Theoretical Modeling',
-    description: 'Developing mathematical frameworks to describe and predict physical phenomena.'
-  }
+    description:
+      'Developing mathematical frameworks to describe and predict physical phenomena.',
+  },
 ];
 
 export default function Home() {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCurrent(api.selectedScrollSnap());
+
+    const handleSelect = () => {
+      setCurrent(api.selectedScrollSnap());
+    };
+
+    api.on('select', handleSelect);
+
+    return () => {
+      api.off('select', handleSelect);
+    };
+  }, [api]);
+
   return (
     <div className="flex flex-col">
       <section
@@ -130,13 +158,13 @@ export default function Home() {
             Pioneering the Future of Science
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Dr. Evelyn Reed is a leading theoretical physicist whose work
-            has significantly advanced our understanding of quantum gravity
-            and its connections to information theory. With a Ph.D. from
-            the Massachusetts Institute of Technology, her research has
-            consistently pushed the boundaries of conventional science.
+            Dr. Evelyn Reed is a leading theoretical physicist whose work has
+            significantly advanced our understanding of quantum gravity and its
+            connections to information theory. With a Ph.D. from the
+            Massachusetts Institute of Technology, her research has consistently
+            pushed the boundaries of conventional science.
           </p>
-           <Button asChild size="lg" className="mt-8" variant="outline">
+          <Button asChild size="lg" className="mt-8" variant="outline">
             <Link href="/about">
               Learn More About Me <ArrowRight />
             </Link>
@@ -144,19 +172,22 @@ export default function Home() {
         </ScrollAnimation>
       </section>
 
-
-      <section id="testimonials" className="w-full overflow-hidden bg-background py-16 md:py-24">
+      <section
+        id="testimonials"
+        className="w-full overflow-hidden bg-background py-16 md:py-24"
+      >
         <div className="container mx-auto">
           <ScrollAnimation className="text-left">
             <h2 className="font-headline text-3xl font-bold md:text-4xl">
               What Colleagues Say
             </h2>
             <p className="mx-auto mt-4 max-w-3xl text-left text-muted-foreground">
-              Feedback from collaborators, mentees, and peers from across the scientific community.
+              Feedback from collaborators, mentees, and peers from across the
+              scientific community.
             </p>
           </ScrollAnimation>
           <ScrollAnimation className="mt-12" delay={200}>
-            <Carousel
+            <Carousel setApi={setApi}
               opts={{
                 align: 'center',
                 loop: true,
@@ -165,8 +196,15 @@ export default function Home() {
             >
               <CarouselContent className="-ml-8">
                 {testimonials.map((testimonial, index) => (
-                  <CarouselItem key={index} className="pl-8 md:basis-full lg:basis-4/5">
-                      <TestimonialCard testimonial={testimonial} />
+                  <CarouselItem
+                    key={index}
+                    className={cn('pl-8 md:basis-full lg:basis-4/5', {
+                      'is-active': index === current,
+                      'is-prev': index === current - 1 || (current === 0 && index === testimonials.length -1),
+                      'is-next': index === current + 1 || (current === testimonials.length - 1 && index === 0),
+                    })}
+                  >
+                    <TestimonialCard testimonial={testimonial} />
                   </CarouselItem>
                 ))}
               </CarouselContent>
@@ -186,14 +224,21 @@ export default function Home() {
               Areas of Expertise
             </h2>
             <p className="mx-auto mt-4 max-w-3xl text-center text-muted-foreground">
-              Specializing in the fields that bridge the gap between the known and the unknown.
+              Specializing in the fields that bridge the gap between the known
+              and the unknown.
             </p>
           </ScrollAnimation>
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
             {expertiseAreas.map((area, index) => (
-              <ScrollAnimation key={area.title} delay={index * 150} className="flex flex-col items-center text-center">
+              <ScrollAnimation
+                key={area.title}
+                delay={index * 150}
+                className="flex flex-col items-center text-center"
+              >
                 {area.icon}
-                <h3 className="mt-4 font-headline text-2xl font-bold">{area.title}</h3>
+                <h3 className="mt-4 font-headline text-2xl font-bold">
+                  {area.title}
+                </h3>
                 <p className="mt-2 text-muted-foreground">{area.description}</p>
               </ScrollAnimation>
             ))}

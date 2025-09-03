@@ -17,32 +17,50 @@ interface TestimonialCardProps {
 
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
-    <Card className="h-full overflow-hidden border-0 bg-card shadow-none">
-      <CardContent className="grid h-full grid-cols-1 gap-8 p-0 md:grid-cols-2">
-        <div className="relative h-64 w-full md:h-full">
+    <div className="testimonial-card-wrapper transition-transform duration-500">
+      <Card className="testimonial-card h-full overflow-hidden border-0 bg-card shadow-none transition-all duration-500">
+        <CardContent className="grid h-full grid-cols-1 gap-8 p-0 md:grid-cols-2">
+          <div className="image-container relative h-64 w-full md:h-full">
+            <Image
+              src={testimonial.image}
+              alt={testimonial.name}
+              fill
+              className="rounded-lg object-cover"
+              data-ai-hint={testimonial.imageHint}
+            />
+          </div>
+          <div className="quote-container relative flex flex-col justify-center p-6 md:p-0">
+            <Quote className="absolute -top-4 left-0 h-16 w-16 text-muted/50" />
+            <p className="z-10 text-lg leading-relaxed md:text-xl">
+              {testimonial.quote}
+            </p>
+            <div className="mt-6">
+              <h3 className="font-headline text-xl font-bold">
+                - {testimonial.name}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {testimonial.title}
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+      <Card className="testimonial-card-inactive absolute inset-0 flex h-full flex-col justify-between rounded-lg bg-primary p-6 text-primary-foreground shadow-lg transition-all duration-500">
+        <div>
           <Image
             src={testimonial.image}
             alt={testimonial.name}
-            fill
+            width={80}
+            height={80}
             className="rounded-lg object-cover"
             data-ai-hint={testimonial.imageHint}
           />
         </div>
-        <div className="relative flex flex-col justify-center p-6 md:p-0">
-          <Quote className="absolute -top-4 left-0 h-16 w-16 text-muted/50" />
-          <p className="z-10 text-lg leading-relaxed md:text-xl">
-            {testimonial.quote}
-          </p>
-          <div className="mt-6">
-            <h3 className="font-headline text-xl font-bold">
-              - {testimonial.name}
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              {testimonial.title}
-            </p>
-          </div>
+        <div>
+          <h3 className="font-headline text-xl font-bold">- {testimonial.name}</h3>
+          <p className="text-sm text-muted-foreground">{testimonial.title}</p>
         </div>
-      </CardContent>
-    </Card>
+      </Card>
+    </div>
   );
 }

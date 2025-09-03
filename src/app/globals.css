@@ -86,3 +86,29 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .testimonial-card-wrapper {
+    @apply relative;
+  }
+
+  .is-active .testimonial-card-wrapper {
+    transform: scale(1);
+  }
+  .is-prev .testimonial-card-wrapper,
+  .is-next .testimonial-card-wrapper {
+    transform: scale(0.8);
+  }
+
+  .is-active .testimonial-card-inactive,
+  .is-prev .testimonial-card,
+  .is-next .testimonial-card {
+    @apply opacity-0 pointer-events-none;
+  }
+  
+  .is-active .testimonial-card,
+  .is-prev .testimonial-card-inactive,
+  .is-next .testimonial-card-inactive {
+     @apply opacity-100;
+  }
+}
