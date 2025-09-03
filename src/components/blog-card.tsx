@@ -29,13 +29,16 @@ import {
 import { deleteBlogPost } from '@/app/blog/actions';
 import { useToast } from '@/hooks/use-toast';
 import { useTransition } from 'react';
+import { cn } from '@/lib/utils';
+import { Badge } from './ui/badge';
 
 interface BlogCardProps {
   post: Blog;
+  imageSide?: 'left' | 'right';
 }
 
-export function BlogCard({ post }: BlogCardProps) {
-    const { toast } = useToast();
+export function BlogCard({ post, imageSide = 'left' }: BlogCardProps) {
+  const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
 
   const handleDelete = () => {
@@ -57,29 +60,44 @@ export function BlogCard({ post }: BlogCardProps) {
   };
 
   return (
-    <Card className="flex h-full flex-col overflow-hidden">
-      <Link href={`/blog/${post.slug}`} className="flex h-full flex-col">
-        <Image
-          src={post.imageUrl}
-          alt={post.title}
-          width={600}
-          height={400}
-          className="aspect-video w-full object-cover"
-          data-ai-hint={post.imageHint}
-        />
-        <CardHeader>
-          <CardTitle className="font-headline text-xl leading-snug">
-            {post.title}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="flex-grow">
-          <p className="text-sm text-muted-foreground">{post.excerpt}</p>
-        </CardContent>
-      </Link>
-      <CardFooter>
-        <div className="flex w-full items-center justify-between text-sm text-muted-foreground">
+    <Card className="grid overflow-hidden rounded-lg border shadow-lg transition-shadow duration-300 hover:shadow-xl md:grid-cols-2">
+      <div
+        className={cn(
+          'relative h-64 w-full md:h-auto',
+          imageSide === 'right' && 'md:order-last'
+        )}
+      >
+        <Link href={`/blog/${post.slug}`}>
+          <Image
+            src={post.imageUrl}
+            alt={post.title}
+            fill
+            className="object-cover"
+            data-ai-hint={post.imageHint}
+          />
+        </Link>
+      </div>
+      <div className="flex flex-col justify-between p-6">
+        <div>
+          <div className="mb-2 flex gap-2">
+            {post.tags.map((tag) => (
+              <Badge key={tag} variant="secondary">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+          <Link href={`/blog/${post.slug}`}>
+            <CardTitle className="font-headline mb-4 text-2xl hover:text-primary">
+              {post.title}
+            </CardTitle>
+          </Link>
+          <CardContent className="p-0">
+            <p className="text-muted-foreground">{post.excerpt}</p>
+          </CardContent>
+        </div>
+        <CardFooter className="mt-6 flex w-full items-center justify-between p-0 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
-            <Avatar className="h-6 w-6">
+            <Avatar className="h-8 w-8">
               <AvatarImage src={post.author.avatar} alt={post.author.name} />
               <AvatarFallback>
                 {post.author.name
@@ -88,11 +106,11 @@ export function BlogCard({ post }: BlogCardProps) {
                   .join('')}
               </AvatarFallback>
             </Avatar>
-            <span className="text-xs">{post.author.name}</span>
+            <span className="text-xs font-medium">{post.author.name}</span>
           </div>
           <div className="flex items-center gap-1">
             <BlogForm post={post} />
-             <AlertDialog>
+            <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant="ghost" size="icon" className="h-8 w-8">
                   <Trash2 className="h-4 w-4 text-destructive" />
@@ -108,15 +126,18 @@ export function BlogCard({ post }: BlogCardProps) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDelete} disabled={isPending}>
+                  <AlertDialogAction
+                    onClick={handleDelete}
+                    disabled={isPending}
+                  >
                     {isPending ? 'Deleting...' : 'Delete'}
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
           </div>
-        </div>
-      </CardFooter>
+        </CardFooter>
+      </div>
     </Card>
   );
 }

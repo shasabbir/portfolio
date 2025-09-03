@@ -103,9 +103,13 @@ export default async function BlogPage() {
           </section>
         )}
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {otherPosts.map((post) => (
-            <BlogCard key={post.slug} post={post} />
+        <div className="grid grid-cols-1 gap-8">
+          {otherPosts.map((post, index) => (
+            <BlogCard
+              key={post.slug}
+              post={post}
+              imageSide={index % 2 === 0 ? 'left' : 'right'}
+            />
           ))}
         </div>
       </main>
