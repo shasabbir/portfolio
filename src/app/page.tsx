@@ -177,11 +177,11 @@ export default function Home() {
         className="w-full overflow-hidden bg-background py-16 md:py-24"
       >
         <div className="container mx-auto">
-          <ScrollAnimation className="text-left">
+          <ScrollAnimation className="text-center">
             <h2 className="font-headline text-3xl font-bold md:text-4xl">
               What Colleagues Say
             </h2>
-            <p className="mx-auto mt-4 max-w-3xl text-left text-muted-foreground">
+            <p className="mx-auto mt-4 max-w-3xl text-muted-foreground">
               Feedback from collaborators, mentees, and peers from across the
               scientific community.
             </p>
