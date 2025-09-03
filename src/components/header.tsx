@@ -83,7 +83,7 @@ export function Header() {
       <div className="container flex h-14 items-center justify-between px-4 md:px-6">
         <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="font-bold sm:inline-block">Nuhash Gazi</span>
+            <span className="font-bold sm:inline-block">GAZI SALAH UDDIN NUHASH</span>
           </Link>
         </div>
 
@@ -108,7 +108,7 @@ export function Header() {
                 <SheetDescription className="sr-only">A menu of navigation links and social media profiles.</SheetDescription>
                 <div className="flex flex-col space-y-4 p-4">
                   <Link href="/" className="mb-4">
-                    <span className="text-xl font-bold">Nuhash Gazi</span>
+                    <span className="text-xl font-bold">GAZI SALAH UDDIN NUHASH</span>
                   </Link>
                   <div className="flex flex-col space-y-2">
                       <NavMenuLinks isMobile={true} onItemClick={() => setIsMobileMenuOpen(false)} />

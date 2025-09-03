@@ -49,6 +49,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'ageingsocieties.unimib.it',
       },
+      {
+        protocol: 'https',
+        hostname: 'firebasestudio.app',
+      }
     ],
   },
 };

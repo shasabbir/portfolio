@@ -11,11 +11,13 @@ import {
 import {
   Download,
   Award,
-  BrainCircuit,
-  Atom,
+  FlaskConical,
+  Dna,
   GraduationCap,
   Lightbulb,
   Milestone,
+  Users,
+  Presentation,
 } from 'lucide-react';
 import Link from 'next/link';
 import { ScrollAnimation } from '@/components/scroll-animation';
@@ -26,10 +28,10 @@ export default function AboutPage() {
       <ScrollAnimation asChild>
         <header className="text-center">
           <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">
-            About Nuhash Gazi
+            About GAZI SALAH UDDIN NUHASH
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            A journey through science, discovery, and innovation.
+            A journey through life sciences, discovery, and innovation.
           </p>
         </header>
       </ScrollAnimation>
@@ -37,15 +39,15 @@ export default function AboutPage() {
       <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-3">
         <ScrollAnimation className="md:col-span-1">
           <Image
-            src="https://picsum.photos/600/800"
-            alt="Nuhash Gazi"
+            src="https://firebasestudio.app/assets/project-fco-llm-preview/Gazi_Salah_Uddin.jpg"
+            alt="GAZI SALAH UDDIN NUHASH"
             width={600}
             height={800}
             className="rounded-lg object-cover shadow-lg"
             data-ai-hint="scientist professional"
           />
           <Button asChild className="mt-6 w-full">
-            <a href="/cv.pdf" download="Nuhash_Gazi_CV.pdf">
+            <a href="/cv.pdf" download="Gazi_Salah_Uddin_Nuhash_CV.pdf">
               <Download className="mr-2 h-4 w-4" />
               Download CV
             </a>
@@ -61,25 +63,16 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-base leading-relaxed text-muted-foreground">
               <p>
-                Nuhash Gazi is a leading theoretical physicist whose work
-                has significantly advanced our understanding of quantum gravity
-                and its connections to information theory. With a Ph.D. from
-                the Massachusetts Institute of Technology, their research has
-                consistently pushed the boundaries of conventional science.
+                Driven, ambitious and self-motivated researcher
+                with a strong background in Alzheimer&apos;s Disease,
+                drug design and discovery, cell culture,
+                next-generation sequencing (NGS) and data analysis.
               </p>
               <p>
-                Their early work focused on black hole thermodynamics, leading to
-                the groundbreaking "Reed Paradox," which challenged existing
-                models and opened new avenues for research. In recent years,
-                their focus has shifted to the intersection of artificial
-                intelligence and fundamental physics, exploring how complex AI
-                can help model and predict cosmological phenomena.
+                Academically distinguished life sciences graduate with exceptional leadership abilities, adept at public speaking, teamwork, and effective communication.
               </p>
               <p>
-                Nuhash Gazi is a passionate advocate for science communication and
-                has delivered keynote speeches at numerous international
-                conferences. They are currently a tenured professor at Stanford
-                University and leads the Quantum & AI Systems (QAIS) lab.
+                Looking to pursue further opportunities and make a difference within my field and harness my potential.
               </p>
             </CardContent>
           </Card>
@@ -88,40 +81,42 @@ export default function AboutPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Research Interests
+                  Research Skills
                 </CardTitle>
-                <Atom className="h-4 w-4 text-muted-foreground" />
+                <FlaskConical className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside text-sm text-muted-foreground">
-                  <li>Quantum Gravity</li>
-                  <li>AI in Physics</li>
-                  <li>Cosmology</li>
+                  <li>Alzheimer&apos;s Disease</li>
+                  <li>Drug Design</li>
+                  <li>Cell Culture</li>
+                  <li>NGS</li>
                 </ul>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Affiliations
+                  Core Competencies
                 </CardTitle>
-                <BrainCircuit className="h-4 w-4 text-muted-foreground" />
+                <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-sm font-medium">Stanford University</div>
-                <p className="text-xs text-muted-foreground">
-                  Professor of Physics
-                </p>
+                <ul className="list-disc list-inside text-sm text-muted-foreground">
+                    <li>Leadership</li>
+                    <li>Teamwork</li>
+                    <li>Communication</li>
+                </ul>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">Awards</CardTitle>
-                <Award className="h-4 w-4 text-muted-foreground" />
+                <CardTitle className="text-sm font-medium">Public Speaking</CardTitle>
+                <Presentation className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-sm font-medium">Physics Frontier Prize</div>
-                <p className="text-xs text-muted-foreground">2021</p>
+                <div className="text-sm font-medium">Adept Presenter</div>
+                <p className="text-xs text-muted-foreground">Engaging and effective communicator.</p>
               </CardContent>
             </Card>
           </div>
@@ -139,17 +134,10 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-base text-muted-foreground">
               <p>
-                "I believe that the most profound discoveries are made at the
-                boundaries of disciplines. My work is driven by a curiosity to
-                connect seemingly disparate fields—like quantum physics and
-                AI—to reveal a deeper, more unified understanding of the
-                universe."
+                "I am driven by a curiosity to unravel the complexities of neurodegenerative diseases and a passion for developing innovative therapeutic strategies. I believe in a collaborative, multi-disciplinary approach to solve the most pressing challenges in medical science."
               </p>
               <p>
-                "Science should be a collaborative and open endeavor. I am
-                committed to fostering an environment of intellectual freedom
-                and rigorous debate, where the best ideas can emerge,
-                regardless of their origin."
+                "My goal is to contribute to a research environment that fosters intellectual freedom, rigorous scientific inquiry, and a shared commitment to making a tangible impact on patient lives."
               </p>
             </CardContent>
           </Card>
@@ -159,21 +147,15 @@ export default function AboutPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 font-headline text-2xl">
                 <GraduationCap />
-                Teaching & Mentorship
+                Academic Background
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-base text-muted-foreground">
               <p>
-                As a professor at Stanford, Nuhash Gazi is dedicated to inspiring
-                the next generation of scientists. They teach graduate-level
-                courses in quantum field theory and computational physics.
+                As a distinguished graduate in the life sciences, I have built a strong academic foundation that equips me to tackle complex biological questions. My training has provided me with hands-on experience in cutting-edge laboratory techniques and data analysis methods.
               </p>
               <p>
-                Their mentorship extends beyond the classroom. They actively advises
-                a diverse group of Ph.D. students and postdoctoral fellows at
-                the QAIS lab, guiding them as they embark on their own research
-                journeys and empowering them to tackle science's biggest
-                questions.
+                I am committed to lifelong learning and mentorship, aiming to inspire and collaborate with the next generation of scientists to collectively advance our understanding of human health and disease.
               </p>
             </CardContent>
           </Card>
@@ -185,7 +167,7 @@ export default function AboutPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline text-2xl">
               <Milestone />
-              Career Highlights
+              Career Aspirations
             </CardTitle>
             <CardDescription>
               A timeline of key milestones and achievements.
@@ -195,34 +177,26 @@ export default function AboutPage() {
             <div className="relative border-l-2 border-primary pl-6">
               <div className="mb-8 ml-4">
                 <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border border-primary bg-background"></div>
-                <p className="text-sm font-semibold text-primary">2021</p>
-                <h3 className="text-lg font-semibold">Awarded Physics Frontier Prize</h3>
+                <p className="text-sm font-semibold text-primary">Present</p>
+                <h3 className="text-lg font-semibold">Seeking New Opportunities</h3>
                 <p className="text-muted-foreground">
-                  Recognized for innovative contributions to black hole thermodynamics.
+                  Looking to apply my skills in a challenging research role to make a significant impact in the field of life sciences.
                 </p>
               </div>
               <div className="mb-8 ml-4">
                 <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border border-primary bg-background"></div>
-                <p className="text-sm font-semibold text-primary">2018</p>
-                <h3 className="text-lg font-semibold">Founded the QAIS Lab</h3>
+                <p className="text-sm font-semibold text-primary">Graduate Studies</p>
+                <h3 className="text-lg font-semibold">Distinguished Life Sciences Graduate</h3>
                 <p className="text-muted-foreground">
-                  Established the Quantum & AI Systems lab at Stanford University.
-                </p>
-              </div>
-              <div className="mb-8 ml-4">
-                <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border border-primary bg-background"></div>
-                <p className="text-sm font-semibold text-primary">2015</p>
-                <h3 className="text-lg font-semibold">Published "The Reed Paradox"</h3>
-                <p className="text-muted-foreground">
-                  Introduced a groundbreaking theory challenging models of black hole information loss.
+                  Completed rigorous academic and practical training, graduating with distinction.
                 </p>
               </div>
               <div className="ml-4">
                 <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border border-primary bg-background"></div>
-                <p className="text-sm font-semibold text-primary">2012</p>
-                <h3 className="text-lg font-semibold">Ph.D. in Physics from MIT</h3>
+                <p className="text-sm font-semibold text-primary">Foundation</p>
+                <h3 className="text-lg font-semibold">Developed Strong Research Background</h3>
                 <p className="text-muted-foreground">
-                  Completed doctoral research on quantum gravity.
+                  Built a solid foundation in Alzheimer's Disease, drug design, cell culture, and NGS.
                 </p>
               </div>
             </div>

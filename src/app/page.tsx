@@ -27,6 +27,7 @@ import { ScrollAnimation } from '@/components/scroll-animation';
 import { TestimonialCard, Testimonial } from '@/components/testimonial-card';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Dna, FlaskConical, TestTube } from 'lucide-react';
 
 const testimonials: Testimonial[] = [
   {
@@ -65,21 +66,21 @@ const testimonials: Testimonial[] = [
 
 const expertiseAreas = [
   {
-    icon: <Atom className="h-10 w-10 text-primary" />,
-    title: 'Quantum Physics',
+    icon: <TestTube className="h-10 w-10 text-primary" />,
+    title: "Alzheimer's Disease",
     description:
-      'Investigating the fundamental nature of reality at the subatomic level.',
+      'Strong background in researching and understanding Alzheimer\'s Disease.',
   },
   {
-    icon: <BrainCircuit className="h-10 w-10 text-primary" />,
-    title: 'Artificial Intelligence',
-    description: 'Building intelligent systems to solve complex scientific problems.',
+    icon: <FlaskConical className="h-10 w-10 text-primary" />,
+    title: 'Drug Design & Discovery',
+    description: 'Experienced in the design and discovery of novel therapeutic drugs.',
   },
   {
-    icon: <Sigma className="h-10 w-10 text-primary" />,
-    title: 'Theoretical Modeling',
+    icon: <Dna className="h-10 w-10 text-primary" />,
+    title: 'NGS & Data Analysis',
     description:
-      'Developing mathematical frameworks to describe and predict physical phenomena.',
+      'Adept at next-generation sequencing (NGS) and analyzing complex biological data.',
   },
 ];
 
@@ -115,15 +116,13 @@ export default function Home() {
           <ScrollAnimation>
             <div className="z-10">
               <h1 className="font-headline text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
-                Nuhash Gazi
+                GAZI SALAH UDDIN NUHASH
               </h1>
               <p className="mt-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-2xl font-semibold text-transparent">
-                Theoretical Physicist & AI Researcher
+                Life Sciences Researcher
               </p>
               <p className="mt-6 max-w-prose text-lg leading-relaxed text-muted-foreground">
-                Exploring the intersection of quantum mechanics and artificial
-                intelligence to unravel the complexities of the universe and build
-                smarter systems.
+                Driven, ambitious and self-motivated researcher with a strong background in Alzheimer&apos;s Disease, drug design and discovery, and next-generation sequencing.
               </p>
               <div className="mt-8 flex justify-center gap-4 md:justify-start">
                 <Button asChild size="lg">
@@ -139,8 +138,8 @@ export default function Home() {
             <div className="absolute -inset-12 rounded-full bg-gradient-to-br from-primary/10 via-secondary/10 to-background blur-2xl"></div>
             <Avatar className="z-10 h-64 w-64 border-4 border-background shadow-lg md:h-80 md:w-80">
               <Image
-                src="https://picsum.photos/400/400"
-                alt="Nuhash Gazi"
+                src="https://firebasestudio.app/assets/project-fco-llm-preview/Gazi_Salah_Uddin.jpg"
+                alt="GAZI SALAH UDDIN NUHASH"
                 width={400}
                 height={400}
                 className="object-cover"
@@ -155,14 +154,10 @@ export default function Home() {
       <section id="about-snippet" className="bg-muted py-16 md:py-24">
         <ScrollAnimation className="container mx-auto max-w-4xl px-4 text-center md:px-6">
           <h2 className="font-headline text-3xl font-bold md:text-4xl">
-            Pioneering the Future of Science
+            A Passion for Discovery
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Nuhash Gazi is a leading theoretical physicist whose work has
-            significantly advanced our understanding of quantum gravity and its
-            connections to information theory. With a Ph.D. from the
-            Massachusetts Institute of Technology, their research has consistently
-            pushed the boundaries of conventional science.
+            Academically distinguished life sciences graduate with exceptional leadership abilities, adept at public speaking, teamwork, and effective communication. Looking to pursue further opportunities and make a difference within my field and harness my potential.
           </p>
           <Button asChild size="lg" className="mt-8" variant="outline">
             <Link href="/about">
@@ -224,8 +219,7 @@ export default function Home() {
               Areas of Expertise
             </h2>
             <p className="mx-auto mt-4 max-w-3xl text-center text-muted-foreground">
-              Specializing in the fields that bridge the gap between the known
-              and the unknown.
+              Specializing in fields that advance our understanding of complex diseases and therapeutic interventions.
             </p>
           </ScrollAnimation>
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
