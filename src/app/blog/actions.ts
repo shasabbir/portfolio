@@ -4,67 +4,24 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import type { Blog } from '@/types';
+import fs from 'fs/promises';
+import path from 'path';
 
-// Moved mockBlogs here to make it mutable within the server session
-const mockBlogs: Blog[] = [
-  {
-    slug: 'bridging-the-gap',
-    title: 'Bridging the Gap Between Theoretical Physics and AI',
-    excerpt:
-      'The intersection of theoretical physics and artificial intelligence is not just a fascinating academic exercise; it is a frontier of innovation that promises to reshape our world.',
-    imageUrl: 'https://picsum.photos/600/400',
-    imageHint: 'abstract technology',
-    date: '2024-05-15',
-    author: {
-      name: 'Dr. Evelyn Reed',
-      avatar: 'https://picsum.photos/100/100',
-    },
-    tags: ['AI', 'Physics', 'Innovation'],
-    content: `
-      <p>The intersection of theoretical physics and artificial intelligence is not just a fascinating academic exercise; it is a frontier of innovation that promises to reshape our world. For decades, these two fields have developed on parallel tracks, each with its own set of complex challenges and groundbreaking discoveries. Today, as we stand at a technological crossroads, the convergence of these disciplines is creating unprecedented opportunities for synergy and advancement.</p>
-      <p>Theoretical physics, the realm of quantum mechanics and cosmology, seeks to understand the fundamental laws of the universe. It deals with concepts that are often counterintuitive and mathematically intensive. AI, particularly deep learning, excels at finding patterns in vast datasets and solving complex, high-dimensional problems. By applying AI to the abstract problems of physics, we can potentially accelerate discoveries that would otherwise take generations of human effort.</p>
-      <h3 class="font-headline text-2xl font-bold my-4">Simulating the Universe</h3>
-      <p>One of the most exciting applications of AI in physics is in cosmological simulations. Creating a virtual universe is computationally expensive, but AI models can learn to generate these simulations with remarkable fidelity at a fraction of the cost. This allows us to test more theories, explore more "what-if" scenarios, and gain a deeper understanding of cosmic evolution.</p>
-      <p>Conversely, principles from physics, such as quantum computing, are inspiring new architectures for AI. The concept of a qubit, which can exist in multiple states simultaneously, opens the door to massively parallel computation that could solve problems currently intractable for even the most powerful supercomputers. This could revolutionize fields from drug discovery to materials science.</p>
-    `,
-  },
-  {
-    slug: 'the-quantum-mind',
-    title: 'The Quantum Mind: Consciousness and Computation',
-    excerpt:
-      'Could the mysterious nature of human consciousness be explained by the even more mysterious laws of quantum mechanics? This question has captivated thinkers for decades.',
-    imageUrl: 'https://picsum.photos/600/400',
-    imageHint: 'quantum brain',
-    date: '2024-04-22',
-    author: {
-      name: 'Dr. Evelyn Reed',
-      avatar: 'https://picsum.photos/100/100',
-    },
-    tags: ['Quantum Physics', 'Consciousness', 'Neuroscience'],
-    content: `
-      <p>Could the mysterious nature of human consciousness be explained by the even more mysterious laws of quantum mechanics? This question, once relegated to the fringes of science and philosophy, is gaining new traction as our understanding of both the brain and quantum systems deepens. The "quantum mind" or "quantum consciousness" hypothesis proposes that classical mechanics cannot fully explain consciousness, and that quantum-mechanical phenomena, such as entanglement and superposition, may play a direct and crucial role in the brain's functions.</p>
-      <p>This is a bold and controversial idea. The brain is a warm, wet, and noisy environment, seemingly ill-suited for the delicate quantum states that are typically observed only in highly controlled, isolated laboratory settings at near-absolute-zero temperatures. The challenge of "decoherence"—the process by which a quantum system loses its quantum properties and behaves classically due to interaction with its environment—is a major hurdle for any quantum theory of the mind.</p>
-    `,
-  },
-  {
-    slug: 'ai-ethics-in-research',
-    title: 'Navigating the Ethical Landscape of AI in Scientific Research',
-    excerpt:
-      'As we integrate AI more deeply into the scientific process, we must confront a new set of ethical challenges that require careful consideration and proactive governance.',
-    imageUrl: 'https://picsum.photos/600/400',
-    imageHint: 'ethics technology',
-    date: '2024-03-10',
-    author: {
-      name: 'Dr. Evelyn Reed',
-      avatar: 'https://picsum.photos/100/100',
-    },
-    tags: ['Ethics', 'AI', 'Research'],
-    content: `
-      <p>The integration of artificial intelligence into scientific research is a double-edged sword. On one hand, it offers the potential to accelerate discovery, analyze unprecedented volumes of data, and solve problems that have long been beyond our grasp. On the other, it raises profound ethical questions about bias, transparency, accountability, and the very nature of scientific inquiry. As we delegate more cognitive tasks to algorithms, we must establish a robust ethical framework to guide their use.</p>
-      <p>One of the most pressing concerns is algorithmic bias. AI models are trained on data, and if that data reflects existing societal or historical biases, the AI will learn and perpetuate them. In medical research, an AI trained primarily on data from one demographic might make less accurate predictions for others, exacerbating health disparities. In criminal justice, biased algorithms can lead to discriminatory outcomes. Ensuring fairness and equity in AI-driven research requires careful dataset curation, bias detection, and mitigation strategies.</p>
-    `,
-  },
-];
+const dataFilePath = path.join(process.cwd(), 'src', 'lib', 'blog-data.json');
+
+async function readBlogs(): Promise<Blog[]> {
+  try {
+    const fileContent = await fs.readFile(dataFilePath, 'utf-8');
+    return JSON.parse(fileContent);
+  } catch (error) {
+    // If the file doesn't exist, return an empty array
+    return [];
+  }
+}
+
+async function writeBlogs(blogs: Blog[]): Promise<void> {
+  await fs.writeFile(dataFilePath, JSON.stringify(blogs, null, 2), 'utf-8');
+}
 
 
 const blogSchema = z.object({
@@ -82,12 +39,14 @@ type FormState = {
   slug?: string;
 };
 
-export async function getBlogs() {
-    return mockBlogs;
+export async function getBlogs(): Promise<Blog[]> {
+    const blogs = await readBlogs();
+    return blogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export async function getBlogBySlug(slug: string) {
-    return mockBlogs.find((p) => p.slug === slug);
+export async function getBlogBySlug(slug: string): Promise<Blog | undefined> {
+    const blogs = await readBlogs();
+    return blogs.find((p) => p.slug === slug);
 }
 
 export async function saveBlogPost(
@@ -105,7 +64,8 @@ export async function saveBlogPost(
       success: false,
     };
   }
-
+  
+  const blogs = await readBlogs();
   const { title, slug, ...postData } = validatedFields.data;
   const newSlug =
     slug ||
@@ -117,9 +77,9 @@ export async function saveBlogPost(
 
   if (slug) {
     // Update existing post
-    const postIndex = mockBlogs.findIndex((p) => p.slug === slug);
+    const postIndex = blogs.findIndex((p) => p.slug === slug);
     if (postIndex !== -1) {
-      mockBlogs[postIndex] = { ...mockBlogs[postIndex], title, ...postData, slug };
+      blogs[postIndex] = { ...blogs[postIndex], title, ...postData, slug };
     }
   } else {
     // Add new post
@@ -134,8 +94,10 @@ export async function saveBlogPost(
       },
       tags: ['New', 'AI'], // Default tags for new posts
     };
-    mockBlogs.unshift(newPost);
+    blogs.unshift(newPost);
   }
+
+  await writeBlogs(blogs);
 
   revalidatePath('/blog');
   revalidatePath(`/blog/${newSlug}`);
@@ -148,9 +110,11 @@ export async function saveBlogPost(
 }
 
 export async function deleteBlogPost(slug: string) {
-  const postIndex = mockBlogs.findIndex((p) => p.slug === slug);
+  let blogs = await readBlogs();
+  const postIndex = blogs.findIndex((p) => p.slug === slug);
   if (postIndex !== -1) {
-    mockBlogs.splice(postIndex, 1);
+    blogs.splice(postIndex, 1);
+    await writeBlogs(blogs);
   }
   revalidatePath('/blog');
   return {
