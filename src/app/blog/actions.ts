@@ -1,7 +1,10 @@
+
 'use server';
 
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
+import { mockBlogs } from '@/lib/data';
+import type { Blog } from '@/types';
 
 const blogSchema = z.object({
   title: z.string().min(1, 'Title is required.'),
@@ -15,6 +18,7 @@ const blogSchema = z.object({
 type FormState = {
   message: string;
   success: boolean;
+  slug?: string;
 };
 
 export async function saveBlogPost(
@@ -26,20 +30,44 @@ export async function saveBlogPost(
   );
 
   if (!validatedFields.success) {
+    const firstError = Object.values(validatedFields.error.flatten().fieldErrors)[0]?.[0];
     return {
-      message: validatedFields.error.flatten().fieldErrors.title?.[0] || 'Invalid data.',
+      message: firstError || 'Invalid data. Please check your inputs.',
       success: false,
     };
   }
 
-  const { title, slug } = validatedFields.data;
+  const { title, slug, ...postData } = validatedFields.data;
   const newSlug =
     slug ||
-    title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+    title
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w-]+/g, '');
 
-  console.log('Saving blog post:', { ...validatedFields.data, slug: newSlug });
-  // In a real app, you'd save this to a database.
-  // For now, we just log it.
+  const newPost: Blog = {
+    ...postData,
+    title,
+    slug: newSlug,
+    date: new Date().toISOString(),
+    author: { // Using a default author for new posts
+      name: 'Dr. Evelyn Reed',
+      avatar: 'https://picsum.photos/100/100',
+    },
+    tags: ['New', 'AI'], // Default tags for new posts
+  };
+
+  if (slug) {
+    // Update existing post
+    const postIndex = mockBlogs.findIndex((p) => p.slug === slug);
+    if (postIndex !== -1) {
+      mockBlogs[postIndex] = { ...mockBlogs[postIndex], ...newPost, slug: slug }; // Ensure slug doesn't change on edit
+    }
+  } else {
+    // Add new post
+    mockBlogs.unshift(newPost);
+  }
 
   revalidatePath('/blog');
   revalidatePath(`/blog/${newSlug}`);
@@ -47,12 +75,15 @@ export async function saveBlogPost(
   return {
     message: `Successfully ${slug ? 'updated' : 'created'} blog post.`,
     success: true,
+    slug: newSlug,
   };
 }
 
 export async function deleteBlogPost(slug: string) {
-  console.log('Deleting blog post:', slug);
-  // In a real app, you'd delete this from a database.
+  const postIndex = mockBlogs.findIndex((p) => p.slug === slug);
+  if (postIndex !== -1) {
+    mockBlogs.splice(postIndex, 1);
+  }
   revalidatePath('/blog');
   return {
     message: 'Successfully deleted blog post.',
