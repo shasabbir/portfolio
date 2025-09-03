@@ -1,4 +1,7 @@
-import { notFound } from 'next/navigation';
+
+'use client';
+
+import { notFound, useRouter } from 'next/navigation';
 import { mockBlogs } from '@/lib/data';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
@@ -7,19 +10,49 @@ import { BlogForm } from '@/components/blog-form';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
 import Link from 'next/link';
-
-export async function generateStaticParams() {
-  return mockBlogs.map((post) => ({
-    slug: post.slug,
-  }));
-}
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { useTransition } from 'react';
+import { deleteBlogPost } from '../actions';
+import { useToast } from '@/hooks/use-toast';
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const post = mockBlogs.find((p) => p.slug === params.slug);
+  const router = useRouter();
+  const { toast } = useToast();
+  const [isPending, startTransition] = useTransition();
 
   if (!post) {
     notFound();
   }
+  
+  const handleDelete = () => {
+    startTransition(async () => {
+      const result = await deleteBlogPost(post.slug);
+      if (result.success) {
+        toast({
+          title: 'Post Deleted',
+          description: result.message,
+        });
+        router.push('/blog');
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: result.message,
+        });
+      }
+    });
+  };
 
   return (
     <article className="container mx-auto max-w-3xl py-12 md:py-20">
@@ -30,11 +63,28 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </h1>
           <div className="flex items-center gap-2">
             <BlogForm post={post} />
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/blog">
-                <Trash2 className="text-destructive" />
-              </Link>
-            </Button>
+             <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Trash2 className="text-destructive" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    this blog post.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                   <AlertDialogAction onClick={handleDelete} disabled={isPending}>
+                    {isPending ? 'Deleting...' : 'Delete'}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
         <div className="flex items-center space-x-4 text-sm text-muted-foreground">

@@ -1,3 +1,6 @@
+
+'use client';
+
 import type { Blog } from '@/types';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,12 +15,47 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { BlogForm } from './blog-form';
 import { Button } from './ui/button';
 import { Trash2 } from 'lucide-react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { deleteBlogPost } from '@/app/blog/actions';
+import { useToast } from '@/hooks/use-toast';
+import { useTransition } from 'react';
 
 interface BlogCardProps {
   post: Blog;
 }
 
 export function BlogCard({ post }: BlogCardProps) {
+    const { toast } = useToast();
+  const [isPending, startTransition] = useTransition();
+
+  const handleDelete = () => {
+    startTransition(async () => {
+      const result = await deleteBlogPost(post.slug);
+      if (result.success) {
+        toast({
+          title: 'Post Deleted',
+          description: result.message,
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: result.message,
+        });
+      }
+    });
+  };
+
   return (
     <Card className="flex h-full flex-col overflow-hidden">
       <Link href={`/blog/${post.slug}`} className="flex h-full flex-col">
@@ -54,9 +92,28 @@ export function BlogCard({ post }: BlogCardProps) {
           </div>
           <div className="flex items-center gap-1">
             <BlogForm post={post} />
-            <Button variant="ghost" size="icon" className="h-8 w-8">
-              <Trash2 className="h-4 w-4 text-destructive" />
-            </Button>
+             <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <Trash2 className="h-4 w-4 text-destructive" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    this blog post.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDelete} disabled={isPending}>
+                    {isPending ? 'Deleting...' : 'Delete'}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
       </CardFooter>

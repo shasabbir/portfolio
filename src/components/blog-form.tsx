@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -14,28 +13,45 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { Loader2, Edit } from 'lucide-react';
 import type { Blog } from '@/types';
+import { useActionState } from 'react';
+import { saveBlogPost } from '@/app/blog/actions';
+import { useToast } from '@/hooks/use-toast';
 
 interface BlogFormProps {
   post?: Blog;
   triggerButton?: React.ReactNode;
 }
 
+const initialState = {
+  message: '',
+  success: false,
+};
+
 export function BlogForm({ post, triggerButton }: BlogFormProps) {
   const [open, setOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [state, formAction, isPending] = useActionState(saveBlogPost, initialState);
+  const { toast } = useToast();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-    // Here you would typically call a server action to save the data
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log('Form submitted');
-    setIsSubmitting(false);
-    setOpen(false);
-  };
+   useEffect(() => {
+    if (state.message) {
+      if (state.success) {
+        toast({
+          title: post ? 'Post Updated!' : 'Post Created!',
+          description: state.message,
+        });
+        setOpen(false);
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description: state.message,
+        });
+      }
+    }
+  }, [state, toast, post]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -59,7 +75,8 @@ export function BlogForm({ post, triggerButton }: BlogFormProps) {
               : 'Create a new blog post to share your thoughts.'}
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form action={formAction} className="space-y-4">
+           {post && <input type="hidden" name="slug" value={post.slug} />}
           <div className="space-y-1">
             <Label htmlFor="title">Title</Label>
             <Input id="title" name="title" defaultValue={post?.title} />
@@ -97,8 +114,8 @@ export function BlogForm({ post, triggerButton }: BlogFormProps) {
             <Button variant="outline" onClick={() => setOpen(false)} type="button">
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            <Button type="submit" disabled={isPending}>
+              {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {post ? 'Save Changes' : 'Create Post'}
             </Button>
           </DialogFooter>
