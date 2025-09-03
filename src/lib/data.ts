@@ -1,4 +1,5 @@
-import { Publication, Blog } from '@/types';
+
+import { Publication } from '@/types';
 
 export const mockPublications: Publication[] = [
   {
