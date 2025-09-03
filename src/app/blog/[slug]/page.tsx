@@ -9,7 +9,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { BlogForm } from '@/components/blog-form';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
-import Link from 'next/link';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,8 +24,8 @@ import { useTransition } from 'react';
 import { deleteBlogPost } from '../actions';
 import { useToast } from '@/hooks/use-toast';
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = mockBlogs.find((p) => p.slug === params.slug);
+export default function BlogPostPage({ params: { slug } }: { params: { slug: string } }) {
+  const post = mockBlogs.find((p) => p.slug === slug);
   const router = useRouter();
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
