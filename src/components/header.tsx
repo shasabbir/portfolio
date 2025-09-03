@@ -41,16 +41,15 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center px-4 md:px-6">
-        <div className="mr-4 hidden pl-6 md:flex">
+        {/* Left side: Logo/Name */}
+        <div className="flex items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold">Dr. Evelyn Reed</span>
+            <span className="font-bold sm:inline-block">Dr. Evelyn Reed</span>
           </Link>
-          <nav className="flex items-center space-x-1">
-            {renderNavLinks()}
-          </nav>
         </div>
-
-        <div className="md:hidden">
+        
+        {/* Mobile Menu Trigger */}
+        <div className="md:hidden ml-auto">
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -64,12 +63,45 @@ export function Header() {
                   <span className="font-bold text-xl">Dr. Evelyn Reed</span>
                 </Link>
                 {renderNavLinks(true)}
+                 <div className="flex flex-wrap gap-2 pt-4 border-t">
+                    <Button variant="ghost" size="icon" asChild>
+                        <Link href="#" aria-label="ORCID">
+                        <OrcidIcon className="h-5 w-5" />
+                        </Link>
+                    </Button>
+                    <Button variant="ghost" size="icon" asChild>
+                        <Link href="#" aria-label="Google Scholar">
+                        <GoogleScholarIcon className="h-5 w-5" />
+                        </Link>
+                    </Button>
+                    <Button variant="ghost" size="icon" asChild>
+                        <Link href="#" aria-label="GitHub">
+                        <Github className="h-5 w-5" />
+                        </Link>
+                    </Button>
+                    <Button variant="ghost" size="icon" asChild>
+                        <Link href="#" aria-label="LinkedIn">
+                        <Linkedin className="h-5 w-5" />
+                        </Link>
+                    </Button>
+                    <Button variant="ghost" size="icon" asChild>
+                        <Link href="#" aria-label="RSS Feed">
+                        <Rss className="h-5 w-5" />
+                        </Link>
+                    </Button>
+                </div>
               </div>
             </SheetContent>
           </Sheet>
         </div>
 
-        <div className="flex flex-1 items-center justify-end space-x-2">
+        {/* Center: Desktop Navigation */}
+        <nav className="hidden flex-1 items-center justify-center space-x-1 md:flex">
+          {renderNavLinks()}
+        </nav>
+
+        {/* Right side: Social Icons */}
+        <div className="hidden items-center justify-end space-x-2 md:flex">
           <Button variant="ghost" size="icon" asChild>
             <Link href="#" aria-label="ORCID">
               <OrcidIcon className="h-5 w-5" />
