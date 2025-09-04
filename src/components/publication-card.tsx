@@ -80,10 +80,6 @@ export function PublicationCard({ publication }: PublicationCardProps) {
                   </Link>
                 </Button>
               )}
-              <Button variant="ghost" size="sm">
-                <Edit className="mr-2 h-4 w-4" />
-                Edit
-              </Button>
             </div>
           </CardFooter>
     </Card>

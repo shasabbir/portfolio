@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Linkedin, Menu, Rss } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GoogleScholarIcon, OrcidIcon } from './icons';
@@ -47,22 +47,22 @@ function SocialIcons() {
     return (
         <>
             <Button variant="ghost" size="icon" asChild>
-                <Link href="#" aria-label="ORCID">
+                <Link href="https://orcid.org/" target="_blank" rel="noopener noreferrer" aria-label="ORCID">
                     <OrcidIcon className="h-5 w-5" />
                 </Link>
             </Button>
             <Button variant="ghost" size="icon" asChild>
-                <Link href="#" aria-label="Google Scholar">
+                <Link href="https://scholar.google.com/" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar">
                     <GoogleScholarIcon className="h-5 w-5" />
                 </Link>
             </Button>
             <Button variant="ghost" size="icon" asChild>
-                <Link href="#" aria-label="LinkedIn">
+                <Link href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                     <Linkedin className="h-5 w-5" />
                 </Link>
             </Button>
             <Button variant="ghost" size="icon" asChild>
-                <Link href="#" aria-label="RSS Feed">
+                <Link href="/blog/rss.xml" aria-label="RSS Feed">
                     <Rss className="h-5 w-5" />
                 </Link>
             </Button>
@@ -99,10 +99,12 @@ export function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left">
-                <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
-                <SheetDescription className="sr-only">A menu of navigation links and social media profiles.</SheetDescription>
+                <SheetHeader>
+                  <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                  <SheetDescription className="sr-only">A menu of navigation links and social media profiles.</SheetDescription>
+                </SheetHeader>
                 <div className="flex flex-col space-y-4 p-4">
-                  <Link href="/" className="mb-4">
+                  <Link href="/" className="mb-4" onClick={() => setIsMobileMenuOpen(false)}>
                     <span className="text-xl font-bold">Nuhash Gazi</span>
                   </Link>
                   <div className="flex flex-col space-y-2">
