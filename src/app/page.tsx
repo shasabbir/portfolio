@@ -247,21 +247,27 @@ export default function Home() {
           </h2>
           <div className="mt-8 flex flex-wrap justify-center gap-6 md:gap-8">
             <Link
-              href="#"
+              href="https://orcid.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
             >
               <OrcidIcon className="h-6 w-6" />
               <span className="font-medium">ORCID</span>
             </Link>
             <Link
-              href="#"
+              href="https://scholar.google.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
             >
               <GoogleScholarIcon className="h-6 w-6" />
               <span className="font-medium">Google Scholar</span>
             </Link>
             <Link
-              href="#"
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
             >
               <Linkedin className="h-6 w-6" />

@@ -10,7 +10,6 @@ export const mockPublications: Publication[] = [
     year: '2023',
     publicationType: 'Journal',
     doi: '10.1162/jocn_a_01234',
-    pdf: '#',
     abstract:
       'This paper explores the theoretical framework for how quantum entanglement could play a functional role in the brain, proposing a new model for long-range neural communication.',
     citation: {
@@ -37,7 +36,6 @@ export const mockPublications: Publication[] = [
     year: '2021',
     publicationType: 'Journal',
     doi: '10.1038/s42256-021-00456-7',
-    pdf: '#',
     abstract:
       'Using methods from topological data analysis, we demonstrate a new technique to visualize and understand the internal representational geometry of deep neural networks.',
   },
