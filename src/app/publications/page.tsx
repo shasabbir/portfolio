@@ -18,7 +18,7 @@ export default function PublicationsPage() {
           data-ai-hint="abstract research"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-        <div className="container relative mx-auto flex h-full max-w-5xl flex-col justify-end px-4 pb-12 text-background md:px-6">
+        <div className="container relative mx-auto flex h-full max-w-5xl flex-col justify-end px-4 pb-12 md:px-6">
           <ScrollAnimation>
             <h1 className="font-headline text-4xl font-bold tracking-tight text-foreground md:text-5xl">
               Publications
