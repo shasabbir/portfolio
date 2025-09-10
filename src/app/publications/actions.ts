@@ -1,11 +1,9 @@
 'use server';
 
 import {
-  extractPublicationMetadata,
   ExtractPublicationMetadataOutput,
 } from '@/ai/flows/publication-citation-from-text';
 import {
-  formatCitation,
   FormatCitationInput,
 } from '@/ai/flows/publication-display-auto-format';
 import { z } from 'zod';
@@ -34,12 +32,29 @@ export async function handleParseCitation(
   }
 
   try {
-    const result = await extractPublicationMetadata({
-      citationText: validatedFields.data.citation,
-    });
+    const response = await fetch(
+      new URL(
+        '/api/extractPublicationMetadataFlow',
+        process.env.NEXT_PUBLIC_API_URL
+      ),
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          citationText: validatedFields.data.citation,
+        }),
+      }
+    );
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+    const result = await response.json();
     return { data: result };
-  } catch (e) {
-    return { error: 'Failed to parse citation. Please try again.' };
+  } catch (e: any) {
+    return { error: e.message || 'Failed to parse citation. Please try again.' };
   }
 }
 
@@ -56,9 +71,26 @@ export async function handleFormatCitation(
   }
 
   try {
-    const result = await formatCitation(data);
+    const response = await fetch(
+      new URL(
+        '/api/formatCitationFlow',
+        process.env.NEXT_PUBLIC_API_URL
+      ),
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+    const result = await response.json();
     return { formatted: result.formattedCitation };
-  } catch (e) {
-    return { error: 'Failed to format citation. Please try again.' };
+  } catch (e: any) {
+    return { error: e.message || 'Failed to format citation. Please try again.' };
   }
 }

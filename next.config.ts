@@ -3,7 +3,6 @@ import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
-  output: 'export',
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -60,6 +59,16 @@ const nextConfig: NextConfig = {
         hostname: 'i.postimg.cc',
       }
     ],
+  },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/api/:path*',
+          destination: 'http://127.0.0.1:3400/api/:path*',
+        },
+      ],
+    };
   },
 };
 
