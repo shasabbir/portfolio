@@ -58,9 +58,9 @@ export default function AboutPage() {
         </ScrollAnimation>
 
         <ScrollAnimation className="md:col-span-2" delay={200}>
-          <Card>
+          <Card className="bg-card/50">
             <CardHeader>
-              <CardTitle className="font-headline text-2xl">
+              <CardTitle className="font-headline text-2xl text-primary">
                 Biography
               </CardTitle>
             </CardHeader>
@@ -86,7 +86,7 @@ export default function AboutPage() {
                 <CardTitle className="text-sm font-medium">
                   Research Skills
                 </CardTitle>
-                <FlaskConical className="h-4 w-4 text-muted-foreground" />
+                <FlaskConical className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside text-sm text-muted-foreground">
@@ -102,7 +102,7 @@ export default function AboutPage() {
                 <CardTitle className="text-sm font-medium">
                   Core Competencies
                 </CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
+                <Users className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside text-sm text-muted-foreground">
@@ -115,7 +115,7 @@ export default function AboutPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">Public Speaking</CardTitle>
-                <Presentation className="h-4 w-4 text-muted-foreground" />
+                <Presentation className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
                 <div className="text-sm font-medium">Adept Presenter</div>
@@ -128,9 +128,9 @@ export default function AboutPage() {
 
       <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2">
         <ScrollAnimation delay={200}>
-          <Card className="h-full">
+          <Card className="h-full bg-accent/20">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 font-headline text-2xl">
+              <CardTitle className="flex items-center gap-2 font-headline text-2xl text-primary">
                 <Lightbulb />
                 Research Philosophy
               </CardTitle>
@@ -146,9 +146,9 @@ export default function AboutPage() {
           </Card>
         </ScrollAnimation>
         <ScrollAnimation delay={400}>
-          <Card className="h-full">
+          <Card className="h-full bg-accent/20">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 font-headline text-2xl">
+              <CardTitle className="flex items-center gap-2 font-headline text-2xl text-primary">
                 <GraduationCap />
                 Academic Background
               </CardTitle>
@@ -166,9 +166,9 @@ export default function AboutPage() {
       </div>
 
       <ScrollAnimation className="mt-16" delay={200}>
-        <Card>
+        <Card className="bg-card/50">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 font-headline text-2xl">
+            <CardTitle className="flex items-center gap-2 font-headline text-2xl text-primary">
               <Milestone />
               Career Aspirations
             </CardTitle>
@@ -179,7 +179,7 @@ export default function AboutPage() {
           <CardContent>
             <div className="relative border-l-2 border-primary pl-6">
               <div className="mb-8 ml-4">
-                <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border border-primary bg-background"></div>
+                <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border-4 border-primary bg-background ring-4 ring-primary/20"></div>
                 <p className="text-sm font-semibold text-primary">Present</p>
                 <h3 className="text-lg font-semibold">Seeking New Opportunities</h3>
                 <p className="text-muted-foreground">
@@ -187,7 +187,7 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="mb-8 ml-4">
-                <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border border-primary bg-background"></div>
+                <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border-4 border-primary bg-background ring-4 ring-primary/20"></div>
                 <p className="text-sm font-semibold text-primary">Graduate Studies</p>
                 <h3 className="text-lg font-semibold">Distinguished Life Sciences Graduate</h3>
                 <p className="text-muted-foreground">
@@ -195,7 +195,7 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="ml-4">
-                <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border border-primary bg-background"></div>
+                <div className="absolute -left-[11px] mt-1.5 h-5 w-5 rounded-full border-4 border-primary bg-background ring-4 ring-primary/20"></div>
                 <p className="text-sm font-semibold text-primary">Foundation</p>
                 <h3 className="text-lg font-semibold">Developed Strong Research Background</h3>
                 <p className="text-muted-foreground">
