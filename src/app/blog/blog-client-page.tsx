@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import type { Blog } from '@/types';
 import { ScrollAnimation } from '@/components/scroll-animation';
 import Image from 'next/image';
@@ -14,12 +14,17 @@ import { BookPlus } from 'lucide-react';
 export default function BlogClientPage({ posts: initialPosts }: { posts: Blog[] }) {
   const [posts, setPosts] = useState(initialPosts);
   const [featuredPost, setFeaturedPost] = useState(posts[0]);
+  const featuredPostRef = useRef<HTMLDivElement>(null);
+
 
   const sidePosts = posts.filter(p => p.slug !== featuredPost.slug).slice(0, 3);
   const otherPosts = posts.filter(p => p.slug !== featuredPost.slug).slice(3);
   
   const handlePostSelect = (post: Blog) => {
     setFeaturedPost(post);
+    if (window.innerWidth < 1024 && featuredPostRef.current) {
+        featuredPostRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -44,7 +49,7 @@ export default function BlogClientPage({ posts: initialPosts }: { posts: Blog[] 
       <main className="mt-12">
         <ScrollAnimation>
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-            <section className="lg:col-span-2">
+            <section ref={featuredPostRef} className="lg:col-span-2">
               {featuredPost && (
                 <div>
                   <Link href={`/blog/${featuredPost.slug}`}>
