@@ -20,7 +20,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
     <div className="testimonial-card-wrapper transition-transform duration-500">
       <Card className="testimonial-card h-full overflow-hidden border-0 bg-card shadow-none transition-all duration-500">
         <CardContent className="grid h-full grid-cols-1 gap-4 p-0 md:grid-cols-2 md:gap-8">
-          <div className="image-container relative h-64 w-full md:h-full">
+          <div className="image-container relative h-64 w-full md:h-96">
             <Image
               src={testimonial.image}
               alt={testimonial.name}
