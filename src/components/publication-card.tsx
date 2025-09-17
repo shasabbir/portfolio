@@ -12,9 +12,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { FileText, Link as LinkIcon, Edit, BookOpen, FileCode2 } from 'lucide-react';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 interface PublicationCardProps {
   publication: Publication;
+  className?: string;
 }
 
 const publicationTypeIcons = {
@@ -23,9 +25,9 @@ const publicationTypeIcons = {
   Preprint: <FileCode2 className="h-6 w-6 text-primary" />,
 };
 
-export function PublicationCard({ publication }: PublicationCardProps) {
+export function PublicationCard({ publication, className }: PublicationCardProps) {
   return (
-    <Card className="flex flex-col">
+    <Card className={cn("flex flex-col", className)}>
       <div className="flex">
         <div className="flex-grow">
           <CardHeader>

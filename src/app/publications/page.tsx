@@ -5,6 +5,13 @@ import { PublicationForm } from '@/components/publication-form';
 import { mockPublications } from '@/lib/data';
 import { BookPlus } from 'lucide-react';
 import { ScrollAnimation } from '@/components/scroll-animation';
+import { cn } from '@/lib/utils';
+
+const cardColors = [
+  'bg-card',
+  'bg-muted/50',
+  'bg-accent/50',
+];
 
 export default function PublicationsPage() {
   return (
@@ -45,8 +52,8 @@ export default function PublicationsPage() {
 
         <main className="mt-8">
           <div className="space-y-8">
-            {mockPublications.map((pub) => (
-              <PublicationCard key={pub.id} publication={pub} />
+            {mockPublications.map((pub, index) => (
+              <PublicationCard key={pub.id} publication={pub} className={cardColors[index % cardColors.length]} />
             ))}
           </div>
         </main>
