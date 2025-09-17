@@ -134,15 +134,29 @@ export default function Home() {
             </div>
           </ScrollAnimation>
           <ScrollAnimation delay={200} className="relative flex justify-center">
-            <div className="absolute inset-0 -top-10 -left-10 z-0">
-                <svg viewBox="0 0 498 493" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-auto w-full scale-125 text-primary/30 opacity-50 blur-sm">
-                    <path d="M439.467 121.506C478.43 186.29 486.236 268.533 460.835 342.33C435.435 416.126 377.94 476.321 308.204 492.651C238.468 508.981 161.464 480.363 103.543 424.3C45.6219 368.237 9.87321 289.875 3.32831 211.215C-3.21659 132.555 49.6738 56.4023 115.352 23.0805C181.03 -10.2413 255.494 2.1287 319.223 37.336C382.952 72.5433 414.281 120.485 439.467 121.506Z" fill="currentColor"/>
-                </svg>
+            <div className="absolute inset-0 z-0 scale-125">
+              <svg
+                viewBox="0 0 500 500"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-auto w-full text-primary/10 blur-xl"
+              >
+                <path
+                  fill="currentColor"
+                  d="M441.9,134.3C471.2,192.3,441.4,269.8,392.5,324.5C343.6,379.2,275.6,411.1,208.5,416.8C141.4,422.5,75.2,402,36,353.9C-3.2,305.8,-15.5,230.1,23.1,173.1C61.7,116.1,157.6,77.8,229.3,55.3C301,32.8,348.5,26.1,388,60.9C427.5,95.7,412.6,76.3,441.9,134.3Z"
+                />
+              </svg>
             </div>
             <div className="absolute inset-0 z-0">
-                <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" className="h-auto w-full text-secondary">
-                  <path fill="currentColor" d="M441.9,134.3C471.2,192.3,441.4,269.8,392.5,324.5C343.6,379.2,275.6,411.1,208.5,416.8C141.4,422.5,75.2,402,36,353.9C-3.2,305.8,-15.5,230.1,23.1,173.1C61.7,116.1,157.6,77.8,229.3,55.3C301,32.8,348.5,26.1,388,60.9C427.5,95.7,412.6,76.3,441.9,134.3Z" />
-                </svg>
+              <svg
+                viewBox="0 0 500 500"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-auto w-full text-secondary"
+              >
+                <path
+                  fill="currentColor"
+                  d="M451.3,277.6c-2.3,63.9-52,118.4-106,146.4c-54.1,28-112.5,29.4-162.3,4.2c-49.8-25.2-91-77.1-105.7-133.3C62.6,241.6,79,176.1,120,132.8c41-43.3,106.7-64.8,162.8-55.9C338.9,85.8,385.9,135,420.2,185.3C454.5,235.5,453.6,213.7,451.3,277.6z"
+                />
+              </svg>
             </div>
             <Avatar className="z-10 h-64 w-64 border-4 border-background shadow-lg md:h-80 md:w-80">
               <Image
@@ -295,3 +309,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
