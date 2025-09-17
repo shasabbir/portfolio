@@ -8,9 +8,9 @@ import { ScrollAnimation } from '@/components/scroll-animation';
 import { cn } from '@/lib/utils';
 
 const cardColors = [
-  'bg-card',
-  'bg-muted/50',
-  'bg-accent/50',
+  'bg-card-vibe-1',
+  'bg-card-vibe-2',
+  'bg-card-vibe-3',
 ];
 
 export default function PublicationsPage() {

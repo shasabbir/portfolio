@@ -12,6 +12,9 @@ body {
     --foreground: 210 40% 10%;
     --card: 0 0% 100%;
     --card-foreground: 210 40% 10%;
+    --card-vibe-1: 0 80% 96%; /* Light Red */
+    --card-vibe-2: 210 80% 96%; /* Light Blue */
+    --card-vibe-3: 50 80% 96%; /* Light Yellow */
     --popover: 0 0% 100%;
     --popover-foreground: 210 40% 10%;
     --primary: 191 70% 30%;
@@ -47,6 +50,9 @@ body {
     --foreground: 180 20% 96%;
     --card: 195 50% 12%;
     --card-foreground: 180 20% 96%;
+    --card-vibe-1: 0 40% 15%; /* Dark Red */
+    --card-vibe-2: 210 40% 15%; /* Dark Blue */
+    --card-vibe-3: 45 40% 15%; /* Dark Yellow */
     --popover: 195 50% 8%;
     --popover-foreground: 180 20% 96%;
     --primary: 191 60% 50%;

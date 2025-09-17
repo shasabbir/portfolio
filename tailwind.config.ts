@@ -21,6 +21,9 @@ export default {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
+          'vibe-1': 'hsl(var(--card-vibe-1))',
+          'vibe-2': 'hsl(var(--card-vibe-2))',
+          'vibe-3': 'hsl(var(--card-vibe-3))',
         },
         popover: {
           DEFAULT: 'hsl(var(--popover))',
