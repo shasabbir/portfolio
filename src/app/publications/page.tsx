@@ -9,19 +9,32 @@ import { mockPublications } from '@/lib/data';
 import { BookPlus } from 'lucide-react';
 import { ScrollAnimation } from '@/components/scroll-animation';
 import { Button } from '@/components/ui/button';
+import type { Publication } from '@/types';
 
 const PUBLICATIONS_PER_PAGE = 3;
 
 export default function PublicationsPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(mockPublications.length / PUBLICATIONS_PER_PAGE);
+  const [filter, setFilter] = useState('All');
 
+  const publicationTypes = ['All', ...Array.from(new Set(mockPublications.map(p => p.publicationType)))];
+
+  const filteredPublications = mockPublications.filter(pub => 
+    filter === 'All' || pub.publicationType === filter
+  );
+
+  const totalPages = Math.ceil(filteredPublications.length / PUBLICATIONS_PER_PAGE);
   const startIndex = (currentPage - 1) * PUBLICATIONS_PER_PAGE;
   const endIndex = startIndex + PUBLICATIONS_PER_PAGE;
-  const currentPublications = mockPublications.slice(startIndex, endIndex);
+  const currentPublications = filteredPublications.slice(startIndex, endIndex);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+  };
+  
+  const handleFilterChange = (type: string) => {
+    setFilter(type);
+    setCurrentPage(1); // Reset to first page when filter changes
   };
 
   const cardColors = [
@@ -56,7 +69,18 @@ export default function PublicationsPage() {
       </section>
 
       <div className="container mx-auto max-w-5xl px-4 py-12 md:px-6 md:py-20">
-        <header className="flex items-center justify-end">
+        <header className="flex flex-col items-center justify-between gap-4 md:flex-row">
+           <div className="flex flex-wrap items-center gap-2">
+            {publicationTypes.map(type => (
+              <Button
+                key={type}
+                variant={filter === type ? 'default' : 'outline'}
+                onClick={() => handleFilterChange(type)}
+              >
+                {type}
+              </Button>
+            ))}
+          </div>
           <PublicationForm
             triggerButton={
               <div className="flex items-center gap-2">
@@ -69,9 +93,16 @@ export default function PublicationsPage() {
 
         <main className="mt-8">
           <div className="space-y-8">
-            {currentPublications.map((pub, index) => (
-              <PublicationCard key={pub.id} publication={pub} className={cardColors[index % cardColors.length]} />
-            ))}
+            {currentPublications.length > 0 ? (
+              currentPublications.map((pub, index) => (
+                <PublicationCard key={pub.id} publication={pub} className={cardColors[index % cardColors.length]} />
+              ))
+            ) : (
+              <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/50 py-12 text-center">
+                  <p className="font-semibold text-muted-foreground">No publications found for this filter.</p>
+                  <p className="text-sm text-muted-foreground">Try selecting a different category.</p>
+              </div>
+            )}
           </div>
 
           {totalPages > 1 && (
