@@ -1,6 +1,6 @@
 
 import { notFound } from 'next/navigation';
-import { getBlogBySlug } from '../actions';
+import { getBlogBySlug, getBlogs } from '../actions';
 import BlogPostClientPage from './blog-post-client-page';
 
 interface BlogPostPageProps {
@@ -9,8 +9,17 @@ interface BlogPostPageProps {
   };
 }
 
+export async function generateStaticParams() {
+  const blogs = await getBlogs();
+  
+  return blogs.map((blog) => ({
+    slug: blog.slug,
+  }));
+}
+
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = await getBlogBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getBlogBySlug(slug);
 
   if (!post) {
     notFound();

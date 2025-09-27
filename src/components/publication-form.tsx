@@ -20,10 +20,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useActionState, useEffect, useState, useTransition } from 'react';
+import { useActionState, useEffect, useState, useTransition, useRef } from 'react';
+import { useFormStatus } from 'react-dom';
 import {
   handleParseCitation,
   handleFormatCitation,
+  savePublication,
 } from '@/app/publications/actions';
 import { Loader2, Sparkles } from 'lucide-react';
 
@@ -36,13 +38,35 @@ const initialState = {
   data: undefined,
 };
 
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  
+  return (
+    <Button type="submit" disabled={pending}>
+      {pending ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Saving...
+        </>
+      ) : (
+        'Save Publication'
+      )}
+    </Button>
+  );
+}
+
 export function PublicationForm({ triggerButton }: PublicationFormProps) {
   const [open, setOpen] = useState(false);
   const [parseState, parseFormAction] = useActionState(
     handleParseCitation,
     initialState
   );
+  const [saveState, saveFormAction] = useActionState(savePublication, {
+    message: '',
+    success: false,
+  });
   const [isFormatting, startFormatTransition] = useTransition();
+  const isSubmittingRef = useRef(false);
   const [citationStyle, setCitationStyle] = useState('APA');
   const [formattedCitation, setFormattedCitation] = useState('');
   const [formData, setFormData] = useState({
@@ -52,6 +76,8 @@ export function PublicationForm({ triggerButton }: PublicationFormProps) {
     year: '',
     doi: '',
     url: '',
+    publicationType: 'Journal' as 'Journal' | 'Conference' | 'Preprint',
+    abstract: '',
   });
 
   useEffect(() => {
@@ -63,12 +89,40 @@ export function PublicationForm({ triggerButton }: PublicationFormProps) {
         year: parseState.data.year || '',
         doi: parseState.data.doi || '',
         url: parseState.data.url || '',
+        publicationType: 'Journal',
+        abstract: '',
       });
     }
   }, [parseState.data]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    if (saveState.success) {
+      setOpen(false);
+      isSubmittingRef.current = false;
+      // Reset form
+      setFormData({
+        title: '',
+        authors: '',
+        venue: '',
+        year: '',
+        doi: '',
+        url: '',
+        publicationType: 'Journal',
+        abstract: '',
+      });
+      setFormattedCitation('');
+    } else if (saveState.message && !saveState.success) {
+      // Reset submitting state on error
+      isSubmittingRef.current = false;
+    }
+  }, [saveState.success, saveState.message]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSelectChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
   
@@ -82,6 +136,16 @@ export function PublicationForm({ triggerButton }: PublicationFormProps) {
         console.error(result.error);
       }
     });
+  };
+
+  const handleSubmit = async (formData: FormData) => {
+    if (isSubmittingRef.current) return; // Prevent multiple submissions
+    isSubmittingRef.current = true;
+    try {
+      await saveFormAction(formData);
+    } finally {
+      // Reset will be handled in useEffect
+    }
   };
 
   return (
@@ -151,6 +215,30 @@ export function PublicationForm({ triggerButton }: PublicationFormProps) {
                 <Input id="url" name="url" value={formData.url} onChange={handleInputChange} />
               </div>
             </div>
+            <div className="space-y-1">
+              <Label htmlFor="publicationType">Publication Type</Label>
+              <Select value={formData.publicationType} onValueChange={(value) => handleSelectChange('publicationType', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Journal">Journal</SelectItem>
+                  <SelectItem value="Conference">Conference</SelectItem>
+                  <SelectItem value="Preprint">Preprint</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="abstract">Abstract</Label>
+              <Textarea
+                id="abstract"
+                name="abstract"
+                value={formData.abstract}
+                onChange={handleInputChange}
+                placeholder="Brief description of the publication..."
+                rows={3}
+              />
+            </div>
           </div>
         </div>
 
@@ -188,12 +276,20 @@ export function PublicationForm({ triggerButton }: PublicationFormProps) {
           )}
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
-            Cancel
-          </Button>
-          <Button onClick={() => setOpen(false)}>Save Publication</Button>
-        </DialogFooter>
+        <form action={handleSubmit}>
+          {Object.entries(formData).map(([key, value]) => (
+            <input key={key} type="hidden" name={key} value={value} />
+          ))}
+          {saveState.message && !saveState.success && (
+            <p className="mb-4 text-sm text-destructive">{saveState.message}</p>
+          )}
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <SubmitButton />
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );
