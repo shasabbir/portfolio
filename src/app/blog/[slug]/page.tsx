@@ -1,6 +1,6 @@
 
 import { notFound } from 'next/navigation';
-import { getBlogBySlug, getBlogs } from '../actions';
+import { getBlogBySlug, getBlogs } from '../actions-mongodb';
 import BlogPostClientPage from './blog-post-client-page';
 
 interface BlogPostPageProps {

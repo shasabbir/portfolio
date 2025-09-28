@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { PublicationCard } from '@/components/publication-card';
 import { PublicationForm } from '@/components/publication-form';
-import { getPublications } from './actions';
+import { getPublications } from './actions-mongodb';
 import { BookPlus } from 'lucide-react';
 import { ScrollAnimation } from '@/components/scroll-animation';
 import { Button } from '@/components/ui/button';

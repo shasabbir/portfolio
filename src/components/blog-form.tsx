@@ -19,7 +19,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Loader2, Edit } from 'lucide-react';
 import type { Blog } from '@/types';
 import { useActionState } from 'react';
-import { saveBlogPost } from '@/app/blog/actions';
+import { saveBlogPost } from '@/app/blog/actions-mongodb';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 

@@ -20,7 +20,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useTransition } from 'react';
-import { deleteBlogPost } from '../actions';
+import { deleteBlogPost } from '../actions-mongodb';
 import { useToast } from '@/hooks/use-toast';
 import type { Blog } from '@/types';
 

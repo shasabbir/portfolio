@@ -26,7 +26,7 @@ import {
   handleParseCitation,
   handleFormatCitation,
   savePublication,
-} from '@/app/publications/actions';
+} from '@/app/publications/actions-mongodb';
 import { Loader2, Sparkles } from 'lucide-react';
 
 interface PublicationFormProps {

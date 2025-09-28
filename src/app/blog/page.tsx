@@ -1,5 +1,5 @@
 
-import { getBlogs } from './actions';
+import { getBlogs } from './actions-mongodb';
 import BlogClientPage from './blog-client-page';
 
 export default async function BlogPage() {

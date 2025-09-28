@@ -26,7 +26,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { deleteBlogPost } from '@/app/blog/actions';
+import { deleteBlogPost } from '@/app/blog/actions-mongodb';
 import { useToast } from '@/hooks/use-toast';
 import { useTransition } from 'react';
 import { cn } from '@/lib/utils';

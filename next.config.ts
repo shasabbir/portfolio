@@ -60,13 +60,12 @@ const nextConfig: NextConfig = {
       }
     ],
   },
-  output: 'export',
   async rewrites() {
     return {
       beforeFiles: [
         {
-          source: '/api/:path*',
-          destination: 'http://127.0.0.1:3400/api/:path*',
+          source: '/api/((?!test-db|migrate).*)',
+          destination: 'http://127.0.0.1:3400/api/$1',
         },
       ],
     };
