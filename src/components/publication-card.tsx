@@ -10,8 +10,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { FileText, Link as LinkIcon, Edit, BookOpen, FileCode2 } from 'lucide-react';
-import Link from 'next/link';
+import { BookOpen, FileCode2, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface PublicationCardProps {
@@ -58,31 +57,11 @@ export function PublicationCard({ publication, className }: PublicationCardProps
           </CardContent>
         </div>
       </div>
-       <CardFooter className="mt-auto flex flex-wrap items-center justify-between gap-2 border-t pt-4">
-            <div className="flex gap-2">
-              <Badge variant="outline">{publication.publicationType}</Badge>
-              {publication.doi && (
-                <Badge variant="secondary">DOI: {publication.doi}</Badge>
-              )}
-            </div>
-            <div className="flex gap-2">
-              {publication.pdf && (
-                <Button variant="outline" size="sm" asChild>
-                  <Link href={publication.pdf}>
-                    <FileText className="mr-2 h-4 w-4" />
-                    PDF
-                  </Link>
-                </Button>
-              )}
-              {publication.url && (
-                <Button variant="outline" size="sm" asChild>
-                  <Link href={publication.url}>
-                    <LinkIcon className="mr-2 h-4 w-4" />
-                    Link
-                  </Link>
-                </Button>
-              )}
-            </div>
+       <CardFooter className="mt-auto flex flex-wrap items-center gap-2 border-t pt-4">
+            <Badge variant="outline">{publication.publicationType}</Badge>
+            {publication.doi && (
+              <Badge variant="secondary">DOI: {publication.doi}</Badge>
+            )}
           </CardFooter>
     </Card>
   );

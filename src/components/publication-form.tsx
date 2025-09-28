@@ -23,7 +23,6 @@ import {
 import { useActionState, useEffect, useState, useTransition, useRef } from 'react';
 import { useFormStatus } from 'react-dom';
 import {
-  handleParseCitation,
   handleFormatCitation,
   savePublication,
 } from '@/app/publications/actions-mongodb';
@@ -33,10 +32,7 @@ interface PublicationFormProps {
   triggerButton: React.ReactNode;
 }
 
-const initialState = {
-  error: undefined,
-  data: undefined,
-};
+
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -57,17 +53,13 @@ function SubmitButton() {
 
 export function PublicationForm({ triggerButton }: PublicationFormProps) {
   const [open, setOpen] = useState(false);
-  const [parseState, parseFormAction] = useActionState(
-    handleParseCitation,
-    initialState
-  );
   const [saveState, saveFormAction] = useActionState(savePublication, {
     message: '',
     success: false,
   });
   const [isFormatting, startFormatTransition] = useTransition();
   const isSubmittingRef = useRef(false);
-  const [citationStyle, setCitationStyle] = useState('APA');
+  const [citationStyle, setCitationStyle] = useState<'APA' | 'MLA' | 'Chicago'>('APA');
   const [formattedCitation, setFormattedCitation] = useState('');
   const [formData, setFormData] = useState({
     title: '',
@@ -75,25 +67,9 @@ export function PublicationForm({ triggerButton }: PublicationFormProps) {
     venue: '',
     year: '',
     doi: '',
-    url: '',
     publicationType: 'Journal' as 'Journal' | 'Conference' | 'Preprint',
     abstract: '',
   });
-
-  useEffect(() => {
-    if (parseState.data) {
-      setFormData({
-        title: parseState.data.title || '',
-        authors: parseState.data.authors || '',
-        venue: parseState.data.venue || '',
-        year: parseState.data.year || '',
-        doi: parseState.data.doi || '',
-        url: parseState.data.url || '',
-        publicationType: 'Journal',
-        abstract: '',
-      });
-    }
-  }, [parseState.data]);
 
   useEffect(() => {
     if (saveState.success) {
@@ -106,7 +82,6 @@ export function PublicationForm({ triggerButton }: PublicationFormProps) {
         venue: '',
         year: '',
         doi: '',
-        url: '',
         publicationType: 'Journal',
         abstract: '',
       });
@@ -157,88 +132,57 @@ export function PublicationForm({ triggerButton }: PublicationFormProps) {
         <DialogHeader>
           <DialogTitle className="font-headline">Add Publication</DialogTitle>
           <DialogDescription>
-            Add publication details manually or paste a citation to have AI
-            extract the information.
+            Add publication details to your portfolio.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          <form action={parseFormAction} className="space-y-4">
-            <div>
-              <Label htmlFor="citation">Paste Citation</Label>
-              <Textarea
-                id="citation"
-                name="citation"
-                placeholder="e.g., Reed, E. (2023). Quantum Effects in AI. Journal of Science..."
-                rows={5}
-                className="mt-1"
-              />
-              {parseState?.error && (
-                <p className="mt-1 text-sm text-destructive">
-                  {parseState.error}
-                </p>
-              )}
-            </div>
-            <Button type="submit" className="w-full">
-              <Sparkles className="mr-2 h-4 w-4" />
-              Parse with AI
-            </Button>
-          </form>
-
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <Label htmlFor="title">Title</Label>
-                <Input id="title" name="title" value={formData.title} onChange={handleInputChange} />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="authors">Authors</Label>
-                <Input id="authors" name="authors" value={formData.authors} onChange={handleInputChange} />
-              </div>
-            </div>
-             <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                    <Label htmlFor="venue">Venue</Label>
-                    <Input id="venue" name="venue" value={formData.venue} onChange={handleInputChange} />
-                </div>
-                <div className="space-y-1">
-                    <Label htmlFor="year">Year</Label>
-                    <Input id="year" name="year" value={formData.year} onChange={handleInputChange} />
-                </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <Label htmlFor="doi">DOI</Label>
-                <Input id="doi" name="doi" value={formData.doi} onChange={handleInputChange} />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="url">URL</Label>
-                <Input id="url" name="url" value={formData.url} onChange={handleInputChange} />
-              </div>
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <Label htmlFor="title">Title</Label>
+              <Input id="title" name="title" value={formData.title} onChange={handleInputChange} />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="publicationType">Publication Type</Label>
-              <Select value={formData.publicationType} onValueChange={(value) => handleSelectChange('publicationType', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Journal">Journal</SelectItem>
-                  <SelectItem value="Conference">Conference</SelectItem>
-                  <SelectItem value="Preprint">Preprint</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label htmlFor="authors">Authors</Label>
+              <Input id="authors" name="authors" value={formData.authors} onChange={handleInputChange} />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <Label htmlFor="venue">Venue</Label>
+              <Input id="venue" name="venue" value={formData.venue} onChange={handleInputChange} />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="abstract">Abstract</Label>
-              <Textarea
-                id="abstract"
-                name="abstract"
-                value={formData.abstract}
-                onChange={handleInputChange}
-                placeholder="Brief description of the publication..."
-                rows={3}
-              />
+              <Label htmlFor="year">Year</Label>
+              <Input id="year" name="year" value={formData.year} onChange={handleInputChange} />
             </div>
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="doi">DOI</Label>
+            <Input id="doi" name="doi" value={formData.doi} onChange={handleInputChange} />
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="publicationType">Publication Type</Label>
+            <Select value={formData.publicationType} onValueChange={(value: string) => handleSelectChange('publicationType', value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Journal">Journal</SelectItem>
+                <SelectItem value="Conference">Conference</SelectItem>
+                <SelectItem value="Preprint">Preprint</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="abstract">Abstract</Label>
+            <Textarea
+              id="abstract"
+              name="abstract"
+              value={formData.abstract}
+              onChange={handleInputChange}
+              placeholder="Brief description of the publication..."
+              rows={3}
+            />
           </div>
         </div>
 
