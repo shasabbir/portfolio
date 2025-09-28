@@ -64,7 +64,7 @@ const nextConfig: NextConfig = {
     return {
       beforeFiles: [
         {
-          source: '/api/((?!test-db|migrate).*)',
+          source: '/api/((?!test-db|migrate|upload-image).*)',
           destination: 'http://127.0.0.1:3400/api/$1',
         },
       ],

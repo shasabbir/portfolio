@@ -10,7 +10,13 @@ const blogSchema = z.object({
   title: z.string().min(1, 'Title is required.'),
   excerpt: z.string().min(1, 'Excerpt is required.'),
   content: z.string().min(1, 'Content is required.'),
-  imageUrl: z.string().url('Invalid URL.').min(1, 'Image URL is required.'),
+  imageUrl: z.string().min(1, 'Image URL is required.').refine(
+    (url) => {
+      // Allow relative paths starting with / or full URLs
+      return url.startsWith('/') || z.string().url().safeParse(url).success;
+    },
+    { message: 'Invalid image URL or path.' }
+  ),
   imageHint: z.string().min(1, 'Image hint is required.'),
   tags: z.string().optional(),
   slug: z.string().optional(),
