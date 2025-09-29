@@ -18,6 +18,7 @@ export type Publication = {
 };
 
 export type Blog = {
+  id?: string;
   slug: string;
   title: string;
   excerpt: string;

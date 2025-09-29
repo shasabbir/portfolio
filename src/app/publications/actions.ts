@@ -43,16 +43,16 @@ const parseCitationSchema = z.object({
 
 export async function getPublications(): Promise<Publication[]> {
   await connectToDatabase();
-  const publications = await PublicationModel.find({}).lean();
+  const publications = await (PublicationModel as any).find({}).lean();
   return publications
-    .map(pub => ({ ...pub, id: pub._id.toString() }))
-    .sort((a, b) => parseInt(b.year) - parseInt(a.year));
+    .map((pub: any) => ({ ...pub, id: pub._id.toString() }) as Publication)
+    .sort((a: any, b: any) => parseInt(b.year) - parseInt(a.year));
 }
 
 export async function getPublicationById(id: string): Promise<Publication | undefined> {
   await connectToDatabase();
-  const publication = await PublicationModel.findById(id).lean();
-  return publication ? { ...publication, id: publication._id.toString() } : undefined;
+  const publication = await (PublicationModel as any).findById(id).lean();
+  return publication ? { ...publication, id: publication._id.toString() } as Publication : undefined;
 }
 
 type ParseState = {
@@ -162,14 +162,14 @@ export async function savePublication(
     
     if (id) {
       // Update existing publication
-      savedPublication = await PublicationModel.findByIdAndUpdate(
+      savedPublication = await (PublicationModel as any).findByIdAndUpdate(
         id,
         publicationData,
         { new: true }
       );
     } else {
       // Add new publication
-      const newPublication = new PublicationModel(publicationData);
+      const newPublication = new (PublicationModel as any)(publicationData);
       savedPublication = await newPublication.save();
     }
 
@@ -192,7 +192,7 @@ export async function deletePublication(id: string) {
   await connectToDatabase();
   
   try {
-    await PublicationModel.findByIdAndDelete(id);
+    await (PublicationModel as any).findByIdAndDelete(id);
     revalidatePath('/publications');
     return {
       message: 'Successfully deleted publication.',

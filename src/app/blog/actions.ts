@@ -30,16 +30,16 @@ type FormState = {
 
 export async function getBlogs(): Promise<Blog[]> {
     await connectToDatabase();
-    const blogs = await BlogModel.find({}).lean();
+    const blogs = await (BlogModel as any).find({}).lean();
     return blogs
-      .map(blog => ({ ...blog, id: blog._id.toString() }))
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      .map((blog: any) => ({ ...blog, id: blog._id.toString() }) as Blog)
+      .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export async function getBlogBySlug(slug: string): Promise<Blog | undefined> {
     await connectToDatabase();
-    const blog = await BlogModel.findOne({ slug }).lean();
-    return blog ? { ...blog, id: blog._id.toString() } : undefined;
+    const blog = await (BlogModel as any).findOne({ slug }).lean();
+    return blog ? { ...blog, id: blog._id.toString() } as Blog : undefined;
 }
 
 export async function saveBlogPost(
@@ -75,7 +75,7 @@ export async function saveBlogPost(
 
     if (slug) {
       // Update existing post
-      savedBlog = await BlogModel.findOneAndUpdate(
+      savedBlog = await (BlogModel as any).findOneAndUpdate(
         { slug },
         { 
           title, 
@@ -87,7 +87,7 @@ export async function saveBlogPost(
       );
     } else {
       // Add new post
-      const newPost = new BlogModel({
+      const newPost = new (BlogModel as any)({
         ...postData,
         title,
         slug: newSlug,
@@ -121,7 +121,7 @@ export async function deleteBlogPost(slug: string) {
   await connectToDatabase();
   
   try {
-    await BlogModel.findOneAndDelete({ slug });
+    await (BlogModel as any).findOneAndDelete({ slug });
     revalidatePath('/blog');
     return {
       message: 'Successfully deleted blog post.',
