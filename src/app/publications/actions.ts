@@ -9,23 +9,11 @@ import {
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import type { Publication } from '@/types';
-import fs from 'fs/promises';
-import path from 'path';
+import dbConnect from '@/lib/mongodb';
+import { Publication as PublicationModel } from '@/lib/models';
 
-const dataFilePath = path.join(process.cwd(), 'src', 'lib', 'publication-data.json');
-
-async function readPublications(): Promise<Publication[]> {
-  try {
-    const fileContent = await fs.readFile(dataFilePath, 'utf-8');
-    return JSON.parse(fileContent);
-  } catch (error) {
-    // If the file doesn't exist, return an empty array
-    return [];
-  }
-}
-
-async function writePublications(publications: Publication[]): Promise<void> {
-  await fs.writeFile(dataFilePath, JSON.stringify(publications, null, 2), 'utf-8');
+async function connectToDatabase() {
+  await dbConnect();
 }
 
 const publicationSchema = z.object({
@@ -54,13 +42,17 @@ const parseCitationSchema = z.object({
 });
 
 export async function getPublications(): Promise<Publication[]> {
-  const publications = await readPublications();
-  return publications.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+  await connectToDatabase();
+  const publications = await PublicationModel.find({}).lean();
+  return publications
+    .map(pub => ({ ...pub, id: pub._id.toString() }))
+    .sort((a, b) => parseInt(b.year) - parseInt(a.year));
 }
 
 export async function getPublicationById(id: string): Promise<Publication | undefined> {
-  const publications = await readPublications();
-  return publications.find((p) => p.id === id);
+  await connectToDatabase();
+  const publication = await PublicationModel.findById(id).lean();
+  return publication ? { ...publication, id: publication._id.toString() } : undefined;
 }
 
 type ParseState = {
@@ -162,46 +154,54 @@ export async function savePublication(
     };
   }
   
-  const publications = await readPublications();
+  await connectToDatabase();
   const { id, ...publicationData } = validatedFields.data;
 
-  if (id) {
-    // Update existing publication
-    const publicationIndex = publications.findIndex((p) => p.id === id);
-    if (publicationIndex !== -1) {
-      publications[publicationIndex] = { ...publications[publicationIndex], ...publicationData, id };
+  try {
+    let savedPublication;
+    
+    if (id) {
+      // Update existing publication
+      savedPublication = await PublicationModel.findByIdAndUpdate(
+        id,
+        publicationData,
+        { new: true }
+      );
+    } else {
+      // Add new publication
+      const newPublication = new PublicationModel(publicationData);
+      savedPublication = await newPublication.save();
     }
-  } else {
-    // Add new publication
-    const newId = (Math.max(...publications.map(p => parseInt(p.id)), 0) + 1).toString();
-    const newPublication: Publication = {
-      ...publicationData,
-      id: newId,
+
+    revalidatePath('/publications');
+
+    return {
+      message: `Successfully ${id ? 'updated' : 'created'} publication.`,
+      success: true,
+      id: savedPublication._id.toString(),
     };
-    publications.unshift(newPublication);
+  } catch (error) {
+    return {
+      message: 'Failed to save publication. Please try again.',
+      success: false,
+    };
   }
-
-  await writePublications(publications);
-
-  revalidatePath('/publications');
-
-  return {
-    message: `Successfully ${id ? 'updated' : 'created'} publication.`,
-    success: true,
-    id: id || (publications[0]?.id),
-  };
 }
 
 export async function deletePublication(id: string) {
-  let publications = await readPublications();
-  const publicationIndex = publications.findIndex((p) => p.id === id);
-  if (publicationIndex !== -1) {
-    publications.splice(publicationIndex, 1);
-    await writePublications(publications);
+  await connectToDatabase();
+  
+  try {
+    await PublicationModel.findByIdAndDelete(id);
+    revalidatePath('/publications');
+    return {
+      message: 'Successfully deleted publication.',
+      success: true,
+    };
+  } catch (error) {
+    return {
+      message: 'Failed to delete publication. Please try again.',
+      success: false,
+    };
   }
-  revalidatePath('/publications');
-  return {
-    message: 'Successfully deleted publication.',
-    success: true,
-  };
 }

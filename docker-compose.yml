@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  portfolio:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: portfolio_app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/portfolio
+    env_file:
+      - .env.production
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    networks:
+      - portfolio_network
+
+  mongodb:
+    image: mongo:7
+    container_name: portfolio_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./mongodb-init:/docker-entrypoint-initdb.d
+    environment:
+      - MONGO_INITDB_DATABASE=portfolio
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=adminpassword
+    restart: unless-stopped
+    networks:
+      - portfolio_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: portfolio_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - portfolio
+    restart: unless-stopped
+    networks:
+      - portfolio_network
+
+volumes:
+  mongodb_data:
+
+networks:
+  portfolio_network:
+    driver: bridge

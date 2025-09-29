@@ -4,23 +4,11 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import type { Blog } from '@/types';
-import fs from 'fs/promises';
-import path from 'path';
+import dbConnect from '@/lib/mongodb';
+import { Blog as BlogModel } from '@/lib/models';
 
-const dataFilePath = path.join(process.cwd(), 'src', 'lib', 'blog-data.json');
-
-async function readBlogs(): Promise<Blog[]> {
-  try {
-    const fileContent = await fs.readFile(dataFilePath, 'utf-8');
-    return JSON.parse(fileContent);
-  } catch (error) {
-    // If the file doesn't exist, return an empty array
-    return [];
-  }
-}
-
-async function writeBlogs(blogs: Blog[]): Promise<void> {
-  await fs.writeFile(dataFilePath, JSON.stringify(blogs, null, 2), 'utf-8');
+async function connectToDatabase() {
+  await dbConnect();
 }
 
 
@@ -41,13 +29,17 @@ type FormState = {
 };
 
 export async function getBlogs(): Promise<Blog[]> {
-    const blogs = await readBlogs();
-    return blogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    await connectToDatabase();
+    const blogs = await BlogModel.find({}).lean();
+    return blogs
+      .map(blog => ({ ...blog, id: blog._id.toString() }))
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export async function getBlogBySlug(slug: string): Promise<Blog | undefined> {
-    const blogs = await readBlogs();
-    return blogs.find((p) => p.slug === slug);
+    await connectToDatabase();
+    const blog = await BlogModel.findOne({ slug }).lean();
+    return blog ? { ...blog, id: blog._id.toString() } : undefined;
 }
 
 export async function saveBlogPost(
@@ -66,7 +58,7 @@ export async function saveBlogPost(
     };
   }
   
-  const blogs = await readBlogs();
+  await connectToDatabase();
   const { title, slug, tags: tagsString, ...postData } = validatedFields.data;
   const newSlug =
     slug ||
@@ -78,51 +70,67 @@ export async function saveBlogPost(
 
   const tags = tagsString ? tagsString.split(',').map(tag => tag.trim()).filter(Boolean) : [];
 
+  try {
+    let savedBlog;
 
-  if (slug) {
-    // Update existing post
-    const postIndex = blogs.findIndex((p) => p.slug === slug);
-    if (postIndex !== -1) {
-      blogs[postIndex] = { ...blogs[postIndex], title, ...postData, slug, tags };
+    if (slug) {
+      // Update existing post
+      savedBlog = await BlogModel.findOneAndUpdate(
+        { slug },
+        { 
+          title, 
+          ...postData, 
+          slug: newSlug, 
+          tags: tags.length > 0 ? tags : ['New']
+        },
+        { new: true }
+      );
+    } else {
+      // Add new post
+      const newPost = new BlogModel({
+        ...postData,
+        title,
+        slug: newSlug,
+        date: new Date(),
+        author: {
+          name: 'GAZI SALAH UDDIN NUHASH',
+          avatar: 'https://i.postimg.cc/50FkXX3x/nuhash.jpg',
+        },
+        tags: tags.length > 0 ? tags : ['New'],
+      });
+      savedBlog = await newPost.save();
     }
-  } else {
-    // Add new post
-    const newPost: Blog = {
-      ...postData,
-      title,
-      slug: newSlug,
-      date: new Date().toISOString(),
-      author: { // Using a default author for new posts
-        name: 'GAZI SALAH UDDIN NUHASH',
-        avatar: 'https://i.postimg.cc/50FkXX3x/nuhash.jpg',
-      },
-      tags: tags.length > 0 ? tags : ['New'],
+
+    revalidatePath('/blog');
+    revalidatePath(`/blog/${newSlug}`);
+
+    return {
+      message: `Successfully ${slug ? 'updated' : 'created'} blog post.`,
+      success: true,
+      slug: savedBlog.slug,
     };
-    blogs.unshift(newPost);
+  } catch (error) {
+    return {
+      message: 'Failed to save blog post. Please try again.',
+      success: false,
+    };
   }
-
-  await writeBlogs(blogs);
-
-  revalidatePath('/blog');
-  revalidatePath(`/blog/${newSlug}`);
-
-  return {
-    message: `Successfully ${slug ? 'updated' : 'created'} blog post.`,
-    success: true,
-    slug: newSlug,
-  };
 }
 
 export async function deleteBlogPost(slug: string) {
-  let blogs = await readBlogs();
-  const postIndex = blogs.findIndex((p) => p.slug === slug);
-  if (postIndex !== -1) {
-    blogs.splice(postIndex, 1);
-    await writeBlogs(blogs);
+  await connectToDatabase();
+  
+  try {
+    await BlogModel.findOneAndDelete({ slug });
+    revalidatePath('/blog');
+    return {
+      message: 'Successfully deleted blog post.',
+      success: true,
+    };
+  } catch (error) {
+    return {
+      message: 'Failed to delete blog post. Please try again.',
+      success: false,
+    };
   }
-  revalidatePath('/blog');
-  return {
-    message: 'Successfully deleted blog post.',
-    success: true,
-  };
 }
