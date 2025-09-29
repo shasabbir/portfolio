@@ -1,5 +1,5 @@
-# Firebase Studio
+# Nuhash Gazi Portfolio
 
-This is a NextJS starter in Firebase Studio.
+Personal portfolio website for GAZI SALAH UDDIN NUHASH, showcasing research work, publications, and expertise in life sciences.
 
-To get started, take a look at src/app/page.tsx.
+Built with Next.js, TypeScript, and MongoDB.

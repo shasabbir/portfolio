@@ -18,8 +18,11 @@ const fontLiterata = Literata({
 });
 
 export const metadata: Metadata = {
-  title: 'Scientist Site',
+  title: 'Nuhash Gazi',
   description: 'The personal website of GAZI SALAH UDDIN NUHASH',
+  icons: {
+    icon: 'data:,', // Empty favicon to prevent browser from looking for one
+  },
 };
 
 export default function RootLayout({

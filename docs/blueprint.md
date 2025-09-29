@@ -1,4 +1,4 @@
-# **App Name**: Scientist Site
+# **App Name**: Nuhash Gazi Portfolio
 
 ## Core Features:
 
