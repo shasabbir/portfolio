@@ -5,8 +5,9 @@ module.exports = {
       script: 'npm',
       args: 'start',
       cwd: '/var/www/portfolio',
-      instances: 'max',
-      exec_mode: 'cluster',
+  // Run a single instance to avoid per-process static cache inconsistencies
+  instances: 1,
+  exec_mode: 'fork',
       env: {
         NODE_ENV: 'production',
         PORT: 3000,
