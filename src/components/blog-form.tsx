@@ -141,28 +141,28 @@ export function BlogForm({ post, triggerButton }: BlogFormProps) {
     return data.imageUrl;
   };
 
-  const handleImageUploadAndSubmit = async () => {
-    if (!selectedImage) return false;
+  const handleImageUploadAndSubmit = async (): Promise<string | null> => {
+    if (!selectedImage) return null;
     
     try {
       setIsUploading(true);
       const imageUrl = await uploadImage(selectedImage);
       
-      // Update state instead of direct DOM manipulation
+      // Update state for preview and future edits
       setUploadedImageUrl(imageUrl);
       setSelectedImage(null);
       setImagePreview(imageUrl);
       setIsUploading(false);
-      return true;
+      return imageUrl;
     } catch (error) {
       console.error('Image upload error:', error);
       toast({
         variant: 'destructive',
-        title: 'Upload Failed',
+        title: 'Upload Failed', 
         description: error instanceof Error ? error.message : 'Failed to upload image.',
       });
       setIsUploading(false);
-      return false;
+      return null;
     }
   };
 
@@ -178,12 +178,12 @@ export function BlogForm({ post, triggerButton }: BlogFormProps) {
         event.preventDefault();
         isSubmittingRef.current = true;
         
-        const uploadSuccess = await handleImageUploadAndSubmit();
-        if (uploadSuccess && formRef.current && formRef.current.isConnected) {
+        const uploadedUrl = await handleImageUploadAndSubmit();
+        if (uploadedUrl && formRef.current && formRef.current.isConnected) {
           // Update the hidden input and then let the form submit naturally
           const imageUrlInput = formRef.current.querySelector('input[name="imageUrl"]') as HTMLInputElement;
           if (imageUrlInput) {
-            imageUrlInput.value = uploadedImageUrl;
+            imageUrlInput.value = uploadedUrl; // use the fresh URL directly to avoid state race
           }
           
           // Reset states and submit the form
