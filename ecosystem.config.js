@@ -9,7 +9,10 @@ module.exports = {
       exec_mode: 'cluster',
       env: {
         NODE_ENV: 'production',
-        PORT: 3000
+        PORT: 3000,
+        // Explicit upload directory to ensure Next.js saves and serves
+        // from the same location used by Apache reverse proxy
+        UPLOAD_IMAGE_DIR: '/var/www/portfolio/public/images/blog'
       },
       env_file: '.env.production',
       log_file: '/var/log/pm2/portfolio.log',

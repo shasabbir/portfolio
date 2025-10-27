@@ -19,6 +19,17 @@ function sanitizeFileName(original: string) {
   return `${base}${safeExt}`;
 }
 
+function resolveUploadDir() {
+  // Prefer explicit env, else default to project public dir, else well-known path
+  const envDir = process.env.UPLOAD_IMAGE_DIR;
+  const defaultDir = join(process.cwd(), 'public', 'images', 'blog');
+  const fallbackDir = '/var/www/portfolio/public/images/blog';
+
+  if (envDir && existsSync(envDir)) return envDir;
+  if (existsSync(defaultDir)) return defaultDir;
+  return fallbackDir;
+}
+
 export async function POST(request: NextRequest) {
   console.log('Upload image API called');
   
@@ -58,7 +69,7 @@ export async function POST(request: NextRequest) {
   const fileName = `${timestamp}-${sanitizeFileName(file.name)}`;
     
     // Create the blog images directory if it doesn't exist
-    const uploadDir = join(process.cwd(), 'public', 'images', 'blog');
+    const uploadDir = resolveUploadDir();
     if (!existsSync(uploadDir)) {
       await mkdir(uploadDir, { recursive: true });
     }
@@ -106,13 +117,13 @@ export async function POST(request: NextRequest) {
 export async function GET() {
   try {
     const { readdir } = await import('fs/promises');
-    const uploadDir = join(process.cwd(), 'public', 'images', 'blog');
+    const uploadDir = resolveUploadDir();
     
     if (!existsSync(uploadDir)) {
       return NextResponse.json({ images: [] });
     }
 
-    const files = await readdir(uploadDir);
+  const files = await readdir(uploadDir);
     const images = files
       .filter(file => /\.(jpg|jpeg|png|webp|gif)$/i.test(file))
       .map(file => `/images/blog/${encodeURIComponent(file)}`);
