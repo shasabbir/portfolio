@@ -1,7 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
+import { join, parse } from 'path';
 import { existsSync } from 'fs';
+
+// Make filenames URL-safe and predictable: lowercase, hyphenated, safe chars only
+function sanitizeFileName(original: string) {
+  const { name, ext } = parse(original);
+  // keep only letters, numbers and hyphens; replace others with hyphen
+  const base = name
+    .toLowerCase()
+    .replace(/\s+/g, '-') // spaces -> hyphen
+    .replace(/&/g, 'and') // replace ampersand words
+    .replace(/[^a-z0-9-_.]+/g, '-') // strip other special chars
+    .replace(/-+/g, '-') // collapse multiple hyphens
+    .replace(/^-+|-+$/g, ''); // trim leading/trailing hyphens
+
+  const safeExt = (ext || '').toLowerCase();
+  return `${base}${safeExt}`;
+}
 
 export async function POST(request: NextRequest) {
   console.log('Upload image API called');
@@ -34,13 +50,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
 
-    // Generate unique filename
-    const timestamp = Date.now();
-    const originalName = file.name.replace(/\s+/g, '-').toLowerCase();
-    const fileName = `${timestamp}-${originalName}`;
+  // Generate unique, sanitized filename
+  const timestamp = Date.now();
+  const fileName = `${timestamp}-${sanitizeFileName(file.name)}`;
     
     // Create the blog images directory if it doesn't exist
     const uploadDir = join(process.cwd(), 'public', 'images', 'blog');
@@ -54,8 +69,8 @@ export async function POST(request: NextRequest) {
     await writeFile(filePath, buffer);
     console.log('File written successfully');
 
-    // Return the public URL
-    const imageUrl = `/images/blog/${fileName}`;
+  // Return the public URL (encoded to safely handle any remaining special chars)
+  const imageUrl = `/images/blog/${encodeURIComponent(fileName)}`;
     
     console.log('Returning success response with imageUrl:', imageUrl);
     
@@ -100,7 +115,7 @@ export async function GET() {
     const files = await readdir(uploadDir);
     const images = files
       .filter(file => /\.(jpg|jpeg|png|webp|gif)$/i.test(file))
-      .map(file => `/images/blog/${file}`);
+      .map(file => `/images/blog/${encodeURIComponent(file)}`);
 
     return NextResponse.json({ images });
   } catch (error) {
