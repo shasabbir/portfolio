@@ -15,9 +15,6 @@ import {
   Linkedin,
   Mail,
   ArrowRight,
-  BrainCircuit,
-  Atom,
-  Sigma,
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -134,31 +131,34 @@ export default function Home() {
             </div>
           </ScrollAnimation>
           <ScrollAnimation delay={200} className="relative flex justify-center">
-            <div className="absolute inset-0 z-0 scale-125">
+            <div className="absolute inset-0 z-0 -translate-x-4 -translate-y-4 transform-gpu scale-50">
               <svg
                 viewBox="0 0 500 500"
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-auto w-full text-primary/10 blur-xl"
+                className="h-auto w-full origin-center animate-blob-1 text-primary"
               >
                 <path
                   fill="currentColor"
                   d="M441.9,134.3C471.2,192.3,441.4,269.8,392.5,324.5C343.6,379.2,275.6,411.1,208.5,416.8C141.4,422.5,75.2,402,36,353.9C-3.2,305.8,-15.5,230.1,23.1,173.1C61.7,116.1,157.6,77.8,229.3,55.3C301,32.8,348.5,26.1,388,60.9C427.5,95.7,412.6,76.3,441.9,134.3Z"
+                  transformOrigin="center center"
                 />
               </svg>
             </div>
-            <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 z-0 transform-gpu scale-50">
               <svg
                 viewBox="0 0 500 500"
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-auto w-full text-secondary"
+                className="h-auto w-full origin-center animate-blob-2 text-primary"
               >
                 <path
                   fill="currentColor"
                   d="M451.3,277.6c-2.3,63.9-52,118.4-106,146.4c-54.1,28-112.5,29.4-162.3,4.2c-49.8-25.2-91-77.1-105.7-133.3C62.6,241.6,79,176.1,120,132.8c41-43.3,106.7-64.8,162.8-55.9C338.9,85.8,385.9,135,420.2,185.3C454.5,235.5,453.6,213.7,451.3,277.6z"
+                  transformOrigin="center center"
                 />
               </svg>
             </div>
-            <Avatar className="z-10 h-64 w-64 border-4 border-background shadow-lg md:h-80 md:w-80">
+            <div className="absolute -inset-8 z-10 bg-gradient-to-t from-primary/80 to-accent/80 blur-3xl" />
+            <Avatar className="z-10 h-64 w-64 border-4 border-background md:h-80 md:w-80">
               <Image
                 src="https://i.postimg.cc/50FkXX3x/nuhash.jpg"
                 alt="GAZI SALAH UDDIN NUHASH"
@@ -173,24 +173,95 @@ export default function Home() {
           </ScrollAnimation>
         </div>
       </section>
-
-      <section id="about-snippet" className="bg-muted py-16 md:py-24">
-        <ScrollAnimation className="container mx-auto max-w-4xl px-4 text-center md:px-6">
-          <h2 className="font-headline text-3xl font-bold md:text-4xl">
-            A Passion for Discovery
-          </h2>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Academically distinguished life sciences graduate with exceptional leadership abilities, adept at public speaking, teamwork, and effective communication. Looking to pursue further opportunities and make a difference within my field and harness my potential.
+   <section className="py-16 bg-white">
+  <div className="container mx-auto px-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      
+      {/* Card 1: 24/7 Support */}
+      <ScrollAnimation>
+        <div className="flex flex-col items-center">
+          <div className="h-20 w-20 flex items-center justify-center rounded-full bg-rose-400 mb-4">
+            <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M18 13V7a6 6 0 10-12 0v6M5 13h14l-1.5 9h-11L5 13z" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-slate-800">24/7 Support</h3>
+          <p className="text-slate-500 text-sm mt-2 max-w-xs">
+            Lorem ipsum dolor sit amet conse adipiscing elit.
           </p>
-          <Button asChild size="lg" className="mt-8" variant="outline">
-            <Link href="/about">
-              Learn More About Me <ArrowRight />
-            </Link>
-          </Button>
-        </ScrollAnimation>
+        </div>
+      </ScrollAnimation>
+
+      {/* Card 2: Take Ownership */}
+      <ScrollAnimation delay={100}>
+        <div className="flex flex-col items-center">
+          <div className="h-20 w-20 flex items-center justify-center rounded-full bg-green-500 mb-4">
+            <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3M12 20a8 8 0 100-16 8 8 0 000 16z" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-slate-800">Take Ownership</h3>
+          <p className="text-slate-500 text-sm mt-2 max-w-xs">
+            Lorem ipsum dolor sit amet conse adipiscing elit.
+          </p>
+        </div>
+      </ScrollAnimation>
+
+      {/* Card 3: Team Work */}
+      <ScrollAnimation delay={200}>
+        <div className="flex flex-col items-center">
+          <div className="h-20 w-20 flex items-center justify-center rounded-full bg-orange-400 mb-4">
+            <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a4 4 0 00-5-3.87M9 20H4v-2a4 4 0 015-3.87M12 4a4 4 0 110 8 4 4 0 010-8zm6 8a4 4 0 100-8 4 4 0 000 8zM6 12a4 4 0 100-8 4 4 0 000 8z" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-slate-800">Team Work</h3>
+          <p className="text-slate-500 text-sm mt-2 max-w-xs">
+            Lorem ipsum dolor sit amet conse adipiscing elit.
+          </p>
+        </div>
+      </ScrollAnimation>
+
+    </div>
+  </div>
+</section>
+
+
+
+      <section id="about-snippet" className="overflow-hidden bg-muted">
+        <div className="grid md:grid-cols-2">
+          <div className="flex items-center justify-center p-8 md:p-16">
+            <ScrollAnimation className="max-w-md text-center md:text-left">
+              <h2 className="font-headline text-3xl font-bold md:text-4xl">
+                A Passion for Discovery
+              </h2>
+              <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                Academically distinguished life sciences graduate with exceptional leadership abilities, adept at public speaking, teamwork, and effective communication. Looking to pursue further opportunities and make a difference within my field and harness my potential.
+              </p>
+              <Button asChild size="lg" className="mt-8" variant="outline">
+                <Link href="/about">
+                  Learn More About Me <ArrowRight />
+                </Link>
+              </Button>
+            </ScrollAnimation>
+          </div>
+          <div className="relative min-h-[300px] w-full md:min-h-0">
+            <ScrollAnimation className="h-full w-full" delay={200}>
+              <video
+                src="https://cdn.pixabay.com/video/2024/04/20/208773_large.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-primary/20"></div>
+            </ScrollAnimation>
+          </div>
+        </div>
       </section>
 
-      <section
+      {/* <section
         id="testimonials"
         className="w-full overflow-hidden bg-background py-16 md:py-24"
       >
@@ -233,9 +304,9 @@ export default function Home() {
             </Carousel>
           </ScrollAnimation>
         </div>
-      </section>
+      </section> */}
 
-      <section id="expertise" className="w-full bg-muted py-16 md:py-24">
+      <section id="expertise" className="w-full  py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-6">
           <ScrollAnimation className="text-center">
             <h2 className="font-headline text-3xl font-bold md:text-4xl">
@@ -266,7 +337,7 @@ export default function Home() {
       <section id="trust-panel" className="bg-background py-16">
         <ScrollAnimation className="container mx-auto px-4 md:px-6">
           <h2 className="text-center font-headline text-2xl font-bold">
-            Stay Connected & Verify
+            Stay Connected &amp; Verify
           </h2>
           <div className="mt-8 flex flex-wrap justify-center gap-6 md:gap-8">
             <Link
@@ -309,5 +380,15 @@ export default function Home() {
     </div>
   );
 }
+
+    
+
+    
+
+    
+
+    
+
+    
 
     

@@ -1,3 +1,4 @@
+
 import type { Config } from 'tailwindcss';
 
 const { fontFamily } = require('tailwindcss/defaultTheme');
@@ -92,10 +93,61 @@ export default {
             height: '0',
           },
         },
+        'blob-1-animation': {
+          '0%': {
+            transform: 'scale(1) rotate(0deg)',
+            color: 'hsl(var(--primary) / 0.7)',
+          },
+          '25%': {
+            transform: 'scale(1.1) rotate(20deg)',
+            color: 'hsl(var(--secondary) / 0.7)',
+          },
+          '50%': {
+            transform: 'scale(1) rotate(0deg)',
+            color: 'hsl(var(--accent) / 0.7)',
+          },
+          '75%': {
+            transform: 'scale(0.9) rotate(-20deg)',
+             color: 'hsl(var(--secondary) / 0.7)',
+          },
+          '100%': {
+            transform: 'scale(1) rotate(0deg)',
+            color: 'hsl(var(--primary) / 0.7)',
+          },
+        },
+        'blob-2-animation': {
+          '0%': {
+            transform: 'scale(1) rotate(0deg)',
+            color: 'hsl(var(--accent) / 0.7)',
+          },
+           '25%': {
+            transform: 'scale(0.9) rotate(-30deg)',
+             color: 'hsl(var(--secondary) / 0.7)',
+          },
+          '50%': {
+            transform: 'scale(1.1) rotate(0deg)',
+            color: 'hsl(var(--primary) / 0.7)',
+          },
+          '75%': {
+            transform: 'scale(1) rotate(30deg)',
+            color: 'hsl(var(--secondary) / 0.7)',
+          },
+          '100%': {
+            transform: 'scale(1) rotate(0deg)',
+            color: 'hsl(var(--accent) / 0.7)',
+          },
+        },
+        'dna-spin': {
+            '0%': { transform: 'rotateY(0deg)' },
+            '100%': { transform: 'rotateY(360deg)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'blob-1': 'blob-1-animation 15s infinite ease-in-out',
+        'blob-2': 'blob-2-animation 20s infinite ease-in-out',
+        'dna-spin': 'dna-spin 15s linear infinite',
       },
     },
   },
