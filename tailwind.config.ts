@@ -149,6 +149,11 @@ export default {
         'blob-2': 'blob-2-animation 20s infinite ease-in-out',
         'dna-spin': 'dna-spin 15s linear infinite',
       },
+        container: {
+        center: true,
+        padding: { DEFAULT: '1rem', md: '2rem', lg: '2.5rem' },
+        screens: { '2xl': '80rem' }, // ~1280px; bump if you want wider
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

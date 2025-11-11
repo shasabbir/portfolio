@@ -11,6 +11,8 @@ import {
   DialogDescription,
   DialogClose,
 } from '@/components/ui/dialog';
+import { saveBlogPost, type FormState } from '@/app/blog/actions';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -19,7 +21,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Loader2, Edit, Upload, X } from 'lucide-react';
 import type { Blog } from '@/types';
 import { useActionState } from 'react';
-import { saveBlogPost } from '@/app/blog/actions-mongodb';
+//import { saveBlogPost } from '@/app/blog/actions-mongodb.disabled';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { BlogImageGallery } from '@/components/blog-image-gallery';
@@ -29,11 +31,12 @@ interface BlogFormProps {
   triggerButton?: React.ReactNode;
 }
 
-const initialState = {
+const initialState: FormState = {
   message: '',
   success: false,
-  slug: '',
+  slug: undefined,
 };
+
 
 export function BlogForm({ post, triggerButton }: BlogFormProps) {
   const [open, setOpen] = useState(false);

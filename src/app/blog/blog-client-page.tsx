@@ -1,7 +1,6 @@
-
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import type { Blog } from '@/types';
 import { ScrollAnimation } from '@/components/scroll-animation';
 import Image from 'next/image';
@@ -11,20 +10,30 @@ import { BlogListItem } from '@/components/blog-list-item';
 import { BlogForm } from '@/components/blog-form';
 import { BookPlus } from 'lucide-react';
 
-export default function BlogClientPage({ posts: initialPosts }: { posts: Blog[] }) {
-  const [posts, setPosts] = useState(initialPosts);
-  const [featuredPost, setFeaturedPost] = useState(posts[0]);
-  const featuredPostRef = useRef<HTMLDivElement>(null);
+interface BlogClientPageProps {
+  posts: Blog[];
+  isAdmin: boolean;
+}
 
+export default function BlogClientPage({
+  posts: initialPosts,
+  isAdmin,
+}: BlogClientPageProps) {
+  const [posts] = useState(initialPosts);
+  const [featuredPost, setFeaturedPost] = useState<Blog | null>(
+    initialPosts[0] ?? null
+  );
 
-  const sidePosts = posts.filter(p => p.slug !== featuredPost.slug).slice(0, 3);
-  const otherPosts = posts.filter(p => p.slug !== featuredPost.slug).slice(3);
-  
+  const sidePosts = featuredPost
+    ? posts.filter((p) => p.slug !== featuredPost.slug).slice(0, 3)
+    : posts.slice(0, 3);
+
+  const otherPosts = featuredPost
+    ? posts.filter((p) => p.slug !== featuredPost.slug).slice(3)
+    : posts.slice(3);
+
   const handlePostSelect = (post: Blog) => {
     setFeaturedPost(post);
-    if (window.innerWidth < 1024 && featuredPostRef.current) {
-        featuredPostRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   };
 
   return (
@@ -40,8 +49,8 @@ export default function BlogClientPage({ posts: initialPosts }: { posts: Blog[] 
             </h1>
           </div>
           <p className="max-w-xs text-sm text-muted-foreground">
-            Nuhash Gazi has been using the collective knowledge and
-            experience to protect nature.
+            Nuhash Gazi has been using the collective knowledge and experience to
+            protect nature.
           </p>
         </header>
       </ScrollAnimation>
@@ -49,7 +58,7 @@ export default function BlogClientPage({ posts: initialPosts }: { posts: Blog[] 
       <main className="mt-12">
         <ScrollAnimation>
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-            <section ref={featuredPostRef} className="lg:col-span-2">
+            <section className="lg:col-span-2">
               {featuredPost && (
                 <div>
                   <Link href={`/blog/${featuredPost.slug}`}>
@@ -80,16 +89,19 @@ export default function BlogClientPage({ posts: initialPosts }: { posts: Blog[] 
                 </div>
               )}
 
-              <div className="mt-8 flex items-center justify-end">
+              {/* Add Post button - visible only for Nuhash/admin */}
+              {isAdmin && (
+                <div className="mt-8 flex items-center justify-end">
                   <BlogForm
-                      triggerButton={
+                    triggerButton={
                       <div className="flex items-center gap-2">
-                          <BookPlus className="h-4 w-4" />
-                          Add Post
+                        <BookPlus className="h-4 w-4" />
+                        Add Post
                       </div>
-                      }
+                    }
                   />
-              </div>
+                </div>
+              )}
             </section>
 
             <aside className="space-y-6 lg:col-span-1">
@@ -130,10 +142,13 @@ export default function BlogClientPage({ posts: initialPosts }: { posts: Blog[] 
                         />
                       </div>
                       <div className="py-4">
-                         <h3 className="font-headline mb-2 text-lg font-bold leading-tight group-hover:text-primary">
-                            {post.title}
+                        <h3 className="font-headline mb-2 text-lg font-bold leading-tight group-hover:text-primary">
+                          {post.title}
                         </h3>
-                        <time className="text-sm text-muted-foreground" dateTime={post.date}>
+                        <time
+                          className="text-sm text-muted-foreground"
+                          dateTime={post.date}
+                        >
                           {new Date(post.date).toLocaleDateString('en-US', {
                             year: 'numeric',
                             month: 'long',

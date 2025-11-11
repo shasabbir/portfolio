@@ -1,29 +1,27 @@
-
 import { notFound } from 'next/navigation';
-import { getBlogBySlug, getBlogs } from '../actions-mongodb';
+import { getBlogBySlug, getBlogs } from '../actions';
 import BlogPostClientPage from './blog-post-client-page';
+import { isAdmin } from '@/lib/admin';
 
 interface BlogPostPageProps {
-  params: {
-    slug: string;
-  };
+  params: { slug: string };
 }
 
+// Pre-generate all blog post paths
 export async function generateStaticParams() {
-  const blogs = await getBlogs();
-  
-  return blogs.map((blog) => ({
-    slug: blog.slug,
+  const posts = await getBlogs();
+  return posts.map((post) => ({
+    slug: post.slug,
   }));
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params;
-  const post = await getBlogBySlug(slug);
+  const post = await getBlogBySlug(params.slug);
 
   if (!post) {
     notFound();
   }
 
-  return <BlogPostClientPage post={post} />;
+  const isOwner = isAdmin(); // pass this if you show edit/delete controls
+  return <BlogPostClientPage post={post} isAdmin={isOwner} />;
 }
