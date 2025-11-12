@@ -9,7 +9,8 @@ import LogoutButton from '@/components/logout-button';
 
 export default async function BlogPage() {
   const posts = await getBlogs();
-  const isOwner = isAdmin();
+  // const isOwner = isAdmin();
+  const isOwner = await isAdmin();
 
   return (
     <>

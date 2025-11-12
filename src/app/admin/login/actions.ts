@@ -5,27 +5,29 @@ import { redirect } from 'next/navigation';
 import { ADMIN_COOKIE_NAME } from '@/lib/admin';
 
 export async function login(formData: FormData) {
-  const password = (formData.get('password') ?? '').toString();
+  const password = String(formData.get('password') ?? '');
 
   if (password === process.env.NUHASH_ADMIN_PASSWORD) {
     const token = process.env.NUHASH_ADMIN_TOKEN;
     if (!token) throw new Error('Missing NUHASH_ADMIN_TOKEN');
 
-    cookies().set(ADMIN_COOKIE_NAME, token, {
+    const cookieStore = await cookies();            // ✅ await
+    cookieStore.set(ADMIN_COOKIE_NAME, token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // so it works on localhost
+      secure: process.env.NODE_ENV === 'production', // works on localhost too
       sameSite: 'lax',
       path: '/',
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: 60 * 60 * 24 * 7, // 7 days
     });
 
-    redirect('/'); // ✅ always go to home
+    redirect('/'); // or '/blog' if you prefer
   }
 
   return { error: 'Invalid password' };
 }
 
 export async function logout() {
-  cookies().delete(ADMIN_COOKIE_NAME);
-  redirect('/'); // ✅ always go to home
+  const cookieStore = await cookies();              // ✅ await
+  cookieStore.delete(ADMIN_COOKIE_NAME);
+  redirect('/'); // send to home after logout
 }

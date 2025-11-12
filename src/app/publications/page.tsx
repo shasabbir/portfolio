@@ -10,7 +10,7 @@ import LogoutButton from '@/components/logout-button';
 
 export default async function PublicationsPage() {
   const publications = await getPublications();
-  const isOwner = isAdmin(); // reads admin cookie on the server
+  const isOwner = await isAdmin(); // reads admin cookie on the server
 
   return (
     <>
@@ -44,6 +44,7 @@ export default async function PublicationsPage() {
         </div>
       )}
       <PublicationsClient publications={publications} isAdmin={isOwner} />
+      
     </>
   );
 }
