@@ -1,16 +1,16 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 import Image from 'next/image';
-import { PublicationCard } from '@/components/publication-card';
-import { PublicationForm } from '@/components/publication-form';
 import { getPublications } from './actions-mongodb';
-import { BookPlus } from 'lucide-react';
-import { ScrollAnimation } from '@/components/scroll-animation';
-import { Button } from '@/components/ui/button';
-import type { Publication } from '@/types';
 import PublicationsClient from './publications-client';
+import { ScrollAnimation } from '@/components/scroll-animation';
+import { isAdmin } from '@/lib/admin';
+import LogoutButton from '@/components/logout-button';
 
 export default async function PublicationsPage() {
   const publications = await getPublications();
+  const isOwner = isAdmin(); // reads admin cookie on the server
 
   return (
     <>
@@ -37,7 +37,13 @@ export default async function PublicationsPage() {
         </div>
       </section>
 
-      <PublicationsClient publications={publications} />
+
+{isOwner && (
+        <div className="container mx-auto max-w-5xl px-4 mt-4 flex justify-end">
+          <LogoutButton redirectTo="/publications"/>
+        </div>
+      )}
+      <PublicationsClient publications={publications} isAdmin={isOwner} />
     </>
   );
 }

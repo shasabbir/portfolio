@@ -140,6 +140,7 @@ export default function Home() {
                 <path
                   fill="currentColor"
                   d="M441.9,134.3C471.2,192.3,441.4,269.8,392.5,324.5C343.6,379.2,275.6,411.1,208.5,416.8C141.4,422.5,75.2,402,36,353.9C-3.2,305.8,-15.5,230.1,23.1,173.1C61.7,116.1,157.6,77.8,229.3,55.3C301,32.8,348.5,26.1,388,60.9C427.5,95.7,412.6,76.3,441.9,134.3Z"
+                  // @ts-expect-error transformOrigin is used for animation purposes
                   transformOrigin="center center"
                 />
               </svg>
@@ -153,6 +154,7 @@ export default function Home() {
                 <path
                   fill="currentColor"
                   d="M451.3,277.6c-2.3,63.9-52,118.4-106,146.4c-54.1,28-112.5,29.4-162.3,4.2c-49.8-25.2-91-77.1-105.7-133.3C62.6,241.6,79,176.1,120,132.8c41-43.3,106.7-64.8,162.8-55.9C338.9,85.8,385.9,135,420.2,185.3C454.5,235.5,453.6,213.7,451.3,277.6z"
+                  // @ts-expect-error transformOrigin is used for animation purposes
                   transformOrigin="center center"
                 />
               </svg>
@@ -282,11 +284,12 @@ export default function Home() {
                 loop: true,
               }}
               className="w-full"
-            >
-              <CarouselContent className="-ml-4 md:-ml-8">
-                {testimonials.map((testimonial, index) => (
-                  <CarouselItem
-                    key={index}
+                          {new Date(post.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            timeZone: 'UTC'
+                          })}
                     className={cn('pl-4 md:pl-8 basis-full md:basis-4/5', {
                       'is-active': index === current,
                       'is-prev': index === current - 1 || (current === 0 && index === testimonials.length -1),
@@ -305,6 +308,10 @@ export default function Home() {
           </ScrollAnimation>
         </div>
       </section> */}
+
+      {/* === ISTAART Membership Showcase (place right after the video section) === */}
+
+
 
       <section id="expertise" className="w-full  py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-6">
@@ -333,6 +340,137 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <section id="membership" className="relative overflow-hidden bg-background py-16">
+  <div className="absolute inset-0 -z-10 opacity-60">
+    {/* Soft animated gradient blobs behind the card */}
+    <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 animate-pulse rounded-full bg-primary/20 blur-3xl" />
+    <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 animate-pulse rounded-full bg-accent/20 blur-3xl" />
+  </div>
+
+  <div className="container mx-auto px-4 md:px-6">
+    <ScrollAnimation>
+      <div className="mx-auto max-w-7xl">
+        {/* Gradient ring card */}
+        <div className="relative rounded-3xl bg-gradient-to-br from-primary/20 via-background to-accent/20 p-[1px]">
+          <div className="relative rounded-3xl bg-background/80 px-6 py-10 backdrop-blur md:px-10">
+            {/* Floating glow */}
+            <div className="pointer-events-none absolute -inset-8 -z-10 bg-gradient-to-r from-primary/30 via-accent/30 to-primary/30 opacity-40 blur-3xl" />
+
+            <div className="grid items-center gap-10 md:grid-cols-[1.2fr_0.8fr]">
+              {/* Left: Copy */}
+              <div>
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1 text-sm font-medium">
+                  <span className="inline-block h-2 w-2 animate-ping rounded-full bg-primary" />
+                  <span className="inline-block h-2 w-2 rounded-full bg-primary" />
+                  Member Spotlight
+                </span>
+
+                <h2 className="mt-4 font-headline text-3xl font-bold md:text-4xl">
+                  Member of <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">ISTAART</span>
+                </h2>
+
+                <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                  I’m an active member of the{' '}
+                  <span className="font-semibold">International Society to Advance Alzheimer’s Research and Treatment (ISTAART)</span>,
+                  a global professional community advancing research, collaboration, and knowledge-sharing in Alzheimer’s and dementia.
+                </p>
+
+                <ul className="mt-6 grid gap-3 text-sm md:grid-cols-2">
+                  <li className="flex items-center gap-2">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+                    Access to cutting-edge research communities & PIA networks
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+                    Collaboration with global researchers & clinicians
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+                    Ongoing training, events & annual AAIC engagement
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+                    Commitment to evidence-based, translational impact
+                  </li>
+                </ul>
+
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <Button asChild size="lg">
+                    <Link
+                      href="https://istaart.alz.org/home"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View ISTAART Community
+                    </Link>
+                  </Button>
+
+                  <div className="flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-xs text-muted-foreground">
+                    <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
+                    Verified Membership
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Logo tile with subtle animation */}
+             <div className="relative mx-auto flex w-full max-w-sm items-center justify-center">
+  <div className="absolute inset-0 -z-10 animate-spin-slow rounded-3xl bg-[conic-gradient(from_0deg,rgba(74,13,102,0.15),rgba(255,255,255,0.08),rgba(74,13,102,0.15))] blur-xl" />
+
+  {/* ✨ Animated radial gradient card */}
+  <div className="relative w-full rounded-2xl border border-white/20 bg-[radial-gradient(120%_120%_at_0%_0%,_#4A0D66_0%,_#7C1FA8_45%,_#E0A3FF_100%)] bg-[length:200%_200%] animate-gradient p-6 shadow-sm">
+    <div className="mx-auto flex aspect-[4/3] items-center justify-center">
+      <div className="relative h-24 w-40 md:h-28 md:w-48">
+        <Image
+          src="https://static.prod01.ue1.p.pcomm.net/istaartcommunity/content/images/ISTAART-RGB-White%20(1).png"
+          alt="ISTAART — International Society to Advance Alzheimer’s Research and Treatment"
+          fill
+          className="object-contain"
+          priority
+          unoptimized
+        />
+      </div>
+    </div>
+
+    <div className="mt-6 grid grid-cols-3 gap-3 text-center text-xs">
+      <div className="rounded-lg bg-white/10 px-3 py-2 text-white/90 ring-1 ring-white/10">
+        <p className="font-semibold text-white">Global</p>
+        <p>Community</p>
+      </div>
+      <div className="rounded-lg bg-white/10 px-3 py-2 text-white/90 ring-1 ring-white/10">
+        <p className="font-semibold text-white">Alzheimer’s</p>
+        <p>Focus</p>
+      </div>
+      <div className="rounded-lg bg-white/10 px-3 py-2 text-white/90 ring-1 ring-white/10">
+        <p className="font-semibold text-white">PIA</p>
+        <p>Networks</p>
+      </div>
+    </div>
+
+    <div className="mt-6 text-center">
+      <Link
+        href="https://istaart.alz.org/home"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1 text-sm font-medium text-white underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
+      >
+        Explore ISTAART
+        <ArrowRight className="h-4 w-4 text-white" />
+      </Link>
+    </div>
+  </div>
+</div>
+
+            </div>
+
+            {/* subtle animated divider line */}
+            <div className="pointer-events-none mt-10 h-px w-full bg-gradient-to-r from-transparent via-border to-transparent" />
+          </div>
+        </div>
+      </div>
+    </ScrollAnimation>
+  </div>
+</section>
 
       <section id="trust-panel" className="bg-background py-16">
         <ScrollAnimation className="container mx-auto px-4 md:px-6">

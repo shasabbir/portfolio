@@ -1,6 +1,4 @@
-
 import type { Config } from 'tailwindcss';
-
 const { fontFamily } = require('tailwindcss/defaultTheme');
 
 export default {
@@ -17,6 +15,10 @@ export default {
         headline: ['var(--font-literata)', ...fontFamily.serif],
       },
       colors: {
+        // brand colors for gradients & accents
+        brandpurple: '#4A0D66',
+        brandpink: '#E0A3FF',
+
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -77,79 +79,52 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
-        'accordion-down': {
-          from: {
-            height: '0',
-          },
-          to: {
-            height: 'var(--radix-accordion-content-height)',
-          },
-        },
-        'accordion-up': {
-          from: {
-            height: 'var(--radix-accordion-content-height)',
-          },
-          to: {
-            height: '0',
-          },
-        },
+        'accordion-down': { from: { height: '0' }, to: { height: 'var(--radix-accordion-content-height)' } },
+        'accordion-up': { from: { height: 'var(--radix-accordion-content-height)' }, to: { height: '0' } },
+
+        // your existing blobs
         'blob-1-animation': {
-          '0%': {
-            transform: 'scale(1) rotate(0deg)',
-            color: 'hsl(var(--primary) / 0.7)',
-          },
-          '25%': {
-            transform: 'scale(1.1) rotate(20deg)',
-            color: 'hsl(var(--secondary) / 0.7)',
-          },
-          '50%': {
-            transform: 'scale(1) rotate(0deg)',
-            color: 'hsl(var(--accent) / 0.7)',
-          },
-          '75%': {
-            transform: 'scale(0.9) rotate(-20deg)',
-             color: 'hsl(var(--secondary) / 0.7)',
-          },
-          '100%': {
-            transform: 'scale(1) rotate(0deg)',
-            color: 'hsl(var(--primary) / 0.7)',
-          },
+          '0%':   { transform: 'scale(1) rotate(0deg)',   color: 'hsl(var(--primary) / 0.7)' },
+          '25%':  { transform: 'scale(1.1) rotate(20deg)', color: 'hsl(var(--secondary) / 0.7)' },
+          '50%':  { transform: 'scale(1) rotate(0deg)',    color: 'hsl(var(--accent) / 0.7)' },
+          '75%':  { transform: 'scale(0.9) rotate(-20deg)',color: 'hsl(var(--secondary) / 0.7)' },
+          '100%': { transform: 'scale(1) rotate(0deg)',    color: 'hsl(var(--primary) / 0.7)' },
         },
         'blob-2-animation': {
-          '0%': {
-            transform: 'scale(1) rotate(0deg)',
-            color: 'hsl(var(--accent) / 0.7)',
-          },
-           '25%': {
-            transform: 'scale(0.9) rotate(-30deg)',
-             color: 'hsl(var(--secondary) / 0.7)',
-          },
-          '50%': {
-            transform: 'scale(1.1) rotate(0deg)',
-            color: 'hsl(var(--primary) / 0.7)',
-          },
-          '75%': {
-            transform: 'scale(1) rotate(30deg)',
-            color: 'hsl(var(--secondary) / 0.7)',
-          },
-          '100%': {
-            transform: 'scale(1) rotate(0deg)',
-            color: 'hsl(var(--accent) / 0.7)',
-          },
+          '0%':   { transform: 'scale(1) rotate(0deg)',    color: 'hsl(var(--accent) / 0.7)' },
+          '25%':  { transform: 'scale(0.9) rotate(-30deg)',color: 'hsl(var(--secondary) / 0.7)' },
+          '50%':  { transform: 'scale(1.1) rotate(0deg)',  color: 'hsl(var(--primary) / 0.7)' },
+          '75%':  { transform: 'scale(1) rotate(30deg)',   color: 'hsl(var(--secondary) / 0.7)' },
+          '100%': { transform: 'scale(1) rotate(0deg)',    color: 'hsl(var(--accent) / 0.7)' },
         },
-        'dna-spin': {
-            '0%': { transform: 'rotateY(0deg)' },
-            '100%': { transform: 'rotateY(360deg)' },
+
+        // ✅ moved spin-slow into Tailwind
+        'spin-slow': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
         },
+
+        // ✅ animated gradient for the card bg
+        'gradient-move': {
+          '0%':   { backgroundPosition: '0% 50%' },
+          '50%':  { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
+
+        // your DNA spin
+        'dna-spin': { '0%': { transform: 'rotateY(0deg)' }, '100%': { transform: 'rotateY(360deg)' } },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'blob-1': 'blob-1-animation 15s infinite ease-in-out',
         'blob-2': 'blob-2-animation 20s infinite ease-in-out',
+        'spin-slow': 'spin-slow 14s linear infinite',
+        'gradient': 'gradient-move 12s ease-in-out infinite',
         'dna-spin': 'dna-spin 15s linear infinite',
       },
-        container: {
+      // optional: slightly wider built-in container if you use it
+      container: {
         center: true,
         padding: { DEFAULT: '1rem', md: '2rem', lg: '2.5rem' },
         screens: { '2xl': '80rem' }, // ~1280px; bump if you want wider
