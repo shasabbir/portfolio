@@ -93,9 +93,12 @@ export async function saveBlogPost(
   } else {
     // create
     const newPost: Blog = {
-      ...rest,
       title,
       slug: newSlug,
+      excerpt: rest.excerpt || '',
+      content: rest.content || '',
+      imageUrl: rest.imageUrl || '',
+      imageHint: rest.imageHint || '',
       date: new Date().toISOString(),
       author: {
         name: 'GAZI SALAH UDDIN NUHASH',

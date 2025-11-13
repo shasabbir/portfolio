@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { ADMIN_COOKIE_NAME } from '@/lib/admin';
 
-export async function login(formData: FormData) {
+export async function login(prevState: { error: string }, formData: FormData) {
   const password = String(formData.get('password') ?? '');
 
   if (password === process.env.NUHASH_ADMIN_PASSWORD) {
@@ -26,8 +26,9 @@ export async function login(formData: FormData) {
   return { error: 'Invalid password' };
 }
 
-export async function logout() {
+export async function logout(prevState: any, formData?: FormData) {
   const cookieStore = await cookies();              // ✅ await
   cookieStore.delete(ADMIN_COOKIE_NAME);
-  redirect('/'); // send to home after logout
+  const redirectTo = formData?.get('redirectTo') as string | null;
+  redirect(redirectTo || '/');
 }
