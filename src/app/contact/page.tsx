@@ -20,12 +20,13 @@ export default function ContactPage() {
         </div>
         <div className="order-1 md:order-2">
           <Image
-            src="https://picsum.photos/800/600"
-            alt="Contact illustration"
+            src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop"
+            alt="Professional team collaboration"
             width={800}
             height={600}
             className="rounded-lg object-cover"
-            data-ai-hint="abstract communication"
+            data-ai-hint="professional team"
+            unoptimized
           />
         </div>
       </div>
